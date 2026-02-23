@@ -1,19 +1,34 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tictactoe/shared/constant.dart';
+import 'package:tictactoe/shared/widgets/custom_button.dart';
 import 'package:tictactoe/shared/widgets/custom_scaffold.dart';
 import 'package:tictactoe/src/game/domain/entity/game.dart';
-import 'package:tictactoe/src/game/presentation/provider/current_game_notifier/current_game_state_notifier.dart';
+import 'package:tictactoe/src/game/presentation/provider/current_game_notifier/current_game_notifier.dart';
 import 'package:tictactoe/src/game/presentation/widgets/cell_state_displayer.dart';
 
 @RoutePage()
-class GamePage extends ConsumerWidget {
+class GamePage extends HookConsumerWidget {
   const GamePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final Game gameState = ref.watch(currentGameStateNotifierProvider).gameState;
+    final Game gameState = ref.watch(currentGameNotifierProvider);
+
+    useEffect(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (gameState.isCompleted) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text('Game completed with status: ${gameState.status.name}')));
+        }
+      });
+
+      return null;
+    }, [gameState.status]);
 
     return CustomScaffold(
       body: Column(
@@ -29,13 +44,7 @@ class GamePage extends ConsumerWidget {
 
                 return InkWell(
                   onTap: () {
-                    ref
-                        .watch(currentGameStateNotifierProvider.notifier)
-                        .makeMove(
-                          index: index,
-                          playerIndex: 0,
-                          ownerId: 'ownerId',
-                        ); // Replace with actual ownerId and symbol
+                    ref.watch(currentGameNotifierProvider.notifier).makeMove(index: index, playerIndex: 0);
                   },
                   child: DecoratedBox(
                     decoration: BoxDecoration(
@@ -52,15 +61,22 @@ class GamePage extends ConsumerWidget {
               },
             ),
           ),
-          Text(gameState.status.name, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
         ],
       ),
-      bottomNavigationBar: ElevatedButton(
-        onPressed: () {
-          ref.watch(currentGameStateNotifierProvider.notifier).startNewGame('ownerId'); // Replace with actual ownerId
-        },
-        child: const Text('Start New Game'),
-      ),
+      bottomNavigationBar: gameState.isCompleted
+          ? CustomButton(
+              onPressed: () {
+                ref.watch(currentGameNotifierProvider.notifier).startNewGame();
+              },
+              text: context.tr('pages.game.buttons.restart'),
+            )
+          : CustomButton(
+              onPressed: () {
+                ref.watch(currentGameNotifierProvider.notifier).giveUpGame();
+                Navigator.of(context).pop();
+              },
+              text: context.tr('pages.game.buttons.give_up'),
+            ),
     );
   }
 }

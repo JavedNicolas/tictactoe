@@ -7,11 +7,11 @@ part of 'cell_dto.dart';
 // **************************************************************************
 
 _CellDto _$CellDtoFromJson(Map<String, dynamic> json) => _CellDto(
-  index: (json['index'] as num).toInt(),
-  state: json['state'] as String,
-);
+      index: (json['index'] as num).toInt(),
+      state: json['state'] as String,
+    );
 
 Map<String, dynamic> _$CellDtoToJson(_CellDto instance) => <String, dynamic>{
-  'index': instance.index,
-  'state': instance.state,
-};
+      'index': instance.index,
+      'state': instance.state,
+    };

@@ -1,46 +1,44 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tictactoe/src/game/domain/entity/game.dart';
 import 'package:tictactoe/src/game/domain/repository/game_repository.dart';
+import 'package:tictactoe/src/game/domain/use_case/give_up_game.dart';
 import 'package:tictactoe/src/game/domain/use_case/make_move.dart';
 import 'package:tictactoe/src/game/domain/use_case/start_new_game.dart';
-import 'package:tictactoe/src/game/presentation/provider/current_game_notifier/current_game_state.dart';
 import 'package:tictactoe/src/game/presentation/provider/provider_declaration.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final currentGameStateNotifierProvider = NotifierProvider<CurrentGameNotifier, CurrentGameState>(() {
-  return CurrentGameNotifier();
-});
+part 'current_game_notifier.g.dart';
 
-class CurrentGameNotifier extends Notifier<CurrentGameState> {
+@riverpod
+class CurrentGameNotifier extends _$CurrentGameNotifier {
   final StartNewGame _startNewGame = StartNewGame();
   final MakeMove _makeMove = MakeMove();
+  final GiveUpGame _giveUpGame = GiveUpGame();
 
   @override
-  CurrentGameState build() {
-    return CurrentGameState(gameState: Game.initial());
+  Game build() {
+    return Game.initial();
   }
 
-  Future<void> startNewGame(String ownerId) async {
-    final GameStateRepository repository = ref.read(gameStateRepositoryProvider);
-    await _startNewGame.call(ownerId: ownerId, repository: repository);
+  Future<void> startNewGame() async {
+    final GameRepository repository = ref.read(gameStateRepositoryProvider);
+    await _startNewGame.call(repository: repository);
 
-    final Game newGameState = await repository.getCurrentGameState(ownerId);
-    state = state.copyWith(gameState: newGameState, status: CurrentGameStatus.inProgress);
+    final Game newGame = await repository.getCurrentGameState();
+    state = newGame;
   }
 
-  Future<void> makeMove({required int index, required int playerIndex, required String ownerId}) async {
-    final GameStateRepository repository = ref.read(gameStateRepositoryProvider);
-    await _makeMove.call(
-      gameState: state.gameState,
-      index: index,
-      playerIndex: playerIndex,
-      ownerId: ownerId,
-      repository: repository,
-    );
+  Future<void> makeMove({required int index, required int playerIndex}) async {
+    final GameRepository repository = ref.read(gameStateRepositoryProvider);
+    await _makeMove.call(game: state, index: index, playerIndex: playerIndex, repository: repository);
 
-    final Game updatedGameState = await repository.getCurrentGameState(ownerId);
-    state = state.copyWith(
-      gameState: updatedGameState,
-      status: updatedGameState.isCompleted ? CurrentGameStatus.completed : CurrentGameStatus.inProgress,
-    );
+    final Game updatedGame = await repository.getCurrentGameState();
+    state = updatedGame;
+  }
+
+  Future<void> giveUpGame() async {
+    final GameRepository repository = ref.read(gameStateRepositoryProvider);
+    await _giveUpGame.call(game: state, gameRepository: repository);
+
+    state = Game.initial();
   }
 }

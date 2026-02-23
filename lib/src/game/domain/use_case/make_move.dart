@@ -10,36 +10,25 @@ class MakeMove {
   Future<void> call({
     required int index,
     required int playerIndex,
-    required String ownerId,
-    required GameStateRepository repository,
-    required Game gameState,
+    required GameRepository repository,
+    required Game game,
   }) async {
-    final List<Cell> updatedCells = List.from(gameState.cells);
+    final List<Cell> updatedCells = List.from(game.cells);
     updatedCells[index] = updatedCells[index].updateStateFromPlayerIndex(playerIndex: playerIndex);
     final GameStatus status = _checkGameCompletion(updatedCells);
 
-    final Game updatedGame = Game(id: gameState.id, date: DateTime.now(), cells: updatedCells, status: status);
+    final Game updatedGame = Game(id: game.id, date: DateTime.now(), cells: updatedCells, status: status);
 
-    await repository.updateCurrentGameState(updatedGame, ownerId);
+    await repository.updateCurrentGameState(game: updatedGame);
 
     if (!updatedGame.isCompleted && playerIndex == 0) {
-      await call(
-        index: _getAiMoveIndex(updatedCells),
-        playerIndex: 1,
-        ownerId: ownerId,
-        repository: repository,
-        gameState: updatedGame,
-      );
+      await call(index: _getAiMoveIndex(updatedCells), playerIndex: 1, repository: repository, game: updatedGame);
     }
   }
 
   int _getAiMoveIndex(List<Cell> cells) {
-    final List<int> emptyIndices = cells
-        .asMap()
-        .entries
-        .where((entry) => entry.value.isEmpty)
-        .map((entry) => entry.key)
-        .toList();
+    final List<int> emptyIndices =
+        cells.asMap().entries.where((entry) => entry.value.isEmpty).map((entry) => entry.key).toList();
     final Random random = Random();
     final int randomIndex = random.nextInt(emptyIndices.length);
 
