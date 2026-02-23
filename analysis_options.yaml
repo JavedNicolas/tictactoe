@@ -21,8 +21,42 @@ linter:
   # `// ignore_for_file: name_of_lint` syntax on the line or in the file
   # producing the lint.
   rules:
-    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
-    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+    # API clarity / typing
+    - always_declare_return_types
+    - type_annotate_public_apis
+    - avoid_dynamic_calls
+    - avoid_types_as_parameter_names
+
+    # Readability / maintainability
+    - always_put_control_body_on_new_line
+    - always_put_required_named_parameters_first
+    - avoid_positional_boolean_parameters
+    - prefer_final_locals
+    - prefer_final_fields
+    - unnecessary_late
+
+    # Async / error safety
+    - avoid_void_async
+    - unawaited_futures
+    - cancel_subscriptions
+    - close_sinks
+    - only_throw_errors
+    - throw_in_finally
+
+    # Immutability / side effects
+    - prefer_const_constructors
+    - prefer_const_declarations
+
+    # Flutter-specific quality
+    - use_key_in_widget_constructors
+    - use_super_parameters
+    - sized_box_for_whitespace
+    - use_colored_box
+    - use_decorated_box
+
+    # Project hygiene
+    - sort_constructors_first
+    - avoid_print
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
