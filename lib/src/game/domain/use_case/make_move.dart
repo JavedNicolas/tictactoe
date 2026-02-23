@@ -1,19 +1,19 @@
 import 'dart:math';
-
 import 'package:tictactoe/shared/constant.dart';
+import 'package:tictactoe/src/game/domain/entity/cell.dart';
 import 'package:tictactoe/src/game/domain/entity/game_state.dart';
 import 'package:tictactoe/src/game/domain/repository/game_state_repository.dart';
 
 class MakeMove {
   Future<void> call({
     required int index,
-    required String symbol,
+    required int playerIndex,
     required String ownerId,
     required GameStateRepository repository,
     required GameState gameState,
   }) async {
-    final List<String> updatedCells = List.from(gameState.cells);
-    updatedCells[index] = symbol;
+    final List<Cell> updatedCells = List.from(gameState.cells);
+    updatedCells[index] = updatedCells[index].updateStateFromPlayerIndex(playerIndex: playerIndex);
     final bool isCompleted = _checkGameCompletion(updatedCells);
 
     final GameState updatedGame = GameState(
@@ -25,10 +25,10 @@ class MakeMove {
 
     await repository.updateCurrentGameState(updatedGame, ownerId);
 
-    if (!isCompleted && symbol == 'X') {
+    if (!isCompleted && playerIndex == 0) {
       await call(
         index: _getAiMoveIndex(updatedCells),
-        symbol: 'O',
+        playerIndex: 1,
         ownerId: ownerId,
         repository: repository,
         gameState: updatedGame,
@@ -36,7 +36,7 @@ class MakeMove {
     }
   }
 
-  int _getAiMoveIndex(List<String> cells) {
+  int _getAiMoveIndex(List<Cell> cells) {
     final List<int> emptyIndices = cells
         .asMap()
         .entries
@@ -49,7 +49,7 @@ class MakeMove {
     return emptyIndices[randomIndex];
   }
 
-  bool _checkGameCompletion(List<String> cells) {
+  bool _checkGameCompletion(List<Cell> cells) {
     final List<List<int>> winningCombinations = [
       // lines
       ...List.generate(
@@ -67,8 +67,8 @@ class MakeMove {
     ];
 
     for (final combination in winningCombinations) {
-      final String firstCell = cells[combination[0]];
-      if (firstCell.isNotEmpty && combination.every((index) => cells[index] == firstCell)) {
+      final Cell firstCell = cells[combination[0]];
+      if (firstCell.isNotEmpty && combination.every((index) => cells[index].state.compare(firstCell.state))) {
         return true;
       }
     }

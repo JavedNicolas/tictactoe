@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:tictactoe/src/game/data/dto/cell_dto.dart';
 import 'package:tictactoe/src/game/domain/entity/game_state.dart';
 
 part 'game_state_dto.freezed.dart';
@@ -13,7 +14,7 @@ abstract class GameStateDto with _$GameStateDto {
   const factory GameStateDto({
     required String id,
     required int date,
-    required List<String> cells,
+    required List<CellDto> cells,
     required bool isCompleted,
   }) = _GameStateDto;
 
@@ -29,7 +30,7 @@ abstract class GameStateDto with _$GameStateDto {
     return GameStateDto(
       id: gameState.id,
       date: gameState.date.millisecondsSinceEpoch,
-      cells: gameState.cells,
+      cells: gameState.cells.map((cell) => CellDto.fromCell(cell)).toList(),
       isCompleted: gameState.isCompleted,
     );
   }

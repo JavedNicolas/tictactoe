@@ -1,5 +1,7 @@
 import 'package:tictactoe/shared/constant.dart';
 import 'package:tictactoe/src/game/data/dto/game_state_dto.dart';
+import 'package:tictactoe/src/game/domain/entity/cell.dart';
+import 'package:tictactoe/src/game/domain/entity/cell_state.dart';
 import 'package:uuid/uuid.dart';
 
 class GameState {
@@ -9,7 +11,7 @@ class GameState {
     return GameState(
       id: dto.id,
       date: DateTime.fromMillisecondsSinceEpoch(dto.date),
-      cells: dto.cells,
+      cells: dto.cells.map((cellDto) => cellDto.toCell()).toList(),
       isCompleted: dto.isCompleted,
     );
   }
@@ -18,17 +20,17 @@ class GameState {
     return GameState(
       id: const Uuid().v4(),
       date: DateTime.now(),
-      cells: List.filled(kTicTacToeSize * kTicTacToeSize, ''),
+      cells: List.generate(kTicTacToeSize * kTicTacToeSize, (index) => Cell(index: index, state: CellState.empty)),
       isCompleted: false,
     );
   }
 
   final String id;
   final DateTime date;
-  final List<String> cells;
+  final List<Cell> cells;
   final bool isCompleted;
 
-  GameState copyWith({List<String>? cells, bool? isCompleted}) {
+  GameState copyWith({List<Cell>? cells, bool? isCompleted}) {
     return GameState(id: id, date: date, cells: cells ?? this.cells, isCompleted: isCompleted ?? this.isCompleted);
   }
 }

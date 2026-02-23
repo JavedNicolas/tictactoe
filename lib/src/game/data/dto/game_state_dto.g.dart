@@ -10,7 +10,9 @@ _GameStateDto _$GameStateDtoFromJson(Map<String, dynamic> json) =>
     _GameStateDto(
       id: json['id'] as String,
       date: (json['date'] as num).toInt(),
-      cells: (json['cells'] as List<dynamic>).map((e) => e as String).toList(),
+      cells: (json['cells'] as List<dynamic>)
+          .map((e) => CellDto.fromJson(e as Map<String, dynamic>))
+          .toList(),
       isCompleted: json['isCompleted'] as bool,
     );
 

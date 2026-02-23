@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$GameStateDto {
 
- String get id; int get date; List<String> get cells; bool get isCompleted;
+ String get id; int get date; List<CellDto> get cells; bool get isCompleted;
 /// Create a copy of GameStateDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $GameStateDtoCopyWith<$Res>  {
   factory $GameStateDtoCopyWith(GameStateDto value, $Res Function(GameStateDto) _then) = _$GameStateDtoCopyWithImpl;
 @useResult
 $Res call({
- String id, int date, List<String> cells, bool isCompleted
+ String id, int date, List<CellDto> cells, bool isCompleted
 });
 
 
@@ -70,7 +70,7 @@ class _$GameStateDtoCopyWithImpl<$Res>
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
 as int,cells: null == cells ? _self.cells : cells // ignore: cast_nullable_to_non_nullable
-as List<String>,isCompleted: null == isCompleted ? _self.isCompleted : isCompleted // ignore: cast_nullable_to_non_nullable
+as List<CellDto>,isCompleted: null == isCompleted ? _self.isCompleted : isCompleted // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
@@ -156,7 +156,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  int date,  List<String> cells,  bool isCompleted)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  int date,  List<CellDto> cells,  bool isCompleted)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _GameStateDto() when $default != null:
 return $default(_that.id,_that.date,_that.cells,_that.isCompleted);case _:
@@ -177,7 +177,7 @@ return $default(_that.id,_that.date,_that.cells,_that.isCompleted);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  int date,  List<String> cells,  bool isCompleted)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  int date,  List<CellDto> cells,  bool isCompleted)  $default,) {final _that = this;
 switch (_that) {
 case _GameStateDto():
 return $default(_that.id,_that.date,_that.cells,_that.isCompleted);case _:
@@ -197,7 +197,7 @@ return $default(_that.id,_that.date,_that.cells,_that.isCompleted);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  int date,  List<String> cells,  bool isCompleted)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  int date,  List<CellDto> cells,  bool isCompleted)?  $default,) {final _that = this;
 switch (_that) {
 case _GameStateDto() when $default != null:
 return $default(_that.id,_that.date,_that.cells,_that.isCompleted);case _:
@@ -212,13 +212,13 @@ return $default(_that.id,_that.date,_that.cells,_that.isCompleted);case _:
 @JsonSerializable()
 
 class _GameStateDto extends GameStateDto {
-  const _GameStateDto({required this.id, required this.date, required final  List<String> cells, required this.isCompleted}): _cells = cells,super._();
+  const _GameStateDto({required this.id, required this.date, required final  List<CellDto> cells, required this.isCompleted}): _cells = cells,super._();
   factory _GameStateDto.fromJson(Map<String, dynamic> json) => _$GameStateDtoFromJson(json);
 
 @override final  String id;
 @override final  int date;
- final  List<String> _cells;
-@override List<String> get cells {
+ final  List<CellDto> _cells;
+@override List<CellDto> get cells {
   if (_cells is EqualUnmodifiableListView) return _cells;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_cells);
@@ -259,7 +259,7 @@ abstract mixin class _$GameStateDtoCopyWith<$Res> implements $GameStateDtoCopyWi
   factory _$GameStateDtoCopyWith(_GameStateDto value, $Res Function(_GameStateDto) _then) = __$GameStateDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String id, int date, List<String> cells, bool isCompleted
+ String id, int date, List<CellDto> cells, bool isCompleted
 });
 
 
@@ -281,7 +281,7 @@ class __$GameStateDtoCopyWithImpl<$Res>
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
 as int,cells: null == cells ? _self._cells : cells // ignore: cast_nullable_to_non_nullable
-as List<String>,isCompleted: null == isCompleted ? _self.isCompleted : isCompleted // ignore: cast_nullable_to_non_nullable
+as List<CellDto>,isCompleted: null == isCompleted ? _self.isCompleted : isCompleted // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }

@@ -5,6 +5,7 @@ import 'package:tictactoe/shared/constant.dart';
 import 'package:tictactoe/shared/widgets/custom_scaffold.dart';
 import 'package:tictactoe/src/game/domain/entity/game_state.dart';
 import 'package:tictactoe/src/game/presentation/provider/current_game_notifier/current_game_state_notifier.dart';
+import 'package:tictactoe/src/game/presentation/widgets/game_cell_content.dart';
 
 @RoutePage()
 class GamePage extends ConsumerWidget {
@@ -32,7 +33,7 @@ class GamePage extends ConsumerWidget {
                         .watch(currentGameStateNotifierProvider.notifier)
                         .makeMove(
                           index: index,
-                          symbol: 'X',
+                          playerIndex: 0,
                           ownerId: 'ownerId',
                         ); // Replace with actual ownerId and symbol
                   },
@@ -45,7 +46,7 @@ class GamePage extends ConsumerWidget {
                         bottom: const BorderSide(color: Colors.black),
                       ),
                     ),
-                    child: Center(child: Text(gameState.cells[index], style: const TextStyle(fontSize: 32))),
+                    child: Center(child: CellStateDisplayer(cellState: gameState.cells[index].state)),
                   ),
                 );
               },

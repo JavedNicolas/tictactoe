@@ -27,12 +27,12 @@ class CurrentGameStateNotifier extends Notifier<CurrentGameState> {
     state = state.copyWith(gameState: newGameState, status: CurrentGameStatus.inProgress);
   }
 
-  Future<void> makeMove({required int index, required String symbol, required String ownerId}) async {
+  Future<void> makeMove({required int index, required int playerIndex, required String ownerId}) async {
     final GameStateRepository repository = ref.read(gameStateRepositoryProvider);
     await _makeMove.call(
       gameState: state.gameState,
       index: index,
-      symbol: symbol,
+      playerIndex: playerIndex,
       ownerId: ownerId,
       repository: repository,
     );
