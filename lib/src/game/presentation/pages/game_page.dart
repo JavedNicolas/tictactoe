@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tictactoe/shared/constant.dart';
 import 'package:tictactoe/shared/widgets/custom_scaffold.dart';
-import 'package:tictactoe/src/game/domain/entity/game_state.dart';
+import 'package:tictactoe/src/game/domain/entity/game.dart';
 import 'package:tictactoe/src/game/presentation/provider/current_game_notifier/current_game_state_notifier.dart';
 import 'package:tictactoe/src/game/presentation/widgets/cell_state_displayer.dart';
 
@@ -13,7 +13,7 @@ class GamePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final GameState gameState = ref.watch(currentGameStateNotifierProvider).gameState;
+    final Game gameState = ref.watch(currentGameStateNotifierProvider).gameState;
 
     return CustomScaffold(
       body: Column(

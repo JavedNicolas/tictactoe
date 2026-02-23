@@ -1,20 +1,19 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tictactoe/src/game/data/datasource/local_datasource.dart';
-import 'package:tictactoe/src/game/data/dto/game_state_dto.dart';
+import 'package:tictactoe/src/game/data/dto/game_dto.dart';
 
 class SharedPrefsDatasource extends LocalDatasource {
-  List<GameStateDto> _cachedGames = [];
+  List<GameDto> _cachedGames = [];
 
   @override
-  Future<List<GameStateDto>> loadSavedGames({required String ownerId}) async {
+  Future<List<GameDto>> loadSavedGames({required String ownerId}) async {
     if (_cachedGames.isNotEmpty) {
       return _cachedGames;
     }
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final List<String>? savedGames = prefs.getStringList(ownerId);
-    final List<GameStateDto> games =
-        savedGames?.map((gameString) => GameStateDto.fromRawString(gameString)).toList() ?? [];
+    final List<GameDto> games = savedGames?.map((gameString) => GameDto.fromRawString(gameString)).toList() ?? [];
 
     _setCachedGames(games);
 
@@ -22,14 +21,14 @@ class SharedPrefsDatasource extends LocalDatasource {
   }
 
   @override
-  Future<void> updateGameState({required GameStateDto gameState, required String ownerId}) async {
-    final List<GameStateDto> savedGames = await loadSavedGames(ownerId: ownerId);
-    final List<GameStateDto> updatedGames = [...savedGames.where((game) => game.id != gameState.id), gameState];
+  Future<void> updateGameState({required GameDto gameState, required String ownerId}) async {
+    final List<GameDto> savedGames = await loadSavedGames(ownerId: ownerId);
+    final List<GameDto> updatedGames = [...savedGames.where((game) => game.id != gameState.id), gameState];
 
     await _saveGames(games: updatedGames, ownerId: ownerId);
   }
 
-  Future<void> _saveGames({required List<GameStateDto> games, required String ownerId}) async {
+  Future<void> _saveGames({required List<GameDto> games, required String ownerId}) async {
     _setCachedGames(games);
 
     final List<String> gameStateStrings = games.map((game) => game.toRawString()).toList();
@@ -38,7 +37,7 @@ class SharedPrefsDatasource extends LocalDatasource {
     await prefs.setStringList(ownerId, gameStateStrings);
   }
 
-  void _setCachedGames(List<GameStateDto> games) {
+  void _setCachedGames(List<GameDto> games) {
     _cachedGames = games;
   }
 }

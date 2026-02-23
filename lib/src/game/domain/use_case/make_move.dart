@@ -2,9 +2,9 @@ import 'dart:math';
 import 'package:tictactoe/shared/constant.dart';
 import 'package:tictactoe/src/game/domain/entity/cell.dart';
 import 'package:tictactoe/src/game/domain/entity/cell_state.dart';
-import 'package:tictactoe/src/game/domain/entity/game_state.dart';
-import 'package:tictactoe/src/game/domain/entity/game_state_status.dart';
-import 'package:tictactoe/src/game/domain/repository/game_state_repository.dart';
+import 'package:tictactoe/src/game/domain/entity/game.dart';
+import 'package:tictactoe/src/game/domain/entity/game_status.dart';
+import 'package:tictactoe/src/game/domain/repository/game_repository.dart';
 
 class MakeMove {
   Future<void> call({
@@ -12,18 +12,13 @@ class MakeMove {
     required int playerIndex,
     required String ownerId,
     required GameStateRepository repository,
-    required GameState gameState,
+    required Game gameState,
   }) async {
     final List<Cell> updatedCells = List.from(gameState.cells);
     updatedCells[index] = updatedCells[index].updateStateFromPlayerIndex(playerIndex: playerIndex);
-    final GameStateStatus status = _checkGameCompletion(updatedCells);
+    final GameStatus status = _checkGameCompletion(updatedCells);
 
-    final GameState updatedGame = GameState(
-      id: gameState.id,
-      date: DateTime.now(),
-      cells: updatedCells,
-      status: status,
-    );
+    final Game updatedGame = Game(id: gameState.id, date: DateTime.now(), cells: updatedCells, status: status);
 
     await repository.updateCurrentGameState(updatedGame, ownerId);
 
@@ -51,7 +46,7 @@ class MakeMove {
     return emptyIndices[randomIndex];
   }
 
-  GameStateStatus _checkGameCompletion(List<Cell> cells) {
+  GameStatus _checkGameCompletion(List<Cell> cells) {
     final List<List<int>> winningCombinations = [
       // lines
       ...List.generate(
@@ -71,10 +66,10 @@ class MakeMove {
     for (final combination in winningCombinations) {
       final Cell firstCell = cells[combination[0]];
       if (firstCell.isNotEmpty && combination.every((index) => cells[index].state.compare(firstCell.state))) {
-        return firstCell.state == CellState.player1 ? GameStateStatus.player1Win : GameStateStatus.player2Win;
+        return firstCell.state == CellState.player1 ? GameStatus.player1Win : GameStatus.player2Win;
       }
     }
 
-    return GameStateStatus.ongoing;
+    return GameStatus.ongoing;
   }
 }

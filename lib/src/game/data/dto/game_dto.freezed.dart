@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'game_state_dto.dart';
+part of 'game_dto.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,22 +13,22 @@ part of 'game_state_dto.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$GameStateDto {
+mixin _$GameDto {
 
  String get id; int get date; List<CellDto> get cells; String get status;
-/// Create a copy of GameStateDto
+/// Create a copy of GameDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$GameStateDtoCopyWith<GameStateDto> get copyWith => _$GameStateDtoCopyWithImpl<GameStateDto>(this as GameStateDto, _$identity);
+$GameDtoCopyWith<GameDto> get copyWith => _$GameDtoCopyWithImpl<GameDto>(this as GameDto, _$identity);
 
-  /// Serializes this GameStateDto to a JSON map.
+  /// Serializes this GameDto to a JSON map.
   Map<String, dynamic> toJson();
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GameStateDto&&(identical(other.id, id) || other.id == id)&&(identical(other.date, date) || other.date == date)&&const DeepCollectionEquality().equals(other.cells, cells)&&(identical(other.status, status) || other.status == status));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GameDto&&(identical(other.id, id) || other.id == id)&&(identical(other.date, date) || other.date == date)&&const DeepCollectionEquality().equals(other.cells, cells)&&(identical(other.status, status) || other.status == status));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -37,15 +37,15 @@ int get hashCode => Object.hash(runtimeType,id,date,const DeepCollectionEquality
 
 @override
 String toString() {
-  return 'GameStateDto(id: $id, date: $date, cells: $cells, status: $status)';
+  return 'GameDto(id: $id, date: $date, cells: $cells, status: $status)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $GameStateDtoCopyWith<$Res>  {
-  factory $GameStateDtoCopyWith(GameStateDto value, $Res Function(GameStateDto) _then) = _$GameStateDtoCopyWithImpl;
+abstract mixin class $GameDtoCopyWith<$Res>  {
+  factory $GameDtoCopyWith(GameDto value, $Res Function(GameDto) _then) = _$GameDtoCopyWithImpl;
 @useResult
 $Res call({
  String id, int date, List<CellDto> cells, String status
@@ -56,14 +56,14 @@ $Res call({
 
 }
 /// @nodoc
-class _$GameStateDtoCopyWithImpl<$Res>
-    implements $GameStateDtoCopyWith<$Res> {
-  _$GameStateDtoCopyWithImpl(this._self, this._then);
+class _$GameDtoCopyWithImpl<$Res>
+    implements $GameDtoCopyWith<$Res> {
+  _$GameDtoCopyWithImpl(this._self, this._then);
 
-  final GameStateDto _self;
-  final $Res Function(GameStateDto) _then;
+  final GameDto _self;
+  final $Res Function(GameDto) _then;
 
-/// Create a copy of GameStateDto
+/// Create a copy of GameDto
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? date = null,Object? cells = null,Object? status = null,}) {
   return _then(_self.copyWith(
@@ -78,8 +78,8 @@ as String,
 }
 
 
-/// Adds pattern-matching-related methods to [GameStateDto].
-extension GameStateDtoPatterns on GameStateDto {
+/// Adds pattern-matching-related methods to [GameDto].
+extension GameDtoPatterns on GameDto {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -92,10 +92,10 @@ extension GameStateDtoPatterns on GameStateDto {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _GameStateDto value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _GameDto value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _GameStateDto() when $default != null:
+case _GameDto() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -114,10 +114,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _GameStateDto value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _GameDto value)  $default,){
 final _that = this;
 switch (_that) {
-case _GameStateDto():
+case _GameDto():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -135,10 +135,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _GameStateDto value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _GameDto value)?  $default,){
 final _that = this;
 switch (_that) {
-case _GameStateDto() when $default != null:
+case _GameDto() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -158,7 +158,7 @@ return $default(_that);case _:
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  int date,  List<CellDto> cells,  String status)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _GameStateDto() when $default != null:
+case _GameDto() when $default != null:
 return $default(_that.id,_that.date,_that.cells,_that.status);case _:
   return orElse();
 
@@ -179,7 +179,7 @@ return $default(_that.id,_that.date,_that.cells,_that.status);case _:
 
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  int date,  List<CellDto> cells,  String status)  $default,) {final _that = this;
 switch (_that) {
-case _GameStateDto():
+case _GameDto():
 return $default(_that.id,_that.date,_that.cells,_that.status);case _:
   throw StateError('Unexpected subclass');
 
@@ -199,7 +199,7 @@ return $default(_that.id,_that.date,_that.cells,_that.status);case _:
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  int date,  List<CellDto> cells,  String status)?  $default,) {final _that = this;
 switch (_that) {
-case _GameStateDto() when $default != null:
+case _GameDto() when $default != null:
 return $default(_that.id,_that.date,_that.cells,_that.status);case _:
   return null;
 
@@ -211,9 +211,9 @@ return $default(_that.id,_that.date,_that.cells,_that.status);case _:
 /// @nodoc
 @JsonSerializable()
 
-class _GameStateDto extends GameStateDto {
-  const _GameStateDto({required this.id, required this.date, required final  List<CellDto> cells, required this.status}): _cells = cells,super._();
-  factory _GameStateDto.fromJson(Map<String, dynamic> json) => _$GameStateDtoFromJson(json);
+class _GameDto extends GameDto {
+  const _GameDto({required this.id, required this.date, required final  List<CellDto> cells, required this.status}): _cells = cells,super._();
+  factory _GameDto.fromJson(Map<String, dynamic> json) => _$GameDtoFromJson(json);
 
 @override final  String id;
 @override final  int date;
@@ -226,20 +226,20 @@ class _GameStateDto extends GameStateDto {
 
 @override final  String status;
 
-/// Create a copy of GameStateDto
+/// Create a copy of GameDto
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$GameStateDtoCopyWith<_GameStateDto> get copyWith => __$GameStateDtoCopyWithImpl<_GameStateDto>(this, _$identity);
+_$GameDtoCopyWith<_GameDto> get copyWith => __$GameDtoCopyWithImpl<_GameDto>(this, _$identity);
 
 @override
 Map<String, dynamic> toJson() {
-  return _$GameStateDtoToJson(this, );
+  return _$GameDtoToJson(this, );
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GameStateDto&&(identical(other.id, id) || other.id == id)&&(identical(other.date, date) || other.date == date)&&const DeepCollectionEquality().equals(other._cells, _cells)&&(identical(other.status, status) || other.status == status));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GameDto&&(identical(other.id, id) || other.id == id)&&(identical(other.date, date) || other.date == date)&&const DeepCollectionEquality().equals(other._cells, _cells)&&(identical(other.status, status) || other.status == status));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -248,15 +248,15 @@ int get hashCode => Object.hash(runtimeType,id,date,const DeepCollectionEquality
 
 @override
 String toString() {
-  return 'GameStateDto(id: $id, date: $date, cells: $cells, status: $status)';
+  return 'GameDto(id: $id, date: $date, cells: $cells, status: $status)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$GameStateDtoCopyWith<$Res> implements $GameStateDtoCopyWith<$Res> {
-  factory _$GameStateDtoCopyWith(_GameStateDto value, $Res Function(_GameStateDto) _then) = __$GameStateDtoCopyWithImpl;
+abstract mixin class _$GameDtoCopyWith<$Res> implements $GameDtoCopyWith<$Res> {
+  factory _$GameDtoCopyWith(_GameDto value, $Res Function(_GameDto) _then) = __$GameDtoCopyWithImpl;
 @override @useResult
 $Res call({
  String id, int date, List<CellDto> cells, String status
@@ -267,17 +267,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$GameStateDtoCopyWithImpl<$Res>
-    implements _$GameStateDtoCopyWith<$Res> {
-  __$GameStateDtoCopyWithImpl(this._self, this._then);
+class __$GameDtoCopyWithImpl<$Res>
+    implements _$GameDtoCopyWith<$Res> {
+  __$GameDtoCopyWithImpl(this._self, this._then);
 
-  final _GameStateDto _self;
-  final $Res Function(_GameStateDto) _then;
+  final _GameDto _self;
+  final $Res Function(_GameDto) _then;
 
-/// Create a copy of GameStateDto
+/// Create a copy of GameDto
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? date = null,Object? cells = null,Object? status = null,}) {
-  return _then(_GameStateDto(
+  return _then(_GameDto(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
 as int,cells: null == cells ? _self._cells : cells // ignore: cast_nullable_to_non_nullable

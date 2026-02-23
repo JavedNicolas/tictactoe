@@ -1,6 +1,6 @@
-import 'package:tictactoe/src/game/data/dto/game_state_dto.dart';
+import 'package:tictactoe/src/game/data/dto/game_dto.dart';
 
 abstract class LocalDatasource {
-  Future<List<GameStateDto>> loadSavedGames({required String ownerId});
-  Future<void> updateGameState({required GameStateDto gameState, required String ownerId});
+  Future<List<GameDto>> loadSavedGames({required String ownerId});
+  Future<void> updateGameState({required GameDto gameState, required String ownerId});
 }
