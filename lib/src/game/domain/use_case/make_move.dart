@@ -70,6 +70,10 @@ class MakeMove {
       }
     }
 
+    if (cells.every((cell) => cell.isNotEmpty)) {
+      return GameStatus.draw;
+    }
+
     return GameStatus.ongoing;
   }
 }
