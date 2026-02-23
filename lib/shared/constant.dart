@@ -1,1 +1,1 @@
-const int kTicTacToeSize = 4;
+const int kTicTacToeSize = 3;
