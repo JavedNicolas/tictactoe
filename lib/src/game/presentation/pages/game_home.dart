@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:tictactoe/shared/router/app_router.gr.dart';
 import 'package:tictactoe/shared/widgets/custom_button.dart';
 import 'package:tictactoe/shared/widgets/custom_scaffold.dart';
 
@@ -27,7 +28,15 @@ class GameHome extends StatelessWidget {
       ),
       bottomNavigationBar: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [CustomButton(icon: Icons.play_arrow, text: 'Start playing', onPressed: () {})],
+        children: [
+          CustomButton(
+            icon: Icons.play_arrow,
+            text: 'Start playing',
+            onPressed: () {
+              context.router.push(const GameRoute());
+            },
+          ),
+        ],
       ),
     );
   }
