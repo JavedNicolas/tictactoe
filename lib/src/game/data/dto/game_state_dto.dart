@@ -15,7 +15,7 @@ abstract class GameStateDto with _$GameStateDto {
     required String id,
     required int date,
     required List<CellDto> cells,
-    required bool isCompleted,
+    required String status,
   }) = _GameStateDto;
 
   factory GameStateDto.fromRawString(String raw) {
@@ -31,7 +31,7 @@ abstract class GameStateDto with _$GameStateDto {
       id: gameState.id,
       date: gameState.date.millisecondsSinceEpoch,
       cells: gameState.cells.map((cell) => CellDto.fromCell(cell)).toList(),
-      isCompleted: gameState.isCompleted,
+      status: gameState.status.name,
     );
   }
 

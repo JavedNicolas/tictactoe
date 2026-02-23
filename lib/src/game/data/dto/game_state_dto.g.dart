@@ -13,7 +13,7 @@ _GameStateDto _$GameStateDtoFromJson(Map<String, dynamic> json) =>
       cells: (json['cells'] as List<dynamic>)
           .map((e) => CellDto.fromJson(e as Map<String, dynamic>))
           .toList(),
-      isCompleted: json['isCompleted'] as bool,
+      status: json['status'] as String,
     );
 
 Map<String, dynamic> _$GameStateDtoToJson(_GameStateDto instance) =>
@@ -21,5 +21,5 @@ Map<String, dynamic> _$GameStateDtoToJson(_GameStateDto instance) =>
       'id': instance.id,
       'date': instance.date,
       'cells': instance.cells,
-      'isCompleted': instance.isCompleted,
+      'status': instance.status,
     };

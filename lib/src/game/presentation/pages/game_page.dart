@@ -5,7 +5,7 @@ import 'package:tictactoe/shared/constant.dart';
 import 'package:tictactoe/shared/widgets/custom_scaffold.dart';
 import 'package:tictactoe/src/game/domain/entity/game_state.dart';
 import 'package:tictactoe/src/game/presentation/provider/current_game_notifier/current_game_state_notifier.dart';
-import 'package:tictactoe/src/game/presentation/widgets/game_cell_content.dart';
+import 'package:tictactoe/src/game/presentation/widgets/cell_state_displayer.dart';
 
 @RoutePage()
 class GamePage extends ConsumerWidget {
@@ -52,6 +52,7 @@ class GamePage extends ConsumerWidget {
               },
             ),
           ),
+          Text(gameState.status.name, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
         ],
       ),
       bottomNavigationBar: ElevatedButton(
