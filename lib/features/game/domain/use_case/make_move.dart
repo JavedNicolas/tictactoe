@@ -7,6 +7,8 @@ import 'package:tictactoe/features/game/domain/entity/game_status.dart';
 import 'package:tictactoe/features/game/domain/repository/game_repository.dart';
 
 class MakeMove {
+  const MakeMove();
+
   Future<void> call({
     required int index,
     required int playerIndex,

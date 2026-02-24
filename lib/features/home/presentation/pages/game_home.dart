@@ -1,16 +1,21 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tictactoe/features/home/presentation/provider/home_page_notifier.dart';
+import 'package:tictactoe/features/home/presentation/provider/home_state.dart';
 import 'package:tictactoe/shared/router/app_router.gr.dart';
 import 'package:tictactoe/shared/presentation/widgets/custom_button.dart';
 import 'package:tictactoe/shared/presentation/widgets/custom_scaffold.dart';
 
 @RoutePage()
-class GameHome extends StatelessWidget {
+class GameHome extends HookConsumerWidget {
   const GameHome({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final HomeState state = ref.watch(homePageNotifierProvider);
     final ThemeData theme = Theme.of(context);
 
     return CustomScaffold(
@@ -30,8 +35,11 @@ class GameHome extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CustomButton(
+            isLoading: state.isLoading,
             icon: Icons.play_arrow,
-            text: 'Start playing',
+            text: state.hasOngoingGame
+                ? context.tr("pages.game_home.buttons.continue")
+                : context.tr("pages.game_home.buttons.start"),
             onPressed: () {
               context.router.push(const GameRoute());
             },

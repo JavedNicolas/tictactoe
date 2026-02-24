@@ -29,11 +29,12 @@ ThemeData lightTheme = ThemeData(
     primaryContainer: Color(0xFFFFFFFF),
     onPrimaryContainer: Color(0xFF000000),
   ),
-  elevatedButtonTheme: const ElevatedButtonThemeData(
-    style: ButtonStyle(
-      backgroundColor: WidgetStatePropertyAll(Color(0xFED2161D)),
-      foregroundColor: WidgetStatePropertyAll(Color(0xFFFFFFFF)),
-      shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8)))),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: const Color(0xFED2161D),
+      foregroundColor: const Color(0xFFFFFFFF),
+      disabledBackgroundColor: const Color(0xFFBDBDBD),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
     ),
   ),
   textTheme: const TextTheme(

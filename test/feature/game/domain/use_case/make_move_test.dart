@@ -18,9 +18,9 @@ void main() {
 
       final Game currentGame = Game.fromDto(savedGameWithOngoing[1]);
 
-      await MakeMove().call(index: 1, playerIndex: 0, repository: repository, game: currentGame);
+      await const MakeMove().call(index: 1, playerIndex: 0, repository: repository, game: currentGame);
 
-      final Game? updated = await repository.getCurrentGame();
+      final Game? updated = await repository.getOngoingGame();
       expect(updated?.cells[1].state, CellState.player1);
       expect(updated?.status, GameStatus.ongoing);
     });
@@ -32,9 +32,9 @@ void main() {
 
       final Game currentGame = Game.fromDto(savedGameWithOngoing[1]);
 
-      await MakeMove().call(index: 0, playerIndex: 0, repository: repository, game: currentGame);
+      await const MakeMove().call(index: 0, playerIndex: 0, repository: repository, game: currentGame);
 
-      final Game? updated = await repository.getCurrentGame();
+      final Game? updated = await repository.getOngoingGame();
       expect(updated?.cells[0].state, CellState.player1);
       expect(updated?.cells.where((cell) => cell.state == CellState.player1).length, 1);
       expect(updated?.cells.where((cell) => cell.state == CellState.player2).length, 1);
@@ -49,7 +49,7 @@ void main() {
 
       final Game currentGame = Game.fromDto(savedGameWithAGameAlmostWon[0]);
 
-      await MakeMove().call(index: 0, playerIndex: 0, repository: repository, game: currentGame);
+      await const MakeMove().call(index: 0, playerIndex: 0, repository: repository, game: currentGame);
 
       final Game? updated = await repository.getGame(gameId: currentGame.id);
       expect(updated?.cells[0].state, CellState.player1);
@@ -64,7 +64,7 @@ void main() {
 
       final Game currentGame = Game.fromDto(savedGameWithAGameAlmostDrawn[0]);
 
-      await MakeMove().call(index: 0, playerIndex: 0, repository: repository, game: currentGame);
+      await const MakeMove().call(index: 0, playerIndex: 0, repository: repository, game: currentGame);
 
       final Game? updated = await repository.getGame(gameId: currentGame.id);
 

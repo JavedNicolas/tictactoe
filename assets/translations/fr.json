@@ -2,7 +2,8 @@
   "pages" : {
     "game_home" : {
       "buttons" : {
-        "start" : "Démarrer une partie"
+        "start" : "Démarrer une partie",
+        "continue" : "Continuer la partie"
       },
       "title" : "Morpion",
       "description" : "Bienvenue dans le jeu de morpion ! Cliquez sur le bouton ci-dessous pour commencer une nouvelle partie et jouer contre un adversaire AI. Amusez-vous bien !"

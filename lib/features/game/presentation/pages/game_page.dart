@@ -7,7 +7,7 @@ import 'package:tictactoe/shared/constant.dart';
 import 'package:tictactoe/shared/presentation/widgets/custom_button.dart';
 import 'package:tictactoe/shared/presentation/widgets/custom_scaffold.dart';
 import 'package:tictactoe/features/game/domain/entity/game.dart';
-import 'package:tictactoe/features/game/presentation/provider/current_game_notifier.dart';
+import 'package:tictactoe/features/game/presentation/provider/game_notifier.dart';
 import 'package:tictactoe/features/game/presentation/widgets/cell_state_displayer.dart';
 
 @RoutePage()
@@ -16,7 +16,7 @@ class GamePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final Game gameState = ref.watch(currentGameNotifierProvider);
+    final Game gameState = ref.watch(gameNotifierProvider);
 
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -44,7 +44,7 @@ class GamePage extends HookConsumerWidget {
 
                 return InkWell(
                   onTap: () {
-                    ref.watch(currentGameNotifierProvider.notifier).makeMove(index: index, playerIndex: 0);
+                    ref.watch(gameNotifierProvider.notifier).makeMove(index: index, playerIndex: 0);
                   },
                   child: DecoratedBox(
                     decoration: BoxDecoration(
@@ -69,14 +69,14 @@ class GamePage extends HookConsumerWidget {
           if (gameState.isCompleted)
             CustomButton(
               onPressed: () {
-                ref.watch(currentGameNotifierProvider.notifier).startNewGame();
+                ref.watch(gameNotifierProvider.notifier).startNewGame();
               },
               text: context.tr('pages.game.buttons.restart'),
             ),
           if (gameState.isOngoing)
             CustomButton(
               onPressed: () {
-                ref.watch(currentGameNotifierProvider.notifier).giveUpGame();
+                ref.watch(gameNotifierProvider.notifier).giveUpGame();
                 Navigator.of(context).pop();
               },
               text: context.tr('pages.game.buttons.give_up'),

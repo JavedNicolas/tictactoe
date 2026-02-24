@@ -15,10 +15,10 @@ void main() {
       final GameStateRepositoryImpl repository =
           GameStateRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
 
-      await StartNewGame().call(repository: repository);
+      await const StartNewGame().call(repository: repository);
 
       final List<Game> games = await repository.loadSavedGames();
-      final Game? created = await repository.getCurrentGame();
+      final Game? created = await repository.getOngoingGame();
 
       expect(games.length, 1);
       expect(created?.status, GameStatus.ongoing);

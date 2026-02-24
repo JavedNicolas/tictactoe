@@ -35,7 +35,7 @@ class GameStateRepositoryImpl implements GameRepository {
   }
 
   @override
-  Future<Game?> getCurrentGame() async {
+  Future<Game?> getOngoingGame() async {
     final List<Game> savedGames = await loadSavedGames();
     if (savedGames.isEmpty) {
       throw Exception('No saved games found');

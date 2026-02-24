@@ -3,16 +3,16 @@ import 'package:tictactoe/features/game/domain/entity/game.dart';
 import 'package:tictactoe/features/game/domain/repository/game_repository.dart';
 import 'package:tictactoe/features/game/domain/use_case/give_up_game.dart';
 import 'package:tictactoe/features/game/domain/use_case/make_move.dart';
-import 'package:tictactoe/features/game/domain/use_case/start_new_game.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:tictactoe/features/game/domain/use_case/start_new_game.dart';
 
-part 'current_game_notifier.g.dart';
+part 'game_notifier.g.dart';
 
-@riverpod
-class CurrentGameNotifier extends _$CurrentGameNotifier {
-  final StartNewGame _startNewGame = StartNewGame();
-  final MakeMove _makeMove = MakeMove();
-  final GiveUpGame _giveUpGame = GiveUpGame();
+@Riverpod(keepAlive: true)
+class GameNotifier extends _$GameNotifier {
+  final StartNewGame _startNewGame = const StartNewGame();
+  final MakeMove _makeMove = const MakeMove();
+  final GiveUpGame _giveUpGame = const GiveUpGame();
 
   @override
   Game build() {
@@ -23,8 +23,9 @@ class CurrentGameNotifier extends _$CurrentGameNotifier {
     final GameRepository repository = ref.read(gameRepositoryProvider);
     await _startNewGame.call(repository: repository);
 
-    final Game newGame = (await repository.getCurrentGame()) ?? Game.initial();
-    state = newGame;
+    final Game? game = await repository.getOngoingGame();
+
+    state = game!;
   }
 
   Future<void> makeMove({required int index, required int playerIndex}) async {

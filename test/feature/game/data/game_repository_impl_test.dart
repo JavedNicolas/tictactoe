@@ -32,7 +32,7 @@ void main() {
     final GameStateRepositoryImpl repository =
         GameStateRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
 
-    final Game? current = await repository.getCurrentGame();
+    final Game? current = await repository.getOngoingGame();
 
     expect(current?.id, 'game-2');
     expect(current?.status, GameStatus.ongoing);
@@ -45,7 +45,7 @@ void main() {
     final GameStateRepositoryImpl repository =
         GameStateRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
 
-    final Game? current = await repository.getCurrentGame();
+    final Game? current = await repository.getOngoingGame();
 
     expect(current, isNull);
   });
@@ -60,7 +60,7 @@ void main() {
 
     final Game game = Game.fromDto(savedGameWithOngoing[1]).updateCell(index: 1, playerIndex: 0);
     await repository.updateCurrentGame(game: game);
-    final Game? updated = await repository.getCurrentGame();
+    final Game? updated = await repository.getOngoingGame();
 
     expect(updated?.id, 'game-2');
     expect(updated?.status, GameStatus.ongoing);
@@ -73,6 +73,6 @@ void main() {
     final GameStateRepositoryImpl repository =
         GameStateRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
 
-    await expectLater(repository.getCurrentGame(), throwsException);
+    await expectLater(repository.getOngoingGame(), throwsException);
   });
 }
