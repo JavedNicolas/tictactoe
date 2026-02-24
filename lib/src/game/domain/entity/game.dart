@@ -32,6 +32,7 @@ class Game {
   final GameStatus status;
 
   bool get isCompleted => !status.isOngoing;
+  bool get isOngoing => status.isOngoing;
 
   Game copyWith({List<Cell>? cells, GameStatus? status}) {
     return Game(id: id, date: date, cells: cells ?? this.cells, status: status ?? this.status);

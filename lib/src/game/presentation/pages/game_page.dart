@@ -63,20 +63,35 @@ class GamePage extends HookConsumerWidget {
           ),
         ],
       ),
-      bottomNavigationBar: gameState.isCompleted
-          ? CustomButton(
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (gameState.isCompleted)
+            CustomButton(
               onPressed: () {
                 ref.watch(currentGameNotifierProvider.notifier).startNewGame();
               },
               text: context.tr('pages.game.buttons.restart'),
-            )
-          : CustomButton(
+            ),
+          if (gameState.isOngoing)
+            CustomButton(
               onPressed: () {
                 ref.watch(currentGameNotifierProvider.notifier).giveUpGame();
                 Navigator.of(context).pop();
               },
               text: context.tr('pages.game.buttons.give_up'),
             ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text(
+              context.tr('pages.game.buttons.back'),
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -16,7 +16,8 @@
       },
       "buttons" : {
         "restart" : "Rejouer",
-        "give_up" : "Abandonner"
+        "give_up" : "Abandonner",
+        "back" : "Retour à l'accueil"
       }
     }
   }
