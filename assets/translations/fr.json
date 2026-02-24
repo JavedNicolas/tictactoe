@@ -1,1 +1,24 @@
-{}
+{
+  "pages" : {
+    "game_home" : {
+      "buttons" : {
+        "start" : "Démarrer une partie"
+      },
+      "title" : "Morpion",
+      "description" : "Bienvenue dans le jeu de morpion ! Cliquez sur le bouton ci-dessous pour commencer une nouvelle partie et jouer contre un adversaire AI. Amusez-vous bien !"
+    },
+    "game" : {
+      "status" : {
+        "ongoing" : "En cours",
+        "player1Win" : "Joueur 1 gagne",
+        "player2Win" : "Joueur 2 gagne",
+        "draw" : "Match nul"
+      },
+      "buttons" : {
+        "restart" : "Rejouer",
+        "give_up" : "Abandonner",
+        "back" : "Retour à l'accueil"
+      }
+    }
+  }
+}
