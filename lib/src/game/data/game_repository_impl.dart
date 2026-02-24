@@ -1,3 +1,4 @@
+import 'package:tictactoe/shared/extensions/list_extension.dart';
 import 'package:tictactoe/src/game/data/datasource/local_datasource.dart';
 import 'package:tictactoe/src/game/data/dto/game_dto.dart';
 import 'package:tictactoe/src/game/domain/entity/game.dart';
@@ -16,19 +17,19 @@ class GameStateRepositoryImpl implements GameRepository {
   }
 
   @override
-  Future<void> updateCurrentGameState({required Game game}) async {
+  Future<void> updateCurrentGame({required Game game}) async {
     final GameDto gameStateDtos = GameDto.fromGameState(game);
 
-    await _datasource.updateGameState(gameState: gameStateDtos);
+    await _datasource.updateGameDto(gameDto: gameStateDtos);
   }
 
   @override
-  Future<Game> getCurrentGameState() async {
+  Future<Game?> getCurrentGame() async {
     final List<Game> savedGames = await loadSavedGames();
     if (savedGames.isEmpty) {
       throw Exception('No saved games found');
     }
 
-    return savedGames.firstWhere((game) => !game.isCompleted, orElse: () => savedGames.last);
+    return savedGames.firstWhereOrNull((game) => !game.isCompleted);
   }
 }

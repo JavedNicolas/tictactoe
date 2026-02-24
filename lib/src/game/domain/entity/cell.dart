@@ -10,10 +10,10 @@ class Cell {
   bool get isNotEmpty => !isEmpty;
 
   Cell updateStateFromPlayerIndex({required int? playerIndex}) {
-    return copyWith(state: CellState.fromPlayerIndex(playerIndex));
+    return _copyWith(state: CellState.fromPlayerIndex(playerIndex));
   }
 
-  Cell copyWith({CellState? state}) {
+  Cell _copyWith({CellState? state}) {
     return Cell(index: index, state: state ?? this.state);
   }
 }

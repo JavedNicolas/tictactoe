@@ -10,7 +10,7 @@ enum CellState {
   }
 
   factory CellState.fromPlayerIndex(int? playerIndex) {
-    if (playerIndex == null) {
+    if (playerIndex == null || playerIndex >= 2 || playerIndex < 0) {
       return CellState.empty;
     }
 

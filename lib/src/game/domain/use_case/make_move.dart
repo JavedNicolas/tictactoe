@@ -13,16 +13,13 @@ class MakeMove {
     required GameRepository repository,
     required Game game,
   }) async {
-    final List<Cell> updatedCells = List.from(game.cells);
-    updatedCells[index] = updatedCells[index].updateStateFromPlayerIndex(playerIndex: playerIndex);
-    final GameStatus status = _checkGameCompletion(updatedCells);
+    final Game updatedGame = game.updateCell(index: index, playerIndex: playerIndex);
+    final GameStatus status = _checkGameCompletion(updatedGame.cells);
 
-    final Game updatedGame = Game(id: game.id, date: DateTime.now(), cells: updatedCells, status: status);
-
-    await repository.updateCurrentGameState(game: updatedGame);
+    await repository.updateCurrentGame(game: updatedGame.updateStatus(status));
 
     if (!updatedGame.isCompleted && playerIndex == 0) {
-      await call(index: _getAiMoveIndex(updatedCells), playerIndex: 1, repository: repository, game: updatedGame);
+      await call(index: _getAiMoveIndex(updatedGame.cells), playerIndex: 1, repository: repository, game: updatedGame);
     }
   }
 

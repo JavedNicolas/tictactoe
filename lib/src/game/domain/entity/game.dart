@@ -34,7 +34,22 @@ class Game {
   bool get isCompleted => !status.isOngoing;
   bool get isOngoing => status.isOngoing;
 
-  Game copyWith({List<Cell>? cells, GameStatus? status}) {
+  Game updateCell({required int index, required int? playerIndex}) {
+    final List<Cell> updatedCells = List<Cell>.from(cells);
+    updatedCells[index] = updatedCells[index].updateStateFromPlayerIndex(playerIndex: playerIndex);
+
+    return _copyWith(cells: updatedCells);
+  }
+
+  Game updateStatus(GameStatus newStatus) {
+    return _copyWith(status: newStatus);
+  }
+
+  Game abandon() {
+    return _copyWith(status: GameStatus.abandoned);
+  }
+
+  Game _copyWith({List<Cell>? cells, GameStatus? status}) {
     return Game(id: id, date: date, cells: cells ?? this.cells, status: status ?? this.status);
   }
 }

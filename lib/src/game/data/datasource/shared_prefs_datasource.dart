@@ -22,9 +22,9 @@ class SharedPrefsDatasource extends LocalDatasource {
   }
 
   @override
-  Future<void> updateGameState({required GameDto gameState}) async {
+  Future<void> updateGameDto({required GameDto gameDto}) async {
     final List<GameDto> savedGames = await loadSavedGames();
-    final List<GameDto> updatedGames = [...savedGames.where((game) => game.id != gameState.id), gameState];
+    final List<GameDto> updatedGames = [...savedGames.where((game) => game.id != gameDto.id), gameDto];
 
     await _saveGames(games: updatedGames);
   }

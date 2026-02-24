@@ -23,7 +23,7 @@ class CurrentGameNotifier extends _$CurrentGameNotifier {
     final GameRepository repository = ref.read(gameStateRepositoryProvider);
     await _startNewGame.call(repository: repository);
 
-    final Game newGame = await repository.getCurrentGameState();
+    final Game newGame = (await repository.getCurrentGame()) ?? Game.initial();
     state = newGame;
   }
 
@@ -31,7 +31,8 @@ class CurrentGameNotifier extends _$CurrentGameNotifier {
     final GameRepository repository = ref.read(gameStateRepositoryProvider);
     await _makeMove.call(game: state, index: index, playerIndex: playerIndex, repository: repository);
 
-    final Game updatedGame = await repository.getCurrentGameState();
+    final Game updatedGame = (await repository.getCurrentGame())!;
+
     state = updatedGame;
   }
 

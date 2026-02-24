@@ -3,6 +3,6 @@ import 'package:tictactoe/src/game/domain/repository/game_repository.dart';
 
 class StartNewGame {
   Future<void> call({required GameRepository repository}) async {
-    await repository.updateCurrentGameState(game: Game.initial());
+    await repository.updateCurrentGame(game: Game.initial());
   }
 }

@@ -7,7 +7,7 @@ part of 'current_game_notifier.dart';
 // **************************************************************************
 
 String _$currentGameNotifierHash() =>
-    r'98c026b3caee6d3b6a8b84bbd54c485892c8cbe5';
+    r'2c8310064a94555dfa55616010f13b2ade23482b';
 
 /// See also [CurrentGameNotifier].
 @ProviderFor(CurrentGameNotifier)
