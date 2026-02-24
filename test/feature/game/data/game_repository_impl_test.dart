@@ -1,18 +1,20 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tictactoe/src/game/data/game_repository_impl.dart';
-import 'package:tictactoe/src/game/domain/entity/cell_state.dart';
-import 'package:tictactoe/src/game/domain/entity/game.dart';
-import 'package:tictactoe/src/game/domain/entity/game_status.dart';
+import 'package:tictactoe/features/game/data/datasource/game_datasource.dart';
+import 'package:tictactoe/features/game/data/game_repository_impl.dart';
+import 'package:tictactoe/features/game/domain/entity/cell_state.dart';
+import 'package:tictactoe/features/game/domain/entity/game.dart';
+import 'package:tictactoe/features/game/domain/entity/game_status.dart';
 
-import 'fake/fake_local_datasource.dart';
+import 'fake/fake_local_datasource_service.dart';
 import 'mocked_games_dto.dart';
 
 void main() {
   test('given there is saved games when loadSavedGames is called then we get those games', () async {
-    final FakeLocalDatasource datasource = FakeLocalDatasource(
+    final FakeLocalDatasourceService datasource = FakeLocalDatasourceService(
       savedGames: savedGameWithOngoing,
     );
-    final GameStateRepositoryImpl repository = GameStateRepositoryImpl(datasource: datasource);
+    final GameStateRepositoryImpl repository =
+        GameStateRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
 
     final List<Game> games = await repository.loadSavedGames();
 
@@ -24,10 +26,11 @@ void main() {
   });
 
   test('given there is an ongoing game when getCurrentGameState is called then it returns the ongoing game', () async {
-    final FakeLocalDatasource datasource = FakeLocalDatasource(
+    final FakeLocalDatasourceService datasource = FakeLocalDatasourceService(
       savedGames: savedGameWithOngoing,
     );
-    final GameStateRepositoryImpl repository = GameStateRepositoryImpl(datasource: datasource);
+    final GameStateRepositoryImpl repository =
+        GameStateRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
 
     final Game? current = await repository.getCurrentGame();
 
@@ -36,10 +39,11 @@ void main() {
   });
 
   test('given only completed games when getCurrentGame is called then it returns null', () async {
-    final FakeLocalDatasource datasource = FakeLocalDatasource(
+    final FakeLocalDatasourceService datasource = FakeLocalDatasourceService(
       savedGames: saveGameOnlyCompleted,
     );
-    final GameStateRepositoryImpl repository = GameStateRepositoryImpl(datasource: datasource);
+    final GameStateRepositoryImpl repository =
+        GameStateRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
 
     final Game? current = await repository.getCurrentGame();
 
@@ -48,10 +52,11 @@ void main() {
 
   test('given there is a game ongoing when updateCurrentGame is called then datasource update the correct game',
       () async {
-    final FakeLocalDatasource datasource = FakeLocalDatasource(
+    final FakeLocalDatasourceService datasource = FakeLocalDatasourceService(
       savedGames: savedGameWithOngoing,
     );
-    final GameStateRepositoryImpl repository = GameStateRepositoryImpl(datasource: datasource);
+    final GameStateRepositoryImpl repository =
+        GameStateRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
 
     final Game game = Game.fromDto(savedGameWithOngoing[1]).updateCell(index: 1, playerIndex: 0);
     await repository.updateCurrentGame(game: game);
@@ -64,8 +69,9 @@ void main() {
 
   // TODO : use either
   test('given no saved games when getCurrentGameState is called then it throws', () async {
-    final FakeLocalDatasource datasource = FakeLocalDatasource(savedGames: []);
-    final GameStateRepositoryImpl repository = GameStateRepositoryImpl(datasource: datasource);
+    final FakeLocalDatasourceService datasource = FakeLocalDatasourceService(savedGames: []);
+    final GameStateRepositoryImpl repository =
+        GameStateRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
 
     await expectLater(repository.getCurrentGame(), throwsException);
   });

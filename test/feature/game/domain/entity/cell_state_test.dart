@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tictactoe/src/game/domain/entity/cell_state.dart';
+import 'package:tictactoe/features/game/domain/entity/cell_state.dart';
 
 void main() {
   group('CellState', () {

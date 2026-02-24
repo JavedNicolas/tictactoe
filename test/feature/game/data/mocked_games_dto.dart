@@ -1,5 +1,5 @@
-import 'package:tictactoe/src/game/data/dto/cell_dto.dart';
-import 'package:tictactoe/src/game/data/dto/game_dto.dart';
+import 'package:tictactoe/features/game/data/dto/cell_dto.dart';
+import 'package:tictactoe/features/game/data/dto/game_dto.dart';
 
 final List<GameDto> savedGameWithAGameAlmostWon = <GameDto>[
   const GameDto(

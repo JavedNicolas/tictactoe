@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tictactoe/shared/constant.dart';
-import 'package:tictactoe/src/game/data/dto/cell_dto.dart';
-import 'package:tictactoe/src/game/data/dto/game_dto.dart';
-import 'package:tictactoe/src/game/domain/entity/cell_state.dart';
-import 'package:tictactoe/src/game/domain/entity/game.dart';
-import 'package:tictactoe/src/game/domain/entity/game_status.dart';
+import 'package:tictactoe/features/game/data/dto/cell_dto.dart';
+import 'package:tictactoe/features/game/data/dto/game_dto.dart';
+import 'package:tictactoe/features/game/domain/entity/cell_state.dart';
+import 'package:tictactoe/features/game/domain/entity/game.dart';
+import 'package:tictactoe/features/game/domain/entity/game_status.dart';
 
 void main() {
   group('Game', () {
