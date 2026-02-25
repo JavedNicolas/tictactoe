@@ -10,9 +10,9 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i4;
-import 'package:tictactoe/features/game/presentation/pages/game_page.dart'
+import 'package:tictactoe/features/game/presentation/page/game_page.dart'
     as _i2;
-import 'package:tictactoe/features/game_history/presentation/pages/game_history_page.dart'
+import 'package:tictactoe/features/game_history/presentation/page/game_history_page.dart'
     as _i1;
 import 'package:tictactoe/features/home/presentation/pages/home_page.dart'
     as _i3;

@@ -5,8 +5,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tictactoe/features/home/presentation/provider/home_page_notifier.dart';
 import 'package:tictactoe/features/home/presentation/provider/home_state.dart';
 import 'package:tictactoe/shared/router/app_router.gr.dart';
-import 'package:tictactoe/shared/presentation/widgets/custom_button.dart';
-import 'package:tictactoe/shared/presentation/widgets/custom_scaffold.dart';
+import 'package:tictactoe/shared/presentation/widget/custom_button.dart';
+import 'package:tictactoe/shared/presentation/widget/custom_scaffold.dart';
 
 @RoutePage()
 class HomePage extends HookConsumerWidget {

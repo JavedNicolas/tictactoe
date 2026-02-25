@@ -22,6 +22,6 @@ class GameHistoryRepositoryImpl implements GameHistoryRepository {
   Future<List<Game>> getGameHistory() async {
     final List<GameDto> games = await _datasource.loadSavedGames();
 
-    return games.map((gameDto) => Game.fromDto(gameDto)).toList();
+    return games.map((gameDto) => Game.fromDto(gameDto)).toList().reversed.toList();
   }
 }

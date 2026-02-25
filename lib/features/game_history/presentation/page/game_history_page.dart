@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tictactoe/features/game_history/presentation/provider/game_history_notifier.dart';
 import 'package:tictactoe/features/game_history/presentation/provider/game_history_state.dart';
+import 'package:tictactoe/features/game_history/presentation/widget/game_history_tile.dart';
 
 @RoutePage()
 class GameHistoryPage extends HookConsumerWidget {
@@ -36,13 +37,10 @@ class GameHistoryPage extends HookConsumerWidget {
             }
 
             return ListView.builder(
+              padding: const EdgeInsets.symmetric(vertical: 8),
               itemCount: state.games.length,
               itemBuilder: (context, index) {
-                final game = state.games[index];
-                return ListTile(
-                  title: Text('Status: ${game.status.name}'),
-                  subtitle: Text('Played at: ${game.date}'),
-                );
+                return GameHistoryTile(game: state.games[index]);
               },
             );
         }

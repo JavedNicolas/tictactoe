@@ -10,6 +10,8 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
     if (isLoading) {
       return const ElevatedButton(
         onPressed: null,
@@ -27,7 +29,7 @@ class CustomButton extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           if (icon != null) Padding(padding: const EdgeInsets.only(right: 8), child: Icon(icon, size: 20)),
-          Text(text, style: const TextStyle(fontSize: 16)),
+          Text(text, style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onPrimary)),
         ],
       ),
     );
