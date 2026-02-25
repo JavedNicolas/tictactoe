@@ -8,26 +8,20 @@ part 'home_page_notifier.g.dart';
 
 @Riverpod(keepAlive: true)
 class HomePageNotifier extends _$HomePageNotifier {
-  final HasOngoingGame _hasOngoingGame = const HasOngoingGame();
+  late final HasOngoingGame _hasOngoingGame;
 
   @override
   HomeState build() {
     final GameRepository repository = ref.read(gameRepositoryProvider);
-    _hasOngoingGame.call(repository: repository).then((hasOngoingGame) {
-      state = HomeState(
+    _hasOngoingGame = HasOngoingGame(repository: repository);
+
+    _hasOngoingGame.call().listen((hasOngoingGame) {
+      state = state.copyWith(
         hasOngoingGame: hasOngoingGame,
         status: HomeStatus.loaded,
       );
-    }).catchError((error) {
-      state = HomeState(
-        hasOngoingGame: false,
-        status: HomeStatus.error,
-      );
     });
 
-    return HomeState(
-      hasOngoingGame: false,
-      status: HomeStatus.loading,
-    );
+    return HomeState.initial();
   }
 }

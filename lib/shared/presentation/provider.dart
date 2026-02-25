@@ -7,7 +7,7 @@ part 'provider.g.dart';
 
 @Riverpod(keepAlive: true)
 LocalDatabaseService localDatabaseService(Ref ref) {
-  final service = SharedPrefService();
+  final SharedPrefService service = SharedPrefService();
   service.init();
 
   return service;

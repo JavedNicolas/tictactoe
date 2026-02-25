@@ -2,11 +2,13 @@ import 'package:tictactoe/features/game/domain/entity/game.dart';
 import 'package:tictactoe/features/game/domain/repository/game_repository.dart';
 
 class GiveUpGame {
-  const GiveUpGame();
+  const GiveUpGame({required this.repository});
 
-  Future<void> call({required Game game, required GameRepository gameRepository}) async {
+  final GameRepository repository;
+
+  Future<void> call({required Game game}) async {
     final Game updatedGame = game.abandon();
 
-    await gameRepository.updateCurrentGame(game: updatedGame);
+    await repository.updateGame(game: updatedGame);
   }
 }

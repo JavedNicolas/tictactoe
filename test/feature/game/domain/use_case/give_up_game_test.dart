@@ -20,7 +20,7 @@ void main() {
           GameStateRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
 
       final Game currentGame = Game.fromDto(savedGameWithOngoing[1]);
-      await const GiveUpGame().call(game: currentGame, gameRepository: repository);
+      await GiveUpGame(repository: repository).call(game: currentGame);
 
       final Game? ongoingGame = await repository.getOngoingGame();
       final GameDto abandonedGame = datasource.games.firstWhere((game) => game.id == currentGame.id);

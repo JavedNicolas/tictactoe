@@ -21,6 +21,11 @@ class GameStateRepositoryImpl implements GameRepository {
   final GameDatasource _datasource;
 
   @override
+  Stream<List<Game>> listenToGames() {
+    return _datasource.subscribeToGameDtosStream().map((gameDtos) => gameDtos.map((dto) => Game.fromDto(dto)).toList());
+  }
+
+  @override
   Future<List<Game>> loadSavedGames() async {
     final List<GameDto> gameStateDtos = await _datasource.loadSavedGames();
 
@@ -28,18 +33,8 @@ class GameStateRepositoryImpl implements GameRepository {
   }
 
   @override
-  Future<void> updateCurrentGame({required Game game}) async {
-    final GameDto gameStateDtos = GameDto.fromGameState(game);
-
-    await _datasource.updateGameDto(gameDto: gameStateDtos);
-  }
-
-  @override
   Future<Game?> getOngoingGame() async {
     final List<Game> savedGames = await loadSavedGames();
-    if (savedGames.isEmpty) {
-      throw Exception('No saved games found');
-    }
 
     return savedGames.firstWhereOrNull((game) => !game.isCompleted);
   }
@@ -52,5 +47,17 @@ class GameStateRepositoryImpl implements GameRepository {
     }
 
     return savedGames.firstWhereOrNull((game) => game.id == gameId);
+  }
+
+  @override
+  Future<void> updateGame({required Game game}) async {
+    final GameDto gameStateDtos = GameDto.fromGameState(game);
+
+    await _datasource.updateGameDto(gameDto: gameStateDtos);
+  }
+
+  @override
+  void dispose() {
+    _datasource.dispose();
   }
 }

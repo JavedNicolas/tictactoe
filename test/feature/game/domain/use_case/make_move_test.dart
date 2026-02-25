@@ -18,7 +18,7 @@ void main() {
 
       final Game currentGame = Game.fromDto(savedGameWithOngoing[1]);
 
-      await const MakeMove().call(index: 1, playerIndex: 0, repository: repository, game: currentGame);
+      await MakeMove(repository: repository).call(index: 1, playerIndex: 0, game: currentGame);
 
       final Game? updated = await repository.getOngoingGame();
       expect(updated?.cells[1].state, CellState.player1);
@@ -32,7 +32,7 @@ void main() {
 
       final Game currentGame = Game.fromDto(savedGameWithOngoing[1]);
 
-      await const MakeMove().call(index: 0, playerIndex: 0, repository: repository, game: currentGame);
+      await MakeMove(repository: repository).call(index: 0, playerIndex: 0, game: currentGame);
 
       final Game? updated = await repository.getOngoingGame();
       expect(updated?.cells[0].state, CellState.player1);
@@ -49,7 +49,7 @@ void main() {
 
       final Game currentGame = Game.fromDto(savedGameWithAGameAlmostWon[0]);
 
-      await const MakeMove().call(index: 0, playerIndex: 0, repository: repository, game: currentGame);
+      await MakeMove(repository: repository).call(index: 0, playerIndex: 0, game: currentGame);
 
       final Game? updated = await repository.getGame(gameId: currentGame.id);
       expect(updated?.cells[0].state, CellState.player1);
@@ -64,7 +64,7 @@ void main() {
 
       final Game currentGame = Game.fromDto(savedGameWithAGameAlmostDrawn[0]);
 
-      await const MakeMove().call(index: 0, playerIndex: 0, repository: repository, game: currentGame);
+      await MakeMove(repository: repository).call(index: 0, playerIndex: 0, game: currentGame);
 
       final Game? updated = await repository.getGame(gameId: currentGame.id);
 
