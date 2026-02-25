@@ -9,6 +9,7 @@ part 'game_history_notifier.g.dart';
 @Riverpod()
 class GameHistoryNotifier extends _$GameHistoryNotifier {
   late final GetGameHistory _getGameHistory;
+
   @override
   GameHistoryState build() {
     final GameHistoryRepository repository = ref.watch(gameHistoryRepositoryProvider);

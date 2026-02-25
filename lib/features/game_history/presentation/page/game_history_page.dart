@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tictactoe/features/game_history/presentation/provider/game_history_notifier.dart';
 import 'package:tictactoe/features/game_history/presentation/provider/game_history_state.dart';
 import 'package:tictactoe/features/game_history/presentation/widget/game_history_tile.dart';
+import 'package:tictactoe/shared/presentation/widget/loading_widget.dart';
 
 @RoutePage()
 class GameHistoryPage extends ConsumerWidget {
@@ -22,7 +23,7 @@ class GameHistoryPage extends ConsumerWidget {
           case GameHistoryStatus.error:
             return const Center(child: Text('Failed to load game history'));
           case GameHistoryStatus.loading:
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: LoadingWidget());
           case GameHistoryStatus.loaded:
             if (state.games.isEmpty) {
               return const Center(child: Text('No games found'));

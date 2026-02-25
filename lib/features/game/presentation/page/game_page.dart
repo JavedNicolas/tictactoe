@@ -9,6 +9,7 @@ import 'package:tictactoe/features/game/presentation/widget/tic_tac_toe_grid.dar
 import 'package:tictactoe/shared/presentation/widget/custom_button.dart';
 import 'package:tictactoe/shared/presentation/widget/custom_scaffold.dart';
 import 'package:tictactoe/features/game/presentation/provider/game_notifier.dart';
+import 'package:tictactoe/shared/presentation/widget/loading_widget.dart';
 
 @RoutePage()
 class GamePage extends HookConsumerWidget {
@@ -32,9 +33,7 @@ class GamePage extends HookConsumerWidget {
     }, [currentGame]);
 
     if (gameState.isLoading) {
-      return const CustomScaffold(
-        body: Center(child: CircularProgressIndicator()),
-      );
+      return const CustomScaffold(body: Center(child: LoadingWidget()));
     }
 
     return CustomScaffold(
