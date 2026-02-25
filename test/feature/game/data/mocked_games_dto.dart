@@ -98,3 +98,54 @@ final List<GameDto> saveGameOnlyCompleted = <GameDto>[
     status: 'player2Win',
   ),
 ];
+
+final List<GameDto> threeSavedGame = [
+  const GameDto(
+    id: 'game-1',
+    date: 1700000005000,
+    cells: <CellDto>[
+      CellDto(index: 0, state: 'player1'),
+      CellDto(index: 1, state: 'player1'),
+      CellDto(index: 2, state: 'player2'),
+      CellDto(index: 3, state: 'player2'),
+      CellDto(index: 4, state: 'player2'),
+      CellDto(index: 5, state: 'player1'),
+      CellDto(index: 6, state: 'player1'),
+      CellDto(index: 7, state: 'player2'),
+      CellDto(index: 8, state: 'player2'),
+    ],
+    status: 'draw',
+  ),
+  const GameDto(
+    id: 'game-2',
+    date: 1700000006000,
+    cells: <CellDto>[
+      CellDto(index: 0, state: 'player1'),
+      CellDto(index: 1, state: 'player1'),
+      CellDto(index: 2, state: 'player2'),
+      CellDto(index: 3, state: 'player2'),
+      CellDto(index: 4, state: 'player2'),
+      CellDto(index: 5, state: 'player2'),
+      CellDto(index: 6, state: 'player1'),
+      CellDto(index: 7, state: 'empty'),
+      CellDto(index: 8, state: 'empty'),
+    ],
+    status: 'player2Win',
+  ),
+  const GameDto(
+    id: 'game-3',
+    date: 1700000005000,
+    cells: <CellDto>[
+      CellDto(index: 0, state: 'player1'),
+      CellDto(index: 1, state: 'player1'),
+      CellDto(index: 2, state: 'player2'),
+      CellDto(index: 3, state: 'player2'),
+      CellDto(index: 4, state: 'player2'),
+      CellDto(index: 5, state: 'player1'),
+      CellDto(index: 6, state: 'player1'),
+      CellDto(index: 7, state: 'player2'),
+      CellDto(index: 8, state: 'player2'),
+    ],
+    status: 'draw',
+  ),
+];
