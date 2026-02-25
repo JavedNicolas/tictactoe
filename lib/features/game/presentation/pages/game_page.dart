@@ -3,10 +3,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tictactoe/features/game/domain/entity/game.dart';
+import 'package:tictactoe/features/game/presentation/provider/game_state.dart';
 import 'package:tictactoe/shared/constant.dart';
 import 'package:tictactoe/shared/presentation/widgets/custom_button.dart';
 import 'package:tictactoe/shared/presentation/widgets/custom_scaffold.dart';
-import 'package:tictactoe/features/game/domain/entity/game.dart';
 import 'package:tictactoe/features/game/presentation/provider/game_notifier.dart';
 import 'package:tictactoe/features/game/presentation/widgets/cell_state_displayer.dart';
 
@@ -16,19 +17,26 @@ class GamePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final Game gameState = ref.watch(gameNotifierProvider);
+    final GameState gameState = ref.watch(gameNotifierProvider);
+    final Game currentGame = gameState.currentGame;
 
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (gameState.isCompleted) {
+        if (currentGame.isCompleted) {
           ScaffoldMessenger.of(
             context,
-          ).showSnackBar(SnackBar(content: Text('Game completed with status: ${gameState.status.name}')));
+          ).showSnackBar(SnackBar(content: Text('Game completed with status: ${currentGame.status.name}')));
         }
       });
 
       return null;
-    }, [gameState.status]);
+    }, [currentGame]);
+
+    if (gameState.isLoading) {
+      return const CustomScaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
 
     return CustomScaffold(
       body: Column(
@@ -37,7 +45,7 @@ class GamePage extends HookConsumerWidget {
             aspectRatio: 1,
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: kTicTacToeSize),
-              itemCount: gameState.cells.length,
+              itemCount: currentGame.cells.length,
               itemBuilder: (context, index) {
                 final int column = (index) % kTicTacToeSize;
                 final int row = (index / kTicTacToeSize).floor();
@@ -55,7 +63,7 @@ class GamePage extends HookConsumerWidget {
                         bottom: const BorderSide(color: Colors.black),
                       ),
                     ),
-                    child: Center(child: CellStateDisplayer(cellState: gameState.cells[index].state)),
+                    child: Center(child: CellStateDisplayer(cellState: currentGame.cells[index].state)),
                   ),
                 );
               },
@@ -66,14 +74,14 @@ class GamePage extends HookConsumerWidget {
       bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (gameState.isCompleted)
+          if (currentGame.isCompleted)
             CustomButton(
               onPressed: () {
                 ref.watch(gameNotifierProvider.notifier).startNewGame();
               },
               text: context.tr('pages.game.buttons.restart'),
             ),
-          if (gameState.isOngoing)
+          if (currentGame.isOngoing)
             CustomButton(
               onPressed: () {
                 ref.watch(gameNotifierProvider.notifier).giveUpGame();

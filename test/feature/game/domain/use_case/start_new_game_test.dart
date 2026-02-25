@@ -12,10 +12,10 @@ void main() {
   group('StartNewGame', () {
     test('given a repository when StartNewGame is called then it saves a fresh ongoing game', () async {
       final FakeLocalDatasourceService datasource = FakeLocalDatasourceService(savedGames: []);
-      final GameStateRepositoryImpl repository =
-          GameStateRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
+      final GameRepositoryImpl repository =
+          GameRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
 
-      await const StartNewGame().call(repository: repository);
+      await StartNewGame(repository: repository).call();
 
       final List<Game> games = await repository.loadSavedGames();
       final Game? created = await repository.getOngoingGame();

@@ -7,21 +7,22 @@ import 'package:tictactoe/features/game/domain/entity/game_status.dart';
 import 'package:tictactoe/features/game/domain/repository/game_repository.dart';
 
 class MakeMove {
-  const MakeMove();
+  const MakeMove({required this.repository});
+
+  final GameRepository repository;
 
   Future<void> call({
     required int index,
     required int playerIndex,
-    required GameRepository repository,
     required Game game,
   }) async {
     final Game updatedGame = game.updateCell(index: index, playerIndex: playerIndex);
     final GameStatus status = _checkGameCompletion(updatedGame.cells);
 
-    await repository.updateCurrentGame(game: updatedGame.updateStatus(status));
+    await repository.updateGame(game: updatedGame.updateStatus(status));
 
     if (status.isOngoing && playerIndex == 0) {
-      await call(index: _getAiMoveIndex(updatedGame.cells), playerIndex: 1, repository: repository, game: updatedGame);
+      await call(index: _getAiMoveIndex(updatedGame.cells), playerIndex: 1, game: updatedGame);
     }
   }
 

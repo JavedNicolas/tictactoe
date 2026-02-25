@@ -13,8 +13,8 @@ void main() {
     final FakeLocalDatasourceService datasource = FakeLocalDatasourceService(
       savedGames: savedGameWithOngoing,
     );
-    final GameStateRepositoryImpl repository =
-        GameStateRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
+    final GameRepositoryImpl repository =
+        GameRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
 
     final List<Game> games = await repository.loadSavedGames();
 
@@ -29,8 +29,8 @@ void main() {
     final FakeLocalDatasourceService datasource = FakeLocalDatasourceService(
       savedGames: savedGameWithOngoing,
     );
-    final GameStateRepositoryImpl repository =
-        GameStateRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
+    final GameRepositoryImpl repository =
+        GameRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
 
     final Game? current = await repository.getOngoingGame();
 
@@ -42,8 +42,20 @@ void main() {
     final FakeLocalDatasourceService datasource = FakeLocalDatasourceService(
       savedGames: saveGameOnlyCompleted,
     );
-    final GameStateRepositoryImpl repository =
-        GameStateRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
+    final GameRepositoryImpl repository =
+        GameRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
+
+    final Game? current = await repository.getOngoingGame();
+
+    expect(current, isNull);
+  });
+
+  test('Give there is no saved game when getCurrentGame is called then it returns null', () async {
+    final FakeLocalDatasourceService datasource = FakeLocalDatasourceService(
+      savedGames: [],
+    );
+    final GameRepositoryImpl repository =
+        GameRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
 
     final Game? current = await repository.getOngoingGame();
 
@@ -55,24 +67,15 @@ void main() {
     final FakeLocalDatasourceService datasource = FakeLocalDatasourceService(
       savedGames: savedGameWithOngoing,
     );
-    final GameStateRepositoryImpl repository =
-        GameStateRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
+    final GameRepositoryImpl repository =
+        GameRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
 
     final Game game = Game.fromDto(savedGameWithOngoing[1]).updateCell(index: 1, playerIndex: 0);
-    await repository.updateCurrentGame(game: game);
+    await repository.updateGame(game: game);
     final Game? updated = await repository.getOngoingGame();
 
     expect(updated?.id, 'game-2');
     expect(updated?.status, GameStatus.ongoing);
     expect(updated?.cells[1].state, CellState.player1);
-  });
-
-  // TODO : use either
-  test('given no saved games when getCurrentGameState is called then it throws', () async {
-    final FakeLocalDatasourceService datasource = FakeLocalDatasourceService(savedGames: []);
-    final GameStateRepositoryImpl repository =
-        GameStateRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
-
-    await expectLater(repository.getOngoingGame(), throwsException);
   });
 }

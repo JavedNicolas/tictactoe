@@ -1,12 +1,12 @@
 import 'package:tictactoe/features/game/domain/entity/game.dart';
 import 'package:tictactoe/features/game/domain/repository/game_repository.dart';
 
-class StartNewGame {
-  const StartNewGame({required this.repository});
+class GetOnGoingGame {
+  const GetOnGoingGame({required this.repository});
 
   final GameRepository repository;
 
-  Future<void> call() async {
-    await repository.updateGame(game: Game.initial());
+  Future<Game?> call() async {
+    return await repository.getOngoingGame();
   }
 }

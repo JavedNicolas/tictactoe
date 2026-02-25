@@ -7,7 +7,7 @@ part of 'provider.dart';
 // **************************************************************************
 
 String _$localDatabaseServiceHash() =>
-    r'12ad7352ac7599ff65430fa3be65e15b633b537c';
+    r'a38e5b5f3b1af50559b88d1c13dafd219fd5d5f7';
 
 /// See also [localDatabaseService].
 @ProviderFor(localDatabaseService)

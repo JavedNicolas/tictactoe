@@ -6,11 +6,11 @@ part of 'game_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$gameNotifierHash() => r'7af24d316e46ed94a467a628e208bba7e7ec0010';
+String _$gameNotifierHash() => r'9cc61f458ace0f0d5eec97da44fe6da7e7472183';
 
 /// See also [GameNotifier].
 @ProviderFor(GameNotifier)
-final gameNotifierProvider = NotifierProvider<GameNotifier, Game>.internal(
+final gameNotifierProvider = NotifierProvider<GameNotifier, GameState>.internal(
   GameNotifier.new,
   name: r'gameNotifierProvider',
   debugGetCreateSourceHash:
@@ -19,6 +19,6 @@ final gameNotifierProvider = NotifierProvider<GameNotifier, Game>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef _$GameNotifier = Notifier<Game>;
+typedef _$GameNotifier = Notifier<GameState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

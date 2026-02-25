@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tictactoe/features/game/data/dto/game_dto.dart';
@@ -9,8 +11,10 @@ part 'game_datasource.g.dart';
 @Riverpod(keepAlive: true)
 GameDatasource gameDatasource(Ref ref) {
   final LocalDatabaseService localDatabaseService = ref.watch(localDatabaseServiceProvider);
+  final GameDatasource datasource = GameDatasource(localDatabaseService: localDatabaseService);
+  datasource.loadSavedGames(); // Preload games to populate the stream
 
-  return GameDatasource(localDatabaseService: localDatabaseService);
+  return datasource;
 }
 
 class GameDatasource {
@@ -19,6 +23,15 @@ class GameDatasource {
   List<GameDto> _cachedGames = [];
   final String _gameKey = 'savedGames';
   final LocalDatabaseService _localDatabaseService;
+  final StreamController<List<GameDto>> _gameDtosStreamController = StreamController<List<GameDto>>.broadcast();
+
+  Stream<List<GameDto>> subscribeToGameDtosStream() {
+    return _gameDtosStreamController.stream;
+  }
+
+  void dispose() {
+    _gameDtosStreamController.close();
+  }
 
   Future<List<GameDto>> loadSavedGames() async {
     if (_cachedGames.isNotEmpty) {
@@ -49,5 +62,6 @@ class GameDatasource {
 
   void _setCachedGames(List<GameDto> games) {
     _cachedGames = games;
+    _gameDtosStreamController.sink.add(games);
   }
 }
