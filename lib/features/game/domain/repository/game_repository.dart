@@ -1,6 +1,6 @@
 import 'package:tictactoe/features/game/domain/entity/game.dart';
 
-abstract class GameRepository {
+abstract interface class GameRepository {
   Stream<List<Game>> listenToGames();
   Future<List<Game>> loadSavedGames();
   Future<void> updateGame({required Game game});
