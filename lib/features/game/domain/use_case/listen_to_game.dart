@@ -10,9 +10,4 @@ class ListenToGame {
   Stream<Game?> call({required String id}) {
     return repository.listenToGames().map((games) => games.firstWhereOrNull((game) => game.id == id));
   }
-
-  // TODO: dispose
-  void dispose() {
-    repository.dispose();
-  }
 }

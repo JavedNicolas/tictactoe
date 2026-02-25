@@ -13,7 +13,7 @@ import 'package:tictactoe/features/game/presentation/provider/game_state.dart';
 
 part 'game_notifier.g.dart';
 
-@Riverpod(keepAlive: true)
+@Riverpod()
 class GameNotifier extends _$GameNotifier {
   late final GetOnGoingGame _getOnGoingGame;
   late final ListenToGame _listenToCurrentGame;
@@ -32,7 +32,13 @@ class GameNotifier extends _$GameNotifier {
     _makeMove = MakeMove(repository: repository);
     _giveUpGame = GiveUpGame(repository: repository);
 
+    // load the current game on initialization and listen to its changes
     _getOnGoingGame.call().then((game) => _setGame(game: game));
+
+    // close the stream subscription when the notifier is disposed
+    ref.onDispose(() {
+      _currentGameSubscription?.cancel();
+    });
 
     return GameState.initial();
   }

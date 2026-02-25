@@ -8,8 +8,4 @@ class HasOngoingGame {
   Stream<bool> call() {
     return repository.listenToGames().map((games) => games.any((game) => game.isOngoing));
   }
-
-  void dispose() {
-    repository.dispose();
-  }
 }

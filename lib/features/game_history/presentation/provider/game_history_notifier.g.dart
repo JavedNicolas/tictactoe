@@ -7,12 +7,12 @@ part of 'game_history_notifier.dart';
 // **************************************************************************
 
 String _$gameHistoryNotifierHash() =>
-    r'6131b14d16619a0458ab9ee585f06892c4409139';
+    r'0c068b4bd16c651e56dca254a51a35345ff846d0';
 
 /// See also [GameHistoryNotifier].
 @ProviderFor(GameHistoryNotifier)
 final gameHistoryNotifierProvider =
-    NotifierProvider<GameHistoryNotifier, GameHistoryState>.internal(
+    AutoDisposeNotifierProvider<GameHistoryNotifier, GameHistoryState>.internal(
   GameHistoryNotifier.new,
   name: r'gameHistoryNotifierProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,6 +22,6 @@ final gameHistoryNotifierProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$GameHistoryNotifier = Notifier<GameHistoryState>;
+typedef _$GameHistoryNotifier = AutoDisposeNotifier<GameHistoryState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

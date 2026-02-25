@@ -6,11 +6,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tictactoe/features/game/domain/entity/game.dart';
 import 'package:tictactoe/features/game/presentation/provider/game_state.dart';
 import 'package:tictactoe/features/game/presentation/widget/tic_tac_toe_grid.dart';
-import 'package:tictactoe/shared/constant.dart';
 import 'package:tictactoe/shared/presentation/widget/custom_button.dart';
 import 'package:tictactoe/shared/presentation/widget/custom_scaffold.dart';
 import 'package:tictactoe/features/game/presentation/provider/game_notifier.dart';
-import 'package:tictactoe/features/game/presentation/widget/cell_state_displayer.dart';
 
 @RoutePage()
 class GamePage extends HookConsumerWidget {
