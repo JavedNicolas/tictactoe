@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tictactoe/features/game/domain/entity/game.dart';
+import 'package:tictactoe/features/game/presentation/widget/tic_tac_toe_grid.dart';
 import 'package:tictactoe/shared/presentation/widget/custom_button.dart';
 
 class GameHistoryTile extends StatelessWidget {
@@ -29,7 +30,13 @@ class GameHistoryTile extends StatelessWidget {
             ],
           ),
           if (game.isCompleted)
-            CustomButton(onPressed: () {}, text: context.tr('widgets.game_history_tile.buttons.see'))
+            CustomButton(
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) => Dialog(child: TicTacToeGrid(currentGame: game, readOnly: true)));
+                },
+                text: context.tr('widgets.game_history_tile.buttons.see'))
         ],
       ),
     );
