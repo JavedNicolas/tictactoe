@@ -13,8 +13,8 @@ void main() {
     final FakeLocalDatasourceService datasource = FakeLocalDatasourceService(
       savedGames: savedGameWithOngoing,
     );
-    final GameStateRepositoryImpl repository =
-        GameStateRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
+    final GameRepositoryImpl repository =
+        GameRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
 
     final List<Game> games = await repository.loadSavedGames();
 
@@ -29,8 +29,8 @@ void main() {
     final FakeLocalDatasourceService datasource = FakeLocalDatasourceService(
       savedGames: savedGameWithOngoing,
     );
-    final GameStateRepositoryImpl repository =
-        GameStateRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
+    final GameRepositoryImpl repository =
+        GameRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
 
     final Game? current = await repository.getOngoingGame();
 
@@ -42,8 +42,8 @@ void main() {
     final FakeLocalDatasourceService datasource = FakeLocalDatasourceService(
       savedGames: saveGameOnlyCompleted,
     );
-    final GameStateRepositoryImpl repository =
-        GameStateRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
+    final GameRepositoryImpl repository =
+        GameRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
 
     final Game? current = await repository.getOngoingGame();
 
@@ -54,8 +54,8 @@ void main() {
     final FakeLocalDatasourceService datasource = FakeLocalDatasourceService(
       savedGames: [],
     );
-    final GameStateRepositoryImpl repository =
-        GameStateRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
+    final GameRepositoryImpl repository =
+        GameRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
 
     final Game? current = await repository.getOngoingGame();
 
@@ -67,8 +67,8 @@ void main() {
     final FakeLocalDatasourceService datasource = FakeLocalDatasourceService(
       savedGames: savedGameWithOngoing,
     );
-    final GameStateRepositoryImpl repository =
-        GameStateRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
+    final GameRepositoryImpl repository =
+        GameRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
 
     final Game game = Game.fromDto(savedGameWithOngoing[1]).updateCell(index: 1, playerIndex: 0);
     await repository.updateGame(game: game);

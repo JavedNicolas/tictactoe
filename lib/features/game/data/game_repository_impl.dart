@@ -12,11 +12,11 @@ part 'game_repository_impl.g.dart';
 GameRepository gameRepository(Ref ref) {
   final GameDatasource datasource = ref.watch(gameDatasourceProvider);
 
-  return GameStateRepositoryImpl(datasource: datasource);
+  return GameRepositoryImpl(datasource: datasource);
 }
 
-class GameStateRepositoryImpl implements GameRepository {
-  GameStateRepositoryImpl({required GameDatasource datasource}) : _datasource = datasource;
+class GameRepositoryImpl implements GameRepository {
+  GameRepositoryImpl({required GameDatasource datasource}) : _datasource = datasource;
 
   final GameDatasource _datasource;
 

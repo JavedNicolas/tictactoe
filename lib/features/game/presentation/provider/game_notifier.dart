@@ -4,7 +4,7 @@ import 'package:tictactoe/features/game/data/game_repository_impl.dart';
 import 'package:tictactoe/features/game/domain/entity/game.dart';
 import 'package:tictactoe/features/game/domain/repository/game_repository.dart';
 import 'package:tictactoe/features/game/domain/use_case/get_on_going_game.dart';
-import 'package:tictactoe/features/game/domain/use_case/listen_game.dart';
+import 'package:tictactoe/features/game/domain/use_case/listen_to_game.dart';
 import 'package:tictactoe/features/game/domain/use_case/give_up_game.dart';
 import 'package:tictactoe/features/game/domain/use_case/make_move.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

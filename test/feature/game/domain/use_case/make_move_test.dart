@@ -13,8 +13,8 @@ void main() {
   group('MakeMove', () {
     test('given player1 turn when MakeMove is called then selected cell updates and game is saved', () async {
       final FakeLocalDatasourceService datasource = FakeLocalDatasourceService(savedGames: savedGameWithOngoing);
-      final GameStateRepositoryImpl repository =
-          GameStateRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
+      final GameRepositoryImpl repository =
+          GameRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
 
       final Game currentGame = Game.fromDto(savedGameWithOngoing[1]);
 
@@ -27,8 +27,8 @@ void main() {
 
     test('given player1 move with ongoing game when MakeMove is called then AI follow-up move is triggered', () async {
       final FakeLocalDatasourceService datasource = FakeLocalDatasourceService(savedGames: savedGameWithOngoing);
-      final GameStateRepositoryImpl repository =
-          GameStateRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
+      final GameRepositoryImpl repository =
+          GameRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
 
       final Game currentGame = Game.fromDto(savedGameWithOngoing[1]);
 
@@ -44,8 +44,8 @@ void main() {
     test('given a near-winning board for player1 when MakeMove completes line then status becomes player1Win',
         () async {
       final FakeLocalDatasourceService datasource = FakeLocalDatasourceService(savedGames: savedGameWithAGameAlmostWon);
-      final GameStateRepositoryImpl repository =
-          GameStateRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
+      final GameRepositoryImpl repository =
+          GameRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
 
       final Game currentGame = Game.fromDto(savedGameWithAGameAlmostWon[0]);
 
@@ -59,8 +59,8 @@ void main() {
     test('given a full board without winner when MakeMove fills last cell then status becomes draw', () async {
       final FakeLocalDatasourceService datasource =
           FakeLocalDatasourceService(savedGames: savedGameWithAGameAlmostDrawn);
-      final GameStateRepositoryImpl repository =
-          GameStateRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
+      final GameRepositoryImpl repository =
+          GameRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
 
       final Game currentGame = Game.fromDto(savedGameWithAGameAlmostDrawn[0]);
 

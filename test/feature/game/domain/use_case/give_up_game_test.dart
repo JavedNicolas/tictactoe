@@ -16,8 +16,8 @@ void main() {
       final FakeLocalDatasourceService datasource = FakeLocalDatasourceService(
         savedGames: savedGameWithOngoing,
       );
-      final GameStateRepositoryImpl repository =
-          GameStateRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
+      final GameRepositoryImpl repository =
+          GameRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
 
       final Game currentGame = Game.fromDto(savedGameWithOngoing[1]);
       await GiveUpGame(repository: repository).call(game: currentGame);
