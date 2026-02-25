@@ -5,11 +5,12 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tictactoe/features/game/domain/entity/game.dart';
 import 'package:tictactoe/features/game/presentation/provider/game_state.dart';
+import 'package:tictactoe/features/game/presentation/widget/tic_tac_toe_grid.dart';
 import 'package:tictactoe/shared/constant.dart';
-import 'package:tictactoe/shared/presentation/widgets/custom_button.dart';
-import 'package:tictactoe/shared/presentation/widgets/custom_scaffold.dart';
+import 'package:tictactoe/shared/presentation/widget/custom_button.dart';
+import 'package:tictactoe/shared/presentation/widget/custom_scaffold.dart';
 import 'package:tictactoe/features/game/presentation/provider/game_notifier.dart';
-import 'package:tictactoe/features/game/presentation/widgets/cell_state_displayer.dart';
+import 'package:tictactoe/features/game/presentation/widget/cell_state_displayer.dart';
 
 @RoutePage()
 class GamePage extends HookConsumerWidget {
@@ -41,34 +42,7 @@ class GamePage extends HookConsumerWidget {
     return CustomScaffold(
       body: Column(
         children: [
-          AspectRatio(
-            aspectRatio: 1,
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: kTicTacToeSize),
-              itemCount: currentGame.cells.length,
-              itemBuilder: (context, index) {
-                final int column = (index) % kTicTacToeSize;
-                final int row = (index / kTicTacToeSize).floor();
-
-                return InkWell(
-                  onTap: () {
-                    ref.watch(gameNotifierProvider.notifier).makeMove(index: index, playerIndex: 0);
-                  },
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      border: Border(
-                        left: column == 0 ? const BorderSide(color: Colors.black) : BorderSide.none,
-                        right: const BorderSide(color: Colors.black),
-                        top: row == 0 ? const BorderSide(color: Colors.black) : BorderSide.none,
-                        bottom: const BorderSide(color: Colors.black),
-                      ),
-                    ),
-                    child: Center(child: CellStateDisplayer(cellState: currentGame.cells[index].state)),
-                  ),
-                );
-              },
-            ),
-          ),
+          TicTacToeGrid(currentGame: currentGame),
         ],
       ),
       bottomNavigationBar: Column(
