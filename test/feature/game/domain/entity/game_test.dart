@@ -63,13 +63,22 @@ void main() {
     expect(identical(game, abandonedGame), isFalse); // A new instance should be returned
   });
 
-  test("given a game when updateStatus is called then a new game instance with updated status is returned", () {
+  test("given a game when setCompleted is called then a new game instance with updated status is returned", () {
     final Game game = Game.initial();
 
-    final Game updatedStatusGame = game.updateStatus(GameStatus.draw);
+    final Game updatedStatusGame = game.setCompleted(GameStatus.draw);
 
     expect(updatedStatusGame.status, GameStatus.draw);
     expect(game.status, GameStatus.ongoing); // Original game should remain unchanged
     expect(identical(game, updatedStatusGame), isFalse); // A new instance should be returned
+  });
+
+  test("given a game won by player 1 when setCompleted is called with player1Win then isCompleted should return true",
+      () {
+    final Game game = Game.initial().setCompleted(GameStatus.player1Win, winningCombination: [0, 1, 2]);
+
+    expect(game.isCompleted, isTrue);
+    expect(game.isOngoing, isFalse);
+    expect(game.winningCombination, [0, 1, 2]);
   });
 }

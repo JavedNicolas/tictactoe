@@ -19,6 +19,8 @@ class GamePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final GameState gameState = ref.watch(gameNotifierProvider);
     final Game currentGame = gameState.currentGame;
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
 
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -38,7 +40,13 @@ class GamePage extends HookConsumerWidget {
 
     return CustomScaffold(
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        spacing: 10,
         children: [
+          Text(
+            context.tr('pages.game.turns.player1'),
+            style: theme.textTheme.titleMedium!.copyWith(color: colorScheme.primary),
+          ),
           TicTacToeGrid(currentGame: currentGame),
         ],
       ),

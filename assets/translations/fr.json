@@ -16,6 +16,10 @@
         "player2Win" : "Joueur 2 gagne",
         "draw" : "Match nul"
       },
+      "turns" : {
+        "player1" : "C'est ton tour",
+        "player2" : "C'est le tour de l'adversaire"
+      },
       "buttons" : {
         "restart" : "Rejouer",
         "give_up" : "Abandonner",

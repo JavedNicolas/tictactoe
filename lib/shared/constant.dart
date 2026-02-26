@@ -14,5 +14,8 @@ const Color kContainerColor = Color(0xFFFFFFFF);
 const Color kDisabledColor = Color(0xFFBDBDBD);
 const Color kBorderColor = Color(0xFFBDBDBD);
 
+const Color kPlayer1Color = Color(0xFF2196F3);
+const Color kPlayer2Color = Color(0xFFFF5722);
+
 // animation
 const Duration kHomePageElementDisplayDuration = Duration(seconds: 2);

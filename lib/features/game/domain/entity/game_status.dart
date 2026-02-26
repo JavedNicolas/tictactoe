@@ -16,4 +16,5 @@ enum GameStatus {
   bool get isAbandoned => this == GameStatus.abandoned;
   bool get isPlayer1Win => this == GameStatus.player1Win;
   bool get isPlayer2Win => this == GameStatus.player2Win;
+  bool get isCompleted => !isOngoing;
 }
