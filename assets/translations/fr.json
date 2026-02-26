@@ -21,6 +21,12 @@
         "give_up" : "Abandonner",
         "back" : "Retour à l'accueil"
       }
+    },
+    "game_history" : {
+      "title" : "Historique des parties",
+      "messages" : {
+        "empty" : "Aucune partie enregistrée"
+      }
     }
   },
   "widgets" : {
