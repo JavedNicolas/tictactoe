@@ -45,10 +45,11 @@ class GameNotifier extends _$GameNotifier {
 
   void _setGame({required Game? game}) {
     final Game currentGame = game ?? Game.initial();
-    state = state.copyWith(currentGame: currentGame, status: GameStateStatus.loaded);
+    state =
+        state.copyWith(currentGame: currentGame, status: GameStateStatus.loaded, currentPlayer: CurrentPlayer.player1);
 
     _currentGameSubscription = _listenToCurrentGame.call(id: currentGame.id).listen((game) {
-      state = state.copyWith(currentGame: game);
+      state = state.copyWith(currentGame: game, currentPlayer: CurrentPlayer.player1);
     });
   }
 
@@ -63,6 +64,12 @@ class GameNotifier extends _$GameNotifier {
 
   Future<void> makeMove({required int index, required int playerIndex}) async {
     await _makeMove.call(game: state.currentGame, index: index, playerIndex: playerIndex);
+    state = state.copyWith(currentPlayer: CurrentPlayer.player2);
+
+    Future.delayed(const Duration(milliseconds: 2000), () async {
+      await _makeMove.callAi(game: state.currentGame);
+      state = state.copyWith(currentPlayer: CurrentPlayer.player1);
+    });
   }
 
   Future<void> giveUpGame() async {

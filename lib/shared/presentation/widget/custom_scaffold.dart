@@ -10,22 +10,33 @@ class CustomScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
 
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        ColoredBox(
-          color: Theme.of(context).scaffoldBackgroundColor,
-          child: SafeArea(
+    return ColoredBox(
+      color: colorScheme.surface,
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Image.asset(
+              "assets/images/background.png",
+              fit: BoxFit.cover,
+              color: colorScheme.surfaceContainerHigh,
+            ),
+          ),
+          SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Scaffold(body: body, bottomNavigationBar: bottomNavigationBar),
             ),
           ),
-        ),
-        if (overlay != null) Positioned.fill(child: ColoredBox(color: theme.colorScheme.inverseSurface)),
-        if (overlay != null) overlay!,
-      ],
+          if (overlay != null) Positioned.fill(child: ColoredBox(color: theme.colorScheme.inverseSurface)),
+          if (overlay != null) overlay!,
+        ],
+      ),
     );
   }
 }

@@ -16,7 +16,7 @@ ThemeData lightTheme = ThemeData(
     800: kMainColor,
     900: kMainColor,
   }),
-  scaffoldBackgroundColor: kBackgroundColor,
+  scaffoldBackgroundColor: Colors.transparent,
   appBarTheme: const AppBarTheme(
     backgroundColor: Color(0xFFFFFFFF),
     elevation: 0,
@@ -31,7 +31,7 @@ ThemeData lightTheme = ThemeData(
     surfaceContainer: kContainerColor,
     surface: kBackgroundColor,
     onSurface: kMainTextColor,
-    outline: kBorderColor,
+    surfaceContainerHigh: kSurfaceContainerHigh,
     inverseSurface: Colors.black54,
     onInverseSurface: Colors.white,
   ),

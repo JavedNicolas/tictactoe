@@ -12,6 +12,13 @@ class MakeMove {
 
   final GameRepository repository;
 
+  Future<void> callAi({
+    required Game game,
+  }) async {
+    final int index = _getAiMoveIndex(game.cells);
+    await call(index: index, playerIndex: 1, game: game);
+  }
+
   Future<void> call({
     required int index,
     required int playerIndex,
@@ -27,10 +34,6 @@ class MakeMove {
     }
 
     await repository.updateGame(game: updatedGame);
-
-    if (status.status.isOngoing && playerIndex == 0) {
-      await call(index: _getAiMoveIndex(updatedGame.cells), playerIndex: 1, game: updatedGame);
-    }
   }
 
   int _getAiMoveIndex(List<Cell> cells) {

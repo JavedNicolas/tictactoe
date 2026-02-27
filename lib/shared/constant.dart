@@ -16,7 +16,7 @@ const Color kBackgroundColor = Color(0xFfEFF0F1);
 const Color kOnBackgroundColor = kMainTextColor;
 const Color kContainerColor = Color(0xFFFFFFFF);
 const Color kDisabledColor = Color(0xFFBDBDBD);
-const Color kBorderColor = Color(0xFFBDBDBD);
+const Color kSurfaceContainerHigh = Color(0xFFD9D9D9);
 
 const Color kPlayer1Color = Color(0xFF2196F3);
 const Color kPlayer2Color = Color(0xFFFF5722);

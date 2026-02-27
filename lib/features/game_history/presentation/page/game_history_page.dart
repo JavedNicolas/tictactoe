@@ -15,8 +15,10 @@ class GameHistoryPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final GameHistoryState state = ref.watch(gameHistoryNotifierProvider);
     final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
 
     return Scaffold(
+      backgroundColor: colorScheme.surface,
       appBar: AppBar(
         centerTitle: true,
         title: Text(context.tr("pages.game_history.title"), style: theme.textTheme.titleSmall),

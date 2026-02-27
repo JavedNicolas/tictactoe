@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tictactoe/features/game/domain/entity/game.dart';
 import 'package:tictactoe/features/game/presentation/provider/game_state.dart';
@@ -35,10 +34,11 @@ class GamePage extends ConsumerWidget {
         spacing: 20,
         children: [
           Text(
-            context.tr('pages.game.turns.player1'),
+            context.tr('pages.game.turns.${gameState.currentPlayer.name}'),
             style: theme.textTheme.displayMedium!.copyWith(color: colorScheme.primary),
+            textAlign: TextAlign.center,
           ),
-          TicTacToeGrid(currentGame: currentGame),
+          TicTacToeGrid(currentGame: currentGame, currentPlayer: gameState.currentPlayer),
         ],
       ),
       bottomNavigationBar: AnimatedSlidingWidget(

@@ -15,8 +15,7 @@ class GameHistoryTile extends StatelessWidget {
     final ColorScheme colorScheme = theme.colorScheme;
 
     return Container(
-      decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: colorScheme.outline)), color: colorScheme.surfaceContainer),
+      decoration: BoxDecoration(color: colorScheme.surfaceContainer),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

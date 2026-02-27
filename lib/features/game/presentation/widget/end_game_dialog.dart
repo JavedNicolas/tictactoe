@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:lottie/lottie.dart';
 import 'package:tictactoe/features/game/domain/entity/game_status.dart';
 import 'package:tictactoe/features/game/presentation/provider/game_notifier.dart';
 import 'package:tictactoe/shared/presentation/widget/custom_button.dart';
@@ -18,7 +17,6 @@ class EndGameDialog extends HookConsumerWidget {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final AnimationController rotationController = useAnimationController(duration: 1000.ms)..forward();
-    final bool isDraw = gameStatus == GameStatus.draw;
     const double imageSize = 70;
 
     return Stack(
