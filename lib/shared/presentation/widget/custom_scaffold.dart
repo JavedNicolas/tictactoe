@@ -24,7 +24,7 @@ class CustomScaffold extends StatelessWidget {
             child: Image.asset(
               "assets/images/background.png",
               fit: BoxFit.cover,
-              color: colorScheme.surfaceContainerHigh,
+              color: colorScheme.surfaceContainerLow,
             ),
           ),
           SafeArea(
@@ -33,7 +33,7 @@ class CustomScaffold extends StatelessWidget {
               child: Scaffold(body: body, bottomNavigationBar: bottomNavigationBar),
             ),
           ),
-          if (overlay != null) Positioned.fill(child: ColoredBox(color: theme.colorScheme.inverseSurface)),
+          if (overlay != null) Positioned.fill(child: ColoredBox(color: colorScheme.surfaceContainerHigh)),
           if (overlay != null) overlay!,
         ],
       ),

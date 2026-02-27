@@ -28,12 +28,11 @@ ThemeData lightTheme = ThemeData(
     onPrimary: kOnMainColor,
     secondary: kSecondaryColor,
     onSecondary: kOnSecondaryColor,
-    surfaceContainer: kContainerColor,
     surface: kBackgroundColor,
     onSurface: kMainTextColor,
-    surfaceContainerHigh: kSurfaceContainerHigh,
-    inverseSurface: Colors.black54,
-    onInverseSurface: Colors.white,
+    surfaceContainer: kContainerColor,
+    surfaceContainerLow: kSurfaceContainerHigh,
+    surfaceContainerHigh: Colors.black87,
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(

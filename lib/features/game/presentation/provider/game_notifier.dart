@@ -65,11 +65,11 @@ class GameNotifier extends _$GameNotifier {
   Future<void> makeMove({required int index, required int playerIndex}) async {
     await _makeMove.call(game: state.currentGame, index: index, playerIndex: playerIndex);
     state = state.copyWith(currentPlayer: CurrentPlayer.player2);
+  }
 
-    Future.delayed(const Duration(milliseconds: 2000), () async {
-      await _makeMove.callAi(game: state.currentGame);
-      state = state.copyWith(currentPlayer: CurrentPlayer.player1);
-    });
+  Future<void> makeAiMove() async {
+    await _makeMove.callAi(game: state.currentGame);
+    state = state.copyWith(currentPlayer: CurrentPlayer.player1);
   }
 
   Future<void> giveUpGame() async {
