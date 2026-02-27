@@ -45,7 +45,7 @@ class GameNotifier extends _$GameNotifier {
 
   void _setGame({required Game? game}) {
     final Game currentGame = game ?? Game.initial();
-    state = state.copyWith(currentGame: currentGame, status: GameStatus.loaded);
+    state = state.copyWith(currentGame: currentGame, status: GameStateStatus.loaded);
 
     _currentGameSubscription = _listenToCurrentGame.call(id: currentGame.id).listen((game) {
       state = state.copyWith(currentGame: game);
@@ -53,7 +53,7 @@ class GameNotifier extends _$GameNotifier {
   }
 
   Future<void> startNewGame() async {
-    state = state.copyWith(status: GameStatus.loading);
+    state = state.copyWith(status: GameStateStatus.loading);
     await _currentGameSubscription?.cancel();
 
     await _startNewGame.call();
@@ -66,7 +66,7 @@ class GameNotifier extends _$GameNotifier {
   }
 
   Future<void> giveUpGame() async {
-    state = state.copyWith(status: GameStatus.loading);
+    state = state.copyWith(status: GameStateStatus.loading);
     await _currentGameSubscription?.cancel();
     await _giveUpGame.call(game: state.currentGame);
   }

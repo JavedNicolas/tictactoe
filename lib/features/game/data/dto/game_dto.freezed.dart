@@ -19,6 +19,7 @@ mixin _$GameDto {
   int get date;
   List<CellDto> get cells;
   String get status;
+  List<int>? get winningCombination;
 
   /// Create a copy of GameDto
   /// with the given fields replaced by the non-null parameter values.
@@ -38,17 +39,24 @@ mixin _$GameDto {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.date, date) || other.date == date) &&
             const DeepCollectionEquality().equals(other.cells, cells) &&
-            (identical(other.status, status) || other.status == status));
+            (identical(other.status, status) || other.status == status) &&
+            const DeepCollectionEquality()
+                .equals(other.winningCombination, winningCombination));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, date,
-      const DeepCollectionEquality().hash(cells), status);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      date,
+      const DeepCollectionEquality().hash(cells),
+      status,
+      const DeepCollectionEquality().hash(winningCombination));
 
   @override
   String toString() {
-    return 'GameDto(id: $id, date: $date, cells: $cells, status: $status)';
+    return 'GameDto(id: $id, date: $date, cells: $cells, status: $status, winningCombination: $winningCombination)';
   }
 }
 
@@ -57,7 +65,12 @@ abstract mixin class $GameDtoCopyWith<$Res> {
   factory $GameDtoCopyWith(GameDto value, $Res Function(GameDto) _then) =
       _$GameDtoCopyWithImpl;
   @useResult
-  $Res call({String id, int date, List<CellDto> cells, String status});
+  $Res call(
+      {String id,
+      int date,
+      List<CellDto> cells,
+      String status,
+      List<int>? winningCombination});
 }
 
 /// @nodoc
@@ -76,6 +89,7 @@ class _$GameDtoCopyWithImpl<$Res> implements $GameDtoCopyWith<$Res> {
     Object? date = null,
     Object? cells = null,
     Object? status = null,
+    Object? winningCombination = freezed,
   }) {
     return _then(_self.copyWith(
       id: null == id
@@ -94,6 +108,10 @@ class _$GameDtoCopyWithImpl<$Res> implements $GameDtoCopyWith<$Res> {
           ? _self.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
+      winningCombination: freezed == winningCombination
+          ? _self.winningCombination
+          : winningCombination // ignore: cast_nullable_to_non_nullable
+              as List<int>?,
     ));
   }
 }
@@ -105,8 +123,10 @@ class _GameDto extends GameDto {
       {required this.id,
       required this.date,
       required final List<CellDto> cells,
-      required this.status})
+      required this.status,
+      final List<int>? winningCombination})
       : _cells = cells,
+        _winningCombination = winningCombination,
         super._();
   factory _GameDto.fromJson(Map<String, dynamic> json) =>
       _$GameDtoFromJson(json);
@@ -125,6 +145,16 @@ class _GameDto extends GameDto {
 
   @override
   final String status;
+  final List<int>? _winningCombination;
+  @override
+  List<int>? get winningCombination {
+    final value = _winningCombination;
+    if (value == null) return null;
+    if (_winningCombination is EqualUnmodifiableListView)
+      return _winningCombination;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   /// Create a copy of GameDto
   /// with the given fields replaced by the non-null parameter values.
@@ -149,17 +179,24 @@ class _GameDto extends GameDto {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.date, date) || other.date == date) &&
             const DeepCollectionEquality().equals(other._cells, _cells) &&
-            (identical(other.status, status) || other.status == status));
+            (identical(other.status, status) || other.status == status) &&
+            const DeepCollectionEquality()
+                .equals(other._winningCombination, _winningCombination));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, date,
-      const DeepCollectionEquality().hash(_cells), status);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      date,
+      const DeepCollectionEquality().hash(_cells),
+      status,
+      const DeepCollectionEquality().hash(_winningCombination));
 
   @override
   String toString() {
-    return 'GameDto(id: $id, date: $date, cells: $cells, status: $status)';
+    return 'GameDto(id: $id, date: $date, cells: $cells, status: $status, winningCombination: $winningCombination)';
   }
 }
 
@@ -169,7 +206,12 @@ abstract mixin class _$GameDtoCopyWith<$Res> implements $GameDtoCopyWith<$Res> {
       __$GameDtoCopyWithImpl;
   @override
   @useResult
-  $Res call({String id, int date, List<CellDto> cells, String status});
+  $Res call(
+      {String id,
+      int date,
+      List<CellDto> cells,
+      String status,
+      List<int>? winningCombination});
 }
 
 /// @nodoc
@@ -188,6 +230,7 @@ class __$GameDtoCopyWithImpl<$Res> implements _$GameDtoCopyWith<$Res> {
     Object? date = null,
     Object? cells = null,
     Object? status = null,
+    Object? winningCombination = freezed,
   }) {
     return _then(_GameDto(
       id: null == id
@@ -206,6 +249,10 @@ class __$GameDtoCopyWithImpl<$Res> implements _$GameDtoCopyWith<$Res> {
           ? _self.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
+      winningCombination: freezed == winningCombination
+          ? _self._winningCombination
+          : winningCombination // ignore: cast_nullable_to_non_nullable
+              as List<int>?,
     ));
   }
 }

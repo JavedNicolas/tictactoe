@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tictactoe/shared/constant.dart';
 
 ThemeData lightTheme = ThemeData(
@@ -27,8 +28,12 @@ ThemeData lightTheme = ThemeData(
     onPrimary: kOnMainColor,
     secondary: kSecondaryColor,
     onSecondary: kOnSecondaryColor,
-    primaryContainer: kBackgroundColor,
-    onPrimaryContainer: kOnBackgroundColor,
+    surfaceContainer: kContainerColor,
+    surface: kBackgroundColor,
+    onSurface: kMainTextColor,
+    outline: kBorderColor,
+    inverseSurface: Colors.black54,
+    onInverseSurface: Colors.white,
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
@@ -38,15 +43,15 @@ ThemeData lightTheme = ThemeData(
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
     ),
   ),
-  textTheme: const TextTheme(
-    displayLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: kMainColor),
-    displayMedium: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: kMainColor),
-    displaySmall: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: kMainColor),
-    titleLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: kMainTextColor),
-    titleMedium: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: kMainTextColor),
-    titleSmall: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: kMainTextColor),
-    bodyLarge: TextStyle(fontSize: 16, color: kMainTextColor),
-    bodyMedium: TextStyle(fontSize: 14, color: kMainTextColor),
-    bodySmall: TextStyle(fontSize: 12, color: kMainTextColor),
+  textTheme: TextTheme(
+    displayLarge: GoogleFonts.rammettoOne(fontSize: 32, fontWeight: FontWeight.bold, color: kMainColor),
+    displayMedium: GoogleFonts.rammettoOne(fontSize: 24, fontWeight: FontWeight.bold, color: kMainColor),
+    displaySmall: GoogleFonts.rammettoOne(fontSize: 18, fontWeight: FontWeight.bold, color: kMainColor),
+    titleLarge: GoogleFonts.roboto(fontSize: 20, fontWeight: FontWeight.bold, color: kMainTextColor),
+    titleMedium: GoogleFonts.roboto(fontSize: 18, fontWeight: FontWeight.bold, color: kMainTextColor),
+    titleSmall: GoogleFonts.roboto(fontSize: 16, fontWeight: FontWeight.bold, color: kMainTextColor),
+    bodyLarge: GoogleFonts.roboto(fontSize: 16, color: kMainTextColor),
+    bodyMedium: GoogleFonts.roboto(fontSize: 14, color: kMainTextColor),
+    bodySmall: GoogleFonts.roboto(fontSize: 12, color: kMainTextColor),
   ),
 );

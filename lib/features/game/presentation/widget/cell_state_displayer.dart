@@ -12,9 +12,9 @@ class CellStateDisplayer extends StatelessWidget {
       case CellState.empty:
         return const SizedBox.shrink();
       case CellState.player1:
-        return const Text('X', style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold));
+        return const Image(image: AssetImage('assets/icons/player1.png'));
       case CellState.player2:
-        return const Text('O', style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold));
+        return const Image(image: AssetImage('assets/icons/player2.png'));
     }
   }
 }

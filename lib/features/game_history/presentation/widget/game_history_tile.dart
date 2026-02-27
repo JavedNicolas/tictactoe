@@ -12,10 +12,11 @@ class GameHistoryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
 
     return Container(
       decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: Colors.grey.shade300)), color: theme.colorScheme.surface),
+          border: Border(bottom: BorderSide(color: colorScheme.outline)), color: colorScheme.surfaceContainer),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

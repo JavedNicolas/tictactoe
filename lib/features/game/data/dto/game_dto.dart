@@ -11,8 +11,12 @@ part 'game_dto.g.dart';
 abstract class GameDto with _$GameDto {
   const GameDto._();
 
-  const factory GameDto({required String id, required int date, required List<CellDto> cells, required String status}) =
-      _GameDto;
+  const factory GameDto(
+      {required String id,
+      required int date,
+      required List<CellDto> cells,
+      required String status,
+      List<int>? winningCombination}) = _GameDto;
 
   factory GameDto.fromRawString(String raw) {
     final Map<String, dynamic> map = Map<String, dynamic>.from(jsonDecode(raw) as Map);
@@ -28,6 +32,7 @@ abstract class GameDto with _$GameDto {
       date: gameState.date.millisecondsSinceEpoch,
       cells: gameState.cells.map((cell) => CellDto.fromCell(cell)).toList(),
       status: gameState.status.name,
+      winningCombination: gameState.winningCombination,
     );
   }
 

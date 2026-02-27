@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tictactoe/features/game_history/presentation/provider/game_history_notifier.dart';
@@ -13,10 +14,12 @@ class GameHistoryPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final GameHistoryState state = ref.watch(gameHistoryNotifierProvider);
+    final ThemeData theme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Game History'),
+        centerTitle: true,
+        title: Text(context.tr("pages.game_history.title"), style: theme.textTheme.titleSmall),
       ),
       body: Builder(builder: (context) {
         switch (state.status) {
@@ -26,7 +29,7 @@ class GameHistoryPage extends ConsumerWidget {
             return const Center(child: LoadingWidget());
           case GameHistoryStatus.loaded:
             if (state.games.isEmpty) {
-              return const Center(child: Text('No games found'));
+              return Center(child: Text(context.tr("pages.game_history.messages.empty")));
             }
 
             return ListView.builder(

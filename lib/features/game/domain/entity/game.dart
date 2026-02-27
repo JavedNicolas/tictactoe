@@ -6,7 +6,12 @@ import 'package:tictactoe/features/game/domain/entity/game_status.dart';
 import 'package:uuid/uuid.dart';
 
 class Game {
-  Game({required this.id, required this.date, required this.cells, required this.status});
+  Game(
+      {required this.id,
+      required this.date,
+      required this.cells,
+      required this.status,
+      this.winningCombination = const []});
 
   factory Game.fromDto(GameDto dto) {
     return Game(
@@ -14,6 +19,7 @@ class Game {
       date: DateTime.fromMillisecondsSinceEpoch(dto.date),
       cells: dto.cells.map((cellDto) => cellDto.toCell()).toList(),
       status: GameStatus.fromString(dto.status),
+      winningCombination: dto.winningCombination,
     );
   }
 
@@ -30,6 +36,7 @@ class Game {
   final DateTime date;
   final List<Cell> cells;
   final GameStatus status;
+  final List<int>? winningCombination;
 
   bool get isCompleted => !status.isOngoing;
   bool get isOngoing => status.isOngoing;
@@ -41,15 +48,21 @@ class Game {
     return _copyWith(cells: updatedCells);
   }
 
-  Game updateStatus(GameStatus newStatus) {
-    return _copyWith(status: newStatus);
+  Game setCompleted(GameStatus newStatus, {List<int>? winningCombination}) {
+    return _copyWith(status: newStatus, winningCombination: winningCombination);
   }
 
   Game abandon() {
     return _copyWith(status: GameStatus.abandoned);
   }
 
-  Game _copyWith({List<Cell>? cells, GameStatus? status}) {
-    return Game(id: id, date: date, cells: cells ?? this.cells, status: status ?? this.status);
+  Game _copyWith({List<Cell>? cells, GameStatus? status, List<int>? winningCombination}) {
+    return Game(
+      id: id,
+      date: date,
+      cells: cells ?? this.cells,
+      status: status ?? this.status,
+      winningCombination: winningCombination ?? this.winningCombination,
+    );
   }
 }

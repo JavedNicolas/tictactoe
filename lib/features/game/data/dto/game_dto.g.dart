@@ -13,6 +13,9 @@ _GameDto _$GameDtoFromJson(Map<String, dynamic> json) => _GameDto(
           .map((e) => CellDto.fromJson(e as Map<String, dynamic>))
           .toList(),
       status: json['status'] as String,
+      winningCombination: (json['winningCombination'] as List<dynamic>?)
+          ?.map((e) => (e as num).toInt())
+          .toList(),
     );
 
 Map<String, dynamic> _$GameDtoToJson(_GameDto instance) => <String, dynamic>{
@@ -20,4 +23,5 @@ Map<String, dynamic> _$GameDtoToJson(_GameDto instance) => <String, dynamic>{
       'date': instance.date,
       'cells': instance.cells,
       'status': instance.status,
+      'winningCombination': instance.winningCombination,
     };

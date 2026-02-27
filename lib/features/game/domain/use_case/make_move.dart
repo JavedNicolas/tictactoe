@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:tictactoe/features/game/domain/entity/game_completion_state.dart';
 import 'package:tictactoe/shared/constant.dart';
 import 'package:tictactoe/features/game/domain/entity/cell.dart';
 import 'package:tictactoe/features/game/domain/entity/cell_state.dart';
@@ -17,11 +18,17 @@ class MakeMove {
     required Game game,
   }) async {
     final Game updatedGame = game.updateCell(index: index, playerIndex: playerIndex);
-    final GameStatus status = _checkGameCompletion(updatedGame.cells);
+    final GameCompletionState status = _checkGameCompletion(updatedGame.cells);
 
-    await repository.updateGame(game: updatedGame.updateStatus(status));
+    if (status.status.isCompleted) {
+      await repository.updateGame(
+          game: updatedGame.setCompleted(status.status, winningCombination: status.winningCombination));
+      return;
+    }
 
-    if (status.isOngoing && playerIndex == 0) {
+    await repository.updateGame(game: updatedGame);
+
+    if (status.status.isOngoing && playerIndex == 0) {
       await call(index: _getAiMoveIndex(updatedGame.cells), playerIndex: 1, game: updatedGame);
     }
   }
@@ -35,7 +42,7 @@ class MakeMove {
     return emptyIndices[randomIndex];
   }
 
-  GameStatus _checkGameCompletion(List<Cell> cells) {
+  GameCompletionState _checkGameCompletion(List<Cell> cells) {
     final List<List<int>> winningCombinations = [
       // lines
       ...List.generate(
@@ -55,14 +62,15 @@ class MakeMove {
     for (final combination in winningCombinations) {
       final Cell firstCell = cells[combination[0]];
       if (firstCell.isNotEmpty && combination.every((index) => cells[index].state.compare(firstCell.state))) {
-        return firstCell.state == CellState.player1 ? GameStatus.player1Win : GameStatus.player2Win;
+        return GameCompletionState(firstCell.state == CellState.player1 ? GameStatus.player1 : GameStatus.player2,
+            winningCombination: combination);
       }
     }
 
     if (cells.every((cell) => cell.isNotEmpty)) {
-      return GameStatus.draw;
+      return const GameCompletionState(GameStatus.draw);
     }
 
-    return GameStatus.ongoing;
+    return const GameCompletionState(GameStatus.ongoing);
   }
 }

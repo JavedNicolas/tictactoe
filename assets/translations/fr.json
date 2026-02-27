@@ -16,10 +16,19 @@
         "player2Win" : "Joueur 2 gagne",
         "draw" : "Match nul"
       },
+      "turns" : {
+        "player1" : "C'est ton tour",
+        "player2" : "C'est le tour de l'adversaire"
+      },
       "buttons" : {
-        "restart" : "Rejouer",
         "give_up" : "Abandonner",
         "back" : "Retour à l'accueil"
+      }
+    },
+    "game_history" : {
+      "title" : "Historique des parties",
+      "messages" : {
+        "empty" : "Aucune partie enregistrée"
       }
     }
   },
@@ -36,6 +45,17 @@
       "buttons" : {
         "see" : "Voir"
        }
+    },
+    "end_game_dialog" : {
+      "title" : {
+        "player1" : "Joueur 1 gagne !",
+        "player2" : "Joueur 2 gagne !",
+        "draw" : "Match nul !"
+      },
+      "buttons" : {
+        "restart" : "Rejouer",
+        "back" : "Retour à l'accueil"
+      }
     }
   }
 }
