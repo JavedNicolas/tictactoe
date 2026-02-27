@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tictactoe/features/game/domain/entity/cell_state.dart';
 import 'package:tictactoe/features/game/domain/entity/game.dart';
 import 'package:tictactoe/features/game/domain/entity/game_status.dart';
 import 'package:tictactoe/features/game/presentation/provider/game_notifier.dart';
@@ -28,6 +29,7 @@ class TicTacToeGrid extends ConsumerWidget {
             crossAxisCount: kTicTacToeSize, mainAxisSpacing: 5, crossAxisSpacing: 5),
         itemCount: currentGame.cells.length,
         itemBuilder: (context, index) {
+          final bool cantInteract = readOnly || currentGame.cells[index].state != CellState.empty;
           final int column = (index) % kTicTacToeSize;
           final int row = (index / kTicTacToeSize).floor();
           final bool isCorner =
@@ -48,7 +50,7 @@ class TicTacToeGrid extends ConsumerWidget {
                   delay: Duration(milliseconds: 50 * index)),
             ],
             child: InkWell(
-              onTap: readOnly
+              onTap: cantInteract
                   ? null
                   : () {
                       ref.watch(gameNotifierProvider.notifier).makeMove(index: index, playerIndex: 0);

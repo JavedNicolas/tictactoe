@@ -32,11 +32,11 @@ class GamePage extends ConsumerWidget {
       overlay: currentGame.isCompleted ? EndGameDialog(gameStatus: currentGame.status) : null,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        spacing: 10,
+        spacing: 20,
         children: [
           Text(
             context.tr('pages.game.turns.player1'),
-            style: theme.textTheme.displaySmall!.copyWith(color: colorScheme.primary),
+            style: theme.textTheme.displayMedium!.copyWith(color: colorScheme.primary),
           ),
           TicTacToeGrid(currentGame: currentGame),
         ],
