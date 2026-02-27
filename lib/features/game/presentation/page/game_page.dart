@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tictactoe/features/game/domain/entity/game.dart';
@@ -26,7 +28,11 @@ class GamePage extends HookConsumerWidget {
 
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (gameState.currentPlayer == CurrentPlayer.player2 && !gameState.isLoading) {
+        if (gameState.isLoading) {
+          return;
+        }
+
+        if (gameState.isPlayer2Turn) {
           Future.delayed(const Duration(milliseconds: 1000), () {
             ref.watch(gameNotifierProvider.notifier).makeAiMove();
           });
@@ -44,12 +50,15 @@ class GamePage extends HookConsumerWidget {
       overlay: currentGame.isCompleted ? EndGameDialog(gameStatus: currentGame.status) : null,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        spacing: 20,
+        spacing: 10,
         children: [
-          Text(
-            context.tr('pages.game.turns.${gameState.currentPlayer.name}'),
-            style: theme.textTheme.displayMedium!.copyWith(color: colorScheme.primary),
-            textAlign: TextAlign.center,
+          SizedBox(
+            height: 80,
+            child: Text(
+              context.tr('pages.game.turns.${gameState.currentPlayer.name}'),
+              style: theme.textTheme.displayMedium!.copyWith(color: colorScheme.primary),
+              textAlign: TextAlign.center,
+            ),
           ),
           TicTacToeGrid(currentGame: currentGame, currentPlayer: gameState.currentPlayer),
         ],

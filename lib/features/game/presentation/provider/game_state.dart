@@ -17,6 +17,10 @@ class GameState {
   bool get isLoaded => status == GameStateStatus.loaded;
   bool get hasError => status == GameStateStatus.error;
 
+  bool get isPlayer1Turn => currentPlayer == CurrentPlayer.player1;
+  bool get isPlayer2Turn => currentPlayer == CurrentPlayer.player2;
+  bool get isNoOnesTurn => currentPlayer == CurrentPlayer.none;
+
   GameState copyWith({Game? currentGame, GameStateStatus? status, CurrentPlayer? currentPlayer}) {
     return GameState(
       currentGame: currentGame ?? this.currentGame,
