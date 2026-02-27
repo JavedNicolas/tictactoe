@@ -34,7 +34,7 @@ class GamePage extends ConsumerWidget {
         children: [
           Text(
             context.tr('pages.game.turns.player1'),
-            style: theme.textTheme.titleMedium!.copyWith(color: colorScheme.primary),
+            style: theme.textTheme.displaySmall!.copyWith(color: colorScheme.primary),
           ),
           TicTacToeGrid(currentGame: currentGame),
         ],

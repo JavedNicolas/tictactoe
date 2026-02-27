@@ -58,7 +58,7 @@ class EndGameDialog extends HookConsumerWidget {
               const SizedBox(height: 16),
               Text(
                 context.tr('widgets.end_game_dialog.title.${gameStatus.name}'),
-                style: theme.textTheme.headlineMedium!.copyWith(color: colorScheme.onInverseSurface),
+                style: theme.textTheme.displayMedium!.copyWith(color: colorScheme.onInverseSurface),
               ),
               const Spacer(),
               CustomButton(
