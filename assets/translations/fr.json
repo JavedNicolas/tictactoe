@@ -36,8 +36,8 @@
     "game_history_tile" : {
       "title" : "Partie du {}",
       "subtitle" : {
-        "player1Win" : "Gagnant : Joueur 1",
-        "player2Win" : "Gagnant : Joueur 2",
+        "player1" : "Gagnant : Joueur 1",
+        "player2" : "Gagnant : Joueur 2",
         "draw" : "Match nul",
         "ongoing" : "En cours",
         "abandoned" : "Abandonnée"

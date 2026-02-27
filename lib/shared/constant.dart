@@ -1,6 +1,10 @@
 import 'dart:ui';
 
+// game play
 const int kTicTacToeSize = 3;
+
+// design
+const double kGridSizeBorderRadius = 30;
 
 // color
 const Color kMainTextColor = Color(0xFF000000);

@@ -24,65 +24,61 @@ class TicTacToeGrid extends ConsumerWidget {
 
     return AspectRatio(
       aspectRatio: 1,
-      child: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: kTicTacToeSize, mainAxisSpacing: 5, crossAxisSpacing: 5),
-        itemCount: currentGame.cells.length,
-        itemBuilder: (context, index) {
-          final bool cantInteract = readOnly || currentGame.cells[index].state != CellState.empty;
-          final int column = (index) % kTicTacToeSize;
-          final int row = (index / kTicTacToeSize).floor();
-          final bool isCorner =
-              (row == 0 || row == kTicTacToeSize - 1) && (column == 0 || column == kTicTacToeSize - 1);
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: colorScheme.outline,
+          borderRadius: BorderRadius.circular(kGridSizeBorderRadius),
+        ),
+        child: GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: kTicTacToeSize, mainAxisSpacing: 5, crossAxisSpacing: 5),
+          itemCount: currentGame.cells.length,
+          itemBuilder: (context, index) {
+            final bool cantInteract = readOnly || currentGame.cells[index].state != CellState.empty;
+            final int column = (index) % kTicTacToeSize;
+            final int row = (index / kTicTacToeSize).floor();
+            final bool isCorner =
+                (row == 0 || row == kTicTacToeSize - 1) && (column == 0 || column == kTicTacToeSize - 1);
 
-          Color borderColor = kBorderColor;
-          double borderWidth = 1;
-          if (currentGame.winningCombination?.contains(index) == true) {
-            borderColor = currentGame.status == GameStatus.player1 ? kPlayer1Color : kPlayer2Color;
-            borderWidth = 4;
-          }
-
-          return Animate(
-            effects: [
-              ScaleEffect(
-                  duration: const Duration(milliseconds: 250),
-                  curve: Curves.easeOut,
-                  delay: Duration(milliseconds: 50 * index)),
-            ],
-            child: InkWell(
-              onTap: cantInteract
-                  ? null
-                  : () {
-                      ref.watch(gameNotifierProvider.notifier).makeMove(index: index, playerIndex: 0);
-                    },
-              child: Container(
-                padding: const EdgeInsets.all(15),
-                decoration: BoxDecoration(
-                  color: colorScheme.surface,
-                  borderRadius: BorderRadius.only(
-                    topLeft: isCorner && row == 0 && column == 0 ? const Radius.circular(12) : Radius.zero,
-                    topRight:
-                        isCorner && row == 0 && column == kTicTacToeSize - 1 ? const Radius.circular(12) : Radius.zero,
-                    bottomLeft:
-                        isCorner && row == kTicTacToeSize - 1 && column == 0 ? const Radius.circular(12) : Radius.zero,
-                    bottomRight: isCorner && row == kTicTacToeSize - 1 && column == kTicTacToeSize - 1
-                        ? const Radius.circular(12)
-                        : Radius.zero,
-                  ),
-                  border: Border.all(color: borderColor, width: borderWidth),
-                  boxShadow: [
-                    BoxShadow(
-                      color: colorScheme.outline,
-                      blurRadius: 4,
-                      offset: const Offset(2, 2),
+            return Animate(
+              effects: [
+                ScaleEffect(
+                    duration: const Duration(milliseconds: 250),
+                    curve: Curves.easeOut,
+                    delay: Duration(milliseconds: 50 * index)),
+              ],
+              child: InkWell(
+                onTap: cantInteract
+                    ? null
+                    : () {
+                        ref.watch(gameNotifierProvider.notifier).makeMove(index: index, playerIndex: 0);
+                      },
+                child: Container(
+                  padding: const EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                    color: colorScheme.surfaceContainer,
+                    borderRadius: BorderRadius.only(
+                      topLeft: isCorner && row == 0 && column == 0
+                          ? const Radius.circular(kGridSizeBorderRadius * 0.8)
+                          : Radius.zero,
+                      topRight: isCorner && row == 0 && column == kTicTacToeSize - 1
+                          ? const Radius.circular(kGridSizeBorderRadius * 0.8)
+                          : Radius.zero,
+                      bottomLeft: isCorner && row == kTicTacToeSize - 1 && column == 0
+                          ? const Radius.circular(kGridSizeBorderRadius * 0.8)
+                          : Radius.zero,
+                      bottomRight: isCorner && row == kTicTacToeSize - 1 && column == kTicTacToeSize - 1
+                          ? const Radius.circular(kGridSizeBorderRadius * 0.8)
+                          : Radius.zero,
                     ),
-                  ],
+                  ),
+                  child: Center(child: FittedBox(child: CellStateDisplayer(cellState: currentGame.cells[index].state))),
                 ),
-                child: Center(child: FittedBox(child: CellStateDisplayer(cellState: currentGame.cells[index].state))),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
