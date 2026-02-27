@@ -29,7 +29,7 @@ class TicTacToeGrid extends ConsumerWidget {
       child: Container(
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: colorScheme.surfaceContainerHigh,
+          color: colorScheme.surfaceContainerLow,
           borderRadius: BorderRadius.circular(kGridSizeBorderRadius),
         ),
         child: GridView.builder(
@@ -37,10 +37,12 @@ class TicTacToeGrid extends ConsumerWidget {
               crossAxisCount: kTicTacToeSize, mainAxisSpacing: 5, crossAxisSpacing: 5),
           itemCount: currentGame.cells.length,
           itemBuilder: (context, index) {
-            final bool cantInteract = readOnly ||
-                currentGame.cells[index].state != CellState.empty &&
-                    currentPlayer != null &&
-                    currentPlayer == CurrentPlayer.player1;
+            // interactions
+            final bool isCurrentPlayer = currentPlayer != null && currentPlayer == CurrentPlayer.player1;
+            final bool isEmpty = currentGame.cells[index].state == CellState.empty;
+            final bool cantInteract = readOnly || !isEmpty || !isCurrentPlayer;
+
+            // for styling
             final int column = (index) % kTicTacToeSize;
             final int row = (index / kTicTacToeSize).floor();
             final bool isCorner =
