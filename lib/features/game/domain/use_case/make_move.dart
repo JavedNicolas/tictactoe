@@ -62,7 +62,7 @@ class MakeMove {
     for (final combination in winningCombinations) {
       final Cell firstCell = cells[combination[0]];
       if (firstCell.isNotEmpty && combination.every((index) => cells[index].state.compare(firstCell.state))) {
-        return GameCompletionState(firstCell.state == CellState.player1 ? GameStatus.player1Win : GameStatus.player2Win,
+        return GameCompletionState(firstCell.state == CellState.player1 ? GameStatus.player1 : GameStatus.player2,
             winningCombination: combination);
       }
     }

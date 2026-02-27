@@ -1,20 +1,20 @@
 import 'package:tictactoe/features/game/domain/entity/game.dart';
 
-enum GameStatus { loading, loaded, error }
+enum GameStateStatus { loading, loaded, error }
 
 class GameState {
   const GameState({required this.status, required this.currentGame});
 
-  factory GameState.initial() => GameState(status: GameStatus.loading, currentGame: Game.initial());
+  factory GameState.initial() => GameState(status: GameStateStatus.loading, currentGame: Game.initial());
 
   final Game currentGame;
-  final GameStatus status;
+  final GameStateStatus status;
 
-  bool get isLoading => status == GameStatus.loading;
-  bool get isLoaded => status == GameStatus.loaded;
-  bool get hasError => status == GameStatus.error;
+  bool get isLoading => status == GameStateStatus.loading;
+  bool get isLoaded => status == GameStateStatus.loaded;
+  bool get hasError => status == GameStateStatus.error;
 
-  GameState copyWith({Game? currentGame, GameStatus? status}) {
+  GameState copyWith({Game? currentGame, GameStateStatus? status}) {
     return GameState(
       currentGame: currentGame ?? this.currentGame,
       status: status ?? this.status,

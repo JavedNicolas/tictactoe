@@ -53,7 +53,7 @@ void main() {
 
       final Game? updated = await repository.getGame(gameId: currentGame.id);
       expect(updated?.cells[0].state, CellState.player1);
-      expect(updated?.status, GameStatus.player1Win);
+      expect(updated?.status, GameStatus.player1);
     });
 
     test('given a full board without winner when MakeMove fills last cell then status becomes draw', () async {

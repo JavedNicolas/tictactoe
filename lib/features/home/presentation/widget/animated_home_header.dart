@@ -1,30 +1,22 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:lottie/lottie.dart';
 import 'package:tictactoe/shared/constant.dart';
 
-class AnimatedHomeHeader extends StatefulWidget {
+class AnimatedHomeHeader extends HookConsumerWidget {
   const AnimatedHomeHeader({super.key});
 
   @override
-  State<AnimatedHomeHeader> createState() => _AnimatedHomeHeaderState();
-}
-
-class _AnimatedHomeHeaderState extends State<AnimatedHomeHeader> with SingleTickerProviderStateMixin {
-  late final AnimationController _loopAnimationController;
-
-  @override
-  void initState() {
-    super.initState();
-    _loopAnimationController = AnimationController(vsync: this);
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
+    final AnimationController loopAnimationController =
+        useAnimationController(duration: (kHomePageElementDisplayDuration * 2) ~/ 3);
 
     return Animate(
-      controller: _loopAnimationController,
+      controller: loopAnimationController,
       autoPlay: false,
       effects: [
         const MoveEffect(
@@ -40,7 +32,7 @@ class _AnimatedHomeHeaderState extends State<AnimatedHomeHeader> with SingleTick
             curve: Curves.fastEaseInToSlowEaseOut),
       ],
       child: Animate(
-        onComplete: (controller) => _loopAnimationController.loop(),
+        onComplete: (controller) => loopAnimationController.loop(),
         effects: [
           FadeEffect(duration: kHomePageElementDisplayDuration ~/ 2, curve: Curves.easeOut),
           const MoveEffect(
@@ -52,7 +44,7 @@ class _AnimatedHomeHeaderState extends State<AnimatedHomeHeader> with SingleTick
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Image.asset('assets/gifs/animated_icon.gif', width: 120),
+            Lottie.asset('assets/lottie/animated_icon.json'),
             Text(context.tr("pages.game_home.title"), style: theme.textTheme.displayLarge),
           ],
         ),

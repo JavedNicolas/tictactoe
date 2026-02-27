@@ -5,7 +5,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tictactoe/features/home/presentation/provider/home_page_notifier.dart';
 import 'package:tictactoe/features/home/presentation/provider/home_state.dart';
-import 'package:tictactoe/features/home/presentation/widget/animated_home_logo.dart';
+import 'package:tictactoe/features/home/presentation/widget/animated_home_header.dart';
 import 'package:tictactoe/shared/constant.dart';
 import 'package:tictactoe/shared/presentation/widget/loading_widget.dart';
 import 'package:tictactoe/shared/router/app_router.gr.dart';

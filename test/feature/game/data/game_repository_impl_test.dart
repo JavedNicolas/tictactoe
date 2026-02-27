@@ -20,7 +20,7 @@ void main() {
 
     expect(games.length, 2);
     expect(games.first.id, 'game-1');
-    expect(games.first.status, GameStatus.player1Win);
+    expect(games.first.status, GameStatus.player1);
     expect(games.last.id, 'game-2');
     expect(games.last.status, GameStatus.ongoing);
   });

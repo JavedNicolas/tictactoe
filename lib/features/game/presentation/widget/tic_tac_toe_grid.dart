@@ -36,7 +36,7 @@ class TicTacToeGrid extends ConsumerWidget {
           Color borderColor = kBorderColor;
           double borderWidth = 1;
           if (currentGame.winningCombination?.contains(index) == true) {
-            borderColor = currentGame.status == GameStatus.player1Win ? kPlayer1Color : kPlayer2Color;
+            borderColor = currentGame.status == GameStatus.player1 ? kPlayer1Color : kPlayer2Color;
             borderWidth = 4;
           }
 

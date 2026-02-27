@@ -29,7 +29,7 @@ class GameHistoryPage extends ConsumerWidget {
             return const Center(child: LoadingWidget());
           case GameHistoryStatus.loaded:
             if (state.games.isEmpty) {
-              return Center(child: Text(context.tr("pages.game_history.message.empty")));
+              return Center(child: Text(context.tr("pages.game_history.messages.empty")));
             }
 
             return ListView.builder(

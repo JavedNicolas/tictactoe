@@ -31,6 +31,8 @@ ThemeData lightTheme = ThemeData(
     surface: kBackgroundColor,
     onSurface: kMainTextColor,
     outline: kBorderColor,
+    inverseSurface: Colors.black54,
+    onInverseSurface: Colors.white,
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(

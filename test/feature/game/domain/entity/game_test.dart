@@ -75,7 +75,7 @@ void main() {
 
   test("given a game won by player 1 when setCompleted is called with player1Win then isCompleted should return true",
       () {
-    final Game game = Game.initial().setCompleted(GameStatus.player1Win, winningCombination: [0, 1, 2]);
+    final Game game = Game.initial().setCompleted(GameStatus.player1, winningCombination: [0, 1, 2]);
 
     expect(game.isCompleted, isTrue);
     expect(game.isOngoing, isFalse);
