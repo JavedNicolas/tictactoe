@@ -1,11 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tictactoe/features/game/domain/entity/game.dart';
 import 'package:tictactoe/features/game/presentation/provider/game_state.dart';
 import 'package:tictactoe/features/game/presentation/widget/end_game_dialog.dart';
 import 'package:tictactoe/features/game/presentation/widget/tic_tac_toe_grid.dart';
+import 'package:tictactoe/shared/presentation/widget/animated_sliding_widget.dart';
 import 'package:tictactoe/shared/presentation/widget/custom_button.dart';
 import 'package:tictactoe/shared/presentation/widget/custom_scaffold.dart';
 import 'package:tictactoe/features/game/presentation/provider/game_notifier.dart';
@@ -39,10 +41,11 @@ class GamePage extends ConsumerWidget {
           TicTacToeGrid(currentGame: currentGame),
         ],
       ),
-      bottomNavigationBar: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (currentGame.isOngoing)
+      bottomNavigationBar: AnimatedSlidingWidget(
+        direction: SlideDirection.up,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
             CustomButton(
               onPressed: () {
                 ref.watch(gameNotifierProvider.notifier).giveUpGame();
@@ -50,16 +53,17 @@ class GamePage extends ConsumerWidget {
               },
               text: context.tr('pages.game.buttons.give_up'),
             ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text(
-              context.tr('pages.game.buttons.back'),
-              style: Theme.of(context).textTheme.bodyMedium,
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                context.tr('pages.game.buttons.back'),
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -9,6 +9,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       title: 'Morpion',
       theme: lightTheme,
       localizationsDelegates: context.localizationDelegates,

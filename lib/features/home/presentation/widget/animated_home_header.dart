@@ -5,6 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:tictactoe/shared/constant.dart';
+import 'package:tictactoe/shared/presentation/widget/animated_sliding_widget.dart';
 
 class AnimatedHomeHeader extends HookConsumerWidget {
   const AnimatedHomeHeader({super.key});
@@ -31,16 +32,9 @@ class AnimatedHomeHeader extends HookConsumerWidget {
             duration: kHomePageElementDisplayDuration,
             curve: Curves.fastEaseInToSlowEaseOut),
       ],
-      child: Animate(
+      child: AnimatedSlidingWidget(
+        direction: SlideDirection.down,
         onComplete: (controller) => loopAnimationController.loop(),
-        effects: [
-          FadeEffect(duration: kHomePageElementDisplayDuration ~/ 2, curve: Curves.easeOut),
-          const MoveEffect(
-              begin: Offset(0, -150),
-              end: Offset(0, 0),
-              duration: kHomePageElementDisplayDuration,
-              curve: Curves.fastEaseInToSlowEaseOut),
-        ],
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

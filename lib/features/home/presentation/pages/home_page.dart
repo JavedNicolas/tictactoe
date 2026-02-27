@@ -7,6 +7,7 @@ import 'package:tictactoe/features/home/presentation/provider/home_page_notifier
 import 'package:tictactoe/features/home/presentation/provider/home_state.dart';
 import 'package:tictactoe/features/home/presentation/widget/animated_home_header.dart';
 import 'package:tictactoe/shared/constant.dart';
+import 'package:tictactoe/shared/presentation/widget/animated_sliding_widget.dart';
 import 'package:tictactoe/shared/presentation/widget/loading_widget.dart';
 import 'package:tictactoe/shared/router/app_router.gr.dart';
 import 'package:tictactoe/shared/presentation/widget/custom_button.dart';
@@ -39,15 +40,8 @@ class HomePage extends HookConsumerWidget {
           ),
         ],
       ),
-      bottomNavigationBar: Animate(
-        effects: [
-          FadeEffect(duration: kHomePageElementDisplayDuration ~/ 2, curve: Curves.easeOut),
-          const MoveEffect(
-              begin: Offset(0, 150),
-              end: Offset(0, 0),
-              duration: kHomePageElementDisplayDuration,
-              curve: Curves.fastEaseInToSlowEaseOut),
-        ],
+      bottomNavigationBar: AnimatedSlidingWidget(
+        direction: SlideDirection.up,
         child: state.isLoading
             ? const LoadingWidget()
             : Column(
