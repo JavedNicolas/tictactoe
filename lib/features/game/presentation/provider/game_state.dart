@@ -22,10 +22,14 @@ class GameState {
   bool get isNoOnesTurn => currentPlayer == CurrentPlayer.none;
 
   GameState copyWith({Game? currentGame, GameStateStatus? status, CurrentPlayer? currentPlayer}) {
+    final Game newCurrentGame = currentGame ?? this.currentGame;
+    final CurrentPlayer newCurrentPlayer =
+        newCurrentGame.isCompleted ? CurrentPlayer.none : currentPlayer ?? this.currentPlayer;
+
     return GameState(
-      currentGame: currentGame ?? this.currentGame,
+      currentGame: newCurrentGame,
       status: status ?? this.status,
-      currentPlayer: currentPlayer ?? this.currentPlayer,
+      currentPlayer: newCurrentPlayer,
     );
   }
 }

@@ -28,7 +28,7 @@ class GamePage extends HookConsumerWidget {
 
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (gameState.isLoading) {
+        if (gameState.isLoading || gameState.currentGame.isCompleted) {
           return;
         }
 

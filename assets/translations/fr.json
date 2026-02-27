@@ -18,7 +18,8 @@
       },
       "turns" : {
         "player1" : "C'est ton tour",
-        "player2" : "C'est le tour de l'adversaire"
+        "player2" : "C'est le tour de l'adversaire",
+        "none" : "Partie terminée !"
       },
       "buttons" : {
         "give_up" : "Abandonner",
