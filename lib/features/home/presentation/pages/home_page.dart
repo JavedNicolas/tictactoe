@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tictactoe/features/home/presentation/provider/home_page_notifier.dart';
 import 'package:tictactoe/features/home/presentation/provider/home_state.dart';
@@ -20,6 +21,17 @@ class HomePage extends HookConsumerWidget {
     final HomeState state = ref.watch(homePageNotifierProvider);
     final ThemeData theme = Theme.of(context);
 
+    useEffect(() {
+      if (state.hasError) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(context.tr("pages.home.errors.load_games")),
+          ),
+        );
+      }
+      return null;
+    }, [state]);
+
     return CustomScaffold(
       body: Column(
         children: [
@@ -29,7 +41,7 @@ class HomePage extends HookConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  context.tr("pages.game_home.description"),
+                  context.tr("pages.home.description"),
                   textAlign: TextAlign.center,
                   style: theme.textTheme.bodyMedium,
                 ),
@@ -50,15 +62,15 @@ class HomePage extends HookConsumerWidget {
                   CustomButton(
                     icon: Icons.play_arrow,
                     text: state.hasOngoingGame
-                        ? context.tr("pages.game_home.buttons.continue")
-                        : context.tr("pages.game_home.buttons.start"),
+                        ? context.tr("pages.home.buttons.continue")
+                        : context.tr("pages.home.buttons.start"),
                     onPressed: () {
                       context.router.push(const GameRoute());
                     },
                   ),
                   CustomButton(
                     icon: Icons.history,
-                    text: context.tr("pages.game_home.buttons.history"),
+                    text: context.tr("pages.home.buttons.history"),
                     onPressed: () {
                       context.router.push(const GameHistoryRoute());
                     },

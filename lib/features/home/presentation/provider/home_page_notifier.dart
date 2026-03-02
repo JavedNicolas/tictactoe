@@ -16,7 +16,7 @@ class HomePageNotifier extends _$HomePageNotifier {
     _hasOngoingGame = HasOngoingGame(repository: repository);
 
     _hasOngoingGame.call().fold(
-          (failure) => state = state.copyWith(status: HomeStatus.error, errorMessage: failure.message),
+          (failure) => state = state.copyWith(status: HomeStatus.error),
           (hasOngoingGameStream) => hasOngoingGameStream.listen((hasOngoingGame) {
             state = state.copyWith(
               hasOngoingGame: hasOngoingGame,

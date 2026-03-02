@@ -1,13 +1,5 @@
-class Failure extends Error {
-  Failure({required this.message});
+class Failure extends Error {}
 
-  final String message;
-}
+class DatabaseQueryFailure extends Failure {}
 
-class DatabaseQueryFailure extends Failure {
-  DatabaseQueryFailure({required super.message});
-}
-
-class DataNotFoundFailure extends Failure {
-  DataNotFoundFailure({required super.message});
-}
+class DataNotFoundFailure extends Failure {}

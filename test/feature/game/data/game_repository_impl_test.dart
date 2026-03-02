@@ -163,7 +163,7 @@ void main() {
       final Either<Failure, void> result = await repository.updateGame(game: game);
 
       expect(result.isLeft(), true);
-      expect(result.swap().getOrElse(() => Failure(message: '')), isA<DataNotFoundFailure>());
+      expect(result.swap().getOrElse(() => Failure()), isA<DataNotFoundFailure>());
     });
   });
 
@@ -176,7 +176,7 @@ void main() {
       final Either<Failure, List<Game>> games = await repository.loadSavedGames();
 
       expect(games.isLeft(), true);
-      expect(games.swap().getOrElse(() => Failure(message: '')), isA<DatabaseQueryFailure>());
+      expect(games.swap().getOrElse(() => Failure()), isA<DatabaseQueryFailure>());
     });
 
     test('given the datasource is disconnected when getCurrentGameState is called then it returns a failure', () async {
@@ -187,7 +187,7 @@ void main() {
       final Either<Failure, Game?> current = await repository.getOngoingGame();
 
       expect(current.isLeft(), true);
-      expect(current.swap().getOrElse(() => Failure(message: '')), isA<DatabaseQueryFailure>());
+      expect(current.swap().getOrElse(() => Failure()), isA<DatabaseQueryFailure>());
     });
 
     test('given the datasource is disconnected when addGame is called then it returns a failure', () async {
@@ -199,7 +199,7 @@ void main() {
       final Either<Failure, void> result = await repository.addGame(game: game);
 
       expect(result.isLeft(), true);
-      expect(result.swap().getOrElse(() => Failure(message: '')), isA<DatabaseQueryFailure>());
+      expect(result.swap().getOrElse(() => Failure()), isA<DatabaseQueryFailure>());
     });
 
     test('given the datasource is disconnected when updateGame is called then it returns a failure', () async {
@@ -211,7 +211,7 @@ void main() {
       final Either<Failure, void> result = await repository.updateGame(game: game);
 
       expect(result.isLeft(), true);
-      expect(result.swap().getOrElse(() => Failure(message: '')), isA<DatabaseQueryFailure>());
+      expect(result.swap().getOrElse(() => Failure()), isA<DatabaseQueryFailure>());
     });
 
     test('given the datasource is disconnected when getGame is called then it returns a failure', () async {
@@ -222,7 +222,7 @@ void main() {
       final Either<Failure, Game?> result = await repository.getGame(gameId: 'game-1');
 
       expect(result.isLeft(), true);
-      expect(result.swap().getOrElse(() => Failure(message: '')), isA<DatabaseQueryFailure>());
+      expect(result.swap().getOrElse(() => Failure()), isA<DatabaseQueryFailure>());
     });
   });
 }

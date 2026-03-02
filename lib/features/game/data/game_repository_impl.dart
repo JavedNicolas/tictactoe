@@ -29,7 +29,7 @@ class GameRepositoryImpl implements GameRepository {
 
       return Right(stream.map((gameDtos) => gameDtos.map((dto) => Game.fromDto(dto)).toList()));
     } catch (e) {
-      return Left(DatabaseQueryFailure(message: e.toString()));
+      return Left(DatabaseQueryFailure());
     }
   }
 
@@ -40,7 +40,7 @@ class GameRepositoryImpl implements GameRepository {
 
       return Right(gameStateDtos.map((dto) => Game.fromDto(dto)).toList());
     } catch (e) {
-      return Left(DatabaseQueryFailure(message: e.toString()));
+      return Left(DatabaseQueryFailure());
     }
   }
 
@@ -50,13 +50,13 @@ class GameRepositoryImpl implements GameRepository {
       final Either<Failure, List<Game>> either = await loadSavedGames();
 
       if (either.isLeft()) {
-        return Left(either.swap().getOrElse(() => DatabaseQueryFailure(message: 'Unknown error')));
+        return Left(either.swap().getOrElse(() => DatabaseQueryFailure()));
       }
 
       final List<Game> savedGames = either.getOrElse(() => []);
       return Right(savedGames.firstWhereOrNull((game) => !game.isCompleted));
     } catch (e) {
-      return Left(DatabaseQueryFailure(message: e.toString()));
+      return Left(DatabaseQueryFailure());
     }
   }
 
@@ -65,7 +65,7 @@ class GameRepositoryImpl implements GameRepository {
     try {
       final Either<Failure, List<Game>> either = await loadSavedGames();
       if (either.isLeft()) {
-        return Left(either.swap().getOrElse(() => DatabaseQueryFailure(message: 'Unknown error')));
+        return Left(either.swap().getOrElse(() => DatabaseQueryFailure()));
       }
       final List<Game> savedGames = either.getOrElse(() => []);
 
@@ -73,7 +73,7 @@ class GameRepositoryImpl implements GameRepository {
     } on Failure catch (e) {
       return Left(e);
     } catch (e) {
-      return Left(DatabaseQueryFailure(message: e.toString()));
+      return Left(DatabaseQueryFailure());
     }
   }
 
@@ -84,7 +84,7 @@ class GameRepositoryImpl implements GameRepository {
       await _datasource.addGameDto(gameDto: gameStateDtos);
       return const Right(null);
     } catch (e) {
-      return Left(DatabaseQueryFailure(message: e.toString()));
+      return Left(DatabaseQueryFailure());
     }
   }
 
@@ -98,7 +98,7 @@ class GameRepositoryImpl implements GameRepository {
     } on Failure catch (e) {
       return Left(e);
     } catch (e) {
-      return Left(DatabaseQueryFailure(message: e.toString()));
+      return Left(DatabaseQueryFailure());
     }
   }
 

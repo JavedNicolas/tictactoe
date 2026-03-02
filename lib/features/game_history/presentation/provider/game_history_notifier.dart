@@ -16,8 +16,7 @@ class GameHistoryNotifier extends _$GameHistoryNotifier {
     _getGameHistory = GetGameHistory(repository: repository);
 
     _getGameHistory.call().then(
-          (games) => games.fold(
-              (failure) => state = state.copyWith(status: GameHistoryStatus.error, errorMessage: failure.message),
+          (games) => games.fold((failure) => state = state.copyWith(status: GameHistoryStatus.error),
               (games) => state = state.copyWith(status: GameHistoryStatus.loaded, games: games.reversed.toList())),
         );
 

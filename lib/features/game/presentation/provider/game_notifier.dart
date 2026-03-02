@@ -35,7 +35,7 @@ class GameNotifier extends _$GameNotifier {
     // load the current game on initialization and listen to its changes
     _getOnGoingGame.call().then((game) {
       game.fold(
-        (failure) => state = state.copyWith(status: GameStateStatus.error, errorMessage: failure.message),
+        (failure) => state = state.copyWith(status: GameStateStatus.error),
         (game) => _setGame(game: game),
       );
     });
@@ -54,7 +54,7 @@ class GameNotifier extends _$GameNotifier {
         state.copyWith(currentGame: currentGame, status: GameStateStatus.loaded, currentPlayer: CurrentPlayer.player1);
 
     _listenToCurrentGame.call(id: currentGame.id).fold(
-          (failure) => state = state.copyWith(status: GameStateStatus.error, errorMessage: failure.message),
+          (failure) => state = state.copyWith(status: GameStateStatus.error),
           (stream) => stream.listen((game) {
             state = state.copyWith(currentGame: game, currentPlayer: CurrentPlayer.player1);
           }),
@@ -68,7 +68,7 @@ class GameNotifier extends _$GameNotifier {
     await _startNewGame.call();
     await _getOnGoingGame.call().then((game) {
       game.fold(
-        (failure) => state = state.copyWith(status: GameStateStatus.error, errorMessage: failure.message),
+        (failure) => state = state.copyWith(status: GameStateStatus.error),
         (game) => _setGame(game: game),
       );
     });
@@ -92,7 +92,7 @@ class GameNotifier extends _$GameNotifier {
   Future<void> makeAiMove() async {
     await _makeMove.callAi(game: state.currentGame).then((either) {
       either.fold(
-        (failure) => state = state.copyWith(status: GameStateStatus.error, errorMessage: failure.message),
+        (failure) => state = state.copyWith(status: GameStateStatus.error),
         (_) => state = state.copyWith(currentPlayer: CurrentPlayer.player1),
       );
     });
@@ -103,7 +103,7 @@ class GameNotifier extends _$GameNotifier {
     await _currentGameSubscription?.cancel();
     await _giveUpGame.call(game: state.currentGame).then((either) {
       either.fold(
-        (failure) => state = state.copyWith(status: GameStateStatus.error, errorMessage: failure.message),
+        (failure) => state = state.copyWith(status: GameStateStatus.error),
         (_) => state = state.copyWith(currentGame: Game.initial(), status: GameStateStatus.loaded),
       );
     });

@@ -21,7 +21,6 @@ void main() {
 
       final Either<Failure, List<Game>> games = await repository.loadSavedGames();
       final Either<Failure, Game?> created = await repository.getOngoingGame();
-      print(games);
 
       expect(games.isRight(), true);
       final List<Game> gamesList = games.getOrElse(() => []);

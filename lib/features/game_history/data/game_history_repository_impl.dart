@@ -27,7 +27,7 @@ class GameHistoryRepositoryImpl implements GameHistoryRepository {
 
       return Right(games.map((gameDto) => Game.fromDto(gameDto)).toList());
     } catch (e) {
-      return Left(DatabaseQueryFailure(message: e.toString()));
+      return Left(DatabaseQueryFailure());
     }
   }
 }
