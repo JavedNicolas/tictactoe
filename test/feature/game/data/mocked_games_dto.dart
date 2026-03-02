@@ -16,7 +16,7 @@ final List<GameDto> savedGameWithAGameAlmostWon = <GameDto>[
       CellDto(index: 7, state: 'player2'),
       CellDto(index: 8, state: 'player2'),
     ],
-    status: 'player1Win',
+    status: 'player1',
   ),
 ];
 
@@ -35,7 +35,7 @@ final List<GameDto> savedGameWithAGameAlmostDrawn = <GameDto>[
       CellDto(index: 7, state: 'player2'),
       CellDto(index: 8, state: 'player2'),
     ],
-    status: 'player1Win',
+    status: 'player1',
   ),
 ];
 
@@ -54,7 +54,7 @@ final List<GameDto> savedGameWithOngoing = <GameDto>[
       CellDto(index: 7, state: 'player2'),
       CellDto(index: 8, state: 'player2'),
     ],
-    status: 'player1Win',
+    status: 'player1',
   ),
   GameDto(
     id: 'game-2',
@@ -95,7 +95,7 @@ final List<GameDto> saveGameOnlyCompleted = <GameDto>[
       CellDto(index: 7, state: 'empty'),
       CellDto(index: 8, state: 'empty'),
     ],
-    status: 'player2Win',
+    status: 'player2',
   ),
 ];
 
@@ -130,7 +130,7 @@ final List<GameDto> threeSavedGame = [
       CellDto(index: 7, state: 'empty'),
       CellDto(index: 8, state: 'empty'),
     ],
-    status: 'player2Win',
+    status: 'player2',
   ),
   const GameDto(
     id: 'game-3',

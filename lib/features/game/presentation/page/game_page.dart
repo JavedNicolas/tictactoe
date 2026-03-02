@@ -1,9 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tictactoe/features/game/domain/entity/game.dart';
 import 'package:tictactoe/features/game/presentation/provider/game_state.dart';
@@ -16,7 +13,7 @@ import 'package:tictactoe/features/game/presentation/provider/game_notifier.dart
 import 'package:tictactoe/shared/presentation/widget/loading_widget.dart';
 
 @RoutePage()
-class GamePage extends HookConsumerWidget {
+class GamePage extends ConsumerWidget {
   const GamePage({super.key});
 
   @override
@@ -25,22 +22,6 @@ class GamePage extends HookConsumerWidget {
     final Game currentGame = gameState.currentGame;
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
-
-    useEffect(() {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (gameState.isLoading || gameState.currentGame.isCompleted) {
-          return;
-        }
-
-        if (gameState.isPlayer2Turn) {
-          Future.delayed(const Duration(milliseconds: 1000), () {
-            ref.watch(gameNotifierProvider.notifier).makeAiMove();
-          });
-        }
-      });
-
-      return null;
-    }, [gameState]);
 
     if (gameState.isLoading) {
       return const CustomScaffold(body: Center(child: LoadingWidget()));
@@ -56,7 +37,7 @@ class GamePage extends HookConsumerWidget {
             height: 80,
             child: Text(
               context.tr('pages.game.turns.${gameState.currentPlayer.name}'),
-              style: theme.textTheme.displayMedium!.copyWith(color: colorScheme.primary),
+              style: theme.textTheme.displayLarge!.copyWith(color: colorScheme.primary),
               textAlign: TextAlign.center,
             ),
           ),

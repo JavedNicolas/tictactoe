@@ -5,8 +5,8 @@ void main() {
   group('GameStatus', () {
     test('given valid status names when fromString is called then matching enum values are returned', () {
       expect(GameStatus.fromString('draw'), GameStatus.draw);
-      expect(GameStatus.fromString('player1Win'), GameStatus.player1);
-      expect(GameStatus.fromString('player2Win'), GameStatus.player2);
+      expect(GameStatus.fromString('player1'), GameStatus.player1);
+      expect(GameStatus.fromString('player2'), GameStatus.player2);
       expect(GameStatus.fromString('abandoned'), GameStatus.abandoned);
     });
 

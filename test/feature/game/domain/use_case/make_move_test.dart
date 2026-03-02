@@ -33,12 +33,16 @@ void main() {
       final Game currentGame = Game.fromDto(savedGameWithOngoing[1]);
 
       await MakeMove(repository: repository).call(index: 0, playerIndex: 0, game: currentGame);
+      final Game? afterPlayerMove = await repository.getOngoingGame();
 
-      final Game? updated = await repository.getOngoingGame();
-      expect(updated?.cells[0].state, CellState.player1);
-      expect(updated?.cells.where((cell) => cell.state == CellState.player1).length, 1);
-      expect(updated?.cells.where((cell) => cell.state == CellState.player2).length, 1);
-      expect(updated?.status, GameStatus.ongoing);
+      expect(afterPlayerMove?.cells[0].state, CellState.player1);
+
+      await MakeMove(repository: repository).callAi(game: afterPlayerMove!);
+      final Game? afterAiMove = await repository.getOngoingGame();
+
+      expect(afterAiMove?.cells.where((cell) => cell.state == CellState.player1).length, 1);
+      expect(afterAiMove?.cells.where((cell) => cell.state == CellState.player2).length, 1);
+      expect(afterAiMove?.status, GameStatus.ongoing);
     });
 
     test('given a near-winning board for player1 when MakeMove completes line then status becomes player1Win',

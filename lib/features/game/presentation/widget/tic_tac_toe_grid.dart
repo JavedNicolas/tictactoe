@@ -47,6 +47,8 @@ class TicTacToeGrid extends ConsumerWidget {
             final int row = (index / kTicTacToeSize).floor();
             final bool isCorner =
                 (row == 0 || row == kTicTacToeSize - 1) && (column == 0 || column == kTicTacToeSize - 1);
+            final bool isWinningCell = currentGame.winningCombination?.contains(index) ?? false;
+            final Color winningCellColor = currentGame.status.isPlayer1Win ? kPlayer1Color : kPlayer2Color;
 
             return Animate(
               effects: [
@@ -65,6 +67,7 @@ class TicTacToeGrid extends ConsumerWidget {
                   padding: const EdgeInsets.all(15),
                   decoration: BoxDecoration(
                     color: colorScheme.surfaceContainer,
+                    border: isWinningCell ? Border.all(color: winningCellColor, width: 3) : null,
                     borderRadius: BorderRadius.only(
                       topLeft: isCorner && row == 0 && column == 0
                           ? const Radius.circular(kGridSizeBorderRadius * 0.8)
@@ -80,16 +83,7 @@ class TicTacToeGrid extends ConsumerWidget {
                           : Radius.zero,
                     ),
                   ),
-                  child: Center(
-                      child: FittedBox(
-                          child: Animate(effects: [
-                    FadeEffect(duration: 200.ms, curve: Curves.easeInOut),
-                    ScaleEffect(
-                        duration: 1000.ms,
-                        curve: Curves.easeInOut,
-                        begin: const Offset(1.2, 1.2),
-                        end: const Offset(1, 1)),
-                  ], child: CellStateDisplayer(cellState: currentGame.cells[index].state)))),
+                  child: Center(child: FittedBox(child: CellStateDisplayer(cellState: currentGame.cells[index].state))),
                 ),
               ),
             );
