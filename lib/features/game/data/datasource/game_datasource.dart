@@ -56,8 +56,8 @@ class GameDatasource {
 
   Future<void> updateGameDto({required GameDto gameDto}) async {
     final List<GameDto> savedGames = await loadSavedGames();
-    if (savedGames.isEmpty) {
-      throw DataNotFoundFailure(message: 'No saved games found');
+    if (savedGames.every((game) => game.id != gameDto.id)) {
+      throw DataNotFoundFailure(message: 'Game with id ${gameDto.id} not found');
     }
 
     final List<GameDto> updatedGames = [...savedGames.where((game) => game.id != gameDto.id), gameDto];

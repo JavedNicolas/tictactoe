@@ -47,8 +47,13 @@ class GameRepositoryImpl implements GameRepository {
   @override
   Future<Either<Failure, Game?>> getOngoingGame() async {
     try {
-      final List<Game> savedGames = await loadSavedGames().then((either) => either.getOrElse(() => []));
+      final Either<Failure, List<Game>> either = await loadSavedGames();
 
+      if (either.isLeft()) {
+        return Left(either.swap().getOrElse(() => DatabaseQueryFailure(message: 'Unknown error')));
+      }
+
+      final List<Game> savedGames = either.getOrElse(() => []);
       return Right(savedGames.firstWhereOrNull((game) => !game.isCompleted));
     } catch (e) {
       return Left(DatabaseQueryFailure(message: e.toString()));
@@ -58,7 +63,11 @@ class GameRepositoryImpl implements GameRepository {
   @override
   Future<Either<Failure, Game?>> getGame({required String gameId}) async {
     try {
-      final List<Game> savedGames = await loadSavedGames().then((either) => either.getOrElse(() => []));
+      final Either<Failure, List<Game>> either = await loadSavedGames();
+      if (either.isLeft()) {
+        return Left(either.swap().getOrElse(() => DatabaseQueryFailure(message: 'Unknown error')));
+      }
+      final List<Game> savedGames = either.getOrElse(() => []);
 
       return Right(savedGames.firstWhereOrNull((game) => game.id == gameId));
     } on Failure catch (e) {
@@ -86,6 +95,8 @@ class GameRepositoryImpl implements GameRepository {
 
       await _datasource.updateGameDto(gameDto: gameStateDtos);
       return const Right(null);
+    } on Failure catch (e) {
+      return Left(e);
     } catch (e) {
       return Left(DatabaseQueryFailure(message: e.toString()));
     }
