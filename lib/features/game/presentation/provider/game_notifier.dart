@@ -34,10 +34,14 @@ class GameNotifier extends _$GameNotifier {
 
     // load the current game on initialization and listen to its changes
     _getOnGoingGame.call().then((game) {
-      game.fold(
-        (failure) => state = state.copyWith(status: GameStateStatus.error),
-        (game) => _setGame(game: game),
-      );
+      game.fold((failure) => state = state.copyWith(status: GameStateStatus.error), (game) {
+        if (game == null) {
+          startNewGame();
+          return;
+        }
+
+        _setGame(game: game);
+      });
     });
 
     // close the stream subscription when the notifier is disposed
