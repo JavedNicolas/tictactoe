@@ -9,6 +9,6 @@ class StartNewGame {
   final GameRepository repository;
 
   Future<Either<Failure, void>> call() async {
-    return await repository.updateGame(game: Game.initial());
+    return await repository.addGame(game: Game.initial());
   }
 }

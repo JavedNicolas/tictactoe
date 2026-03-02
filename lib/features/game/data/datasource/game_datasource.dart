@@ -47,6 +47,13 @@ class GameDatasource {
     return games;
   }
 
+  Future<void> addGameDto({required GameDto gameDto}) async {
+    final List<GameDto> savedGames = await loadSavedGames();
+    final List<GameDto> updatedGames = [...savedGames, gameDto];
+
+    await _saveGames(games: updatedGames);
+  }
+
   Future<void> updateGameDto({required GameDto gameDto}) async {
     final List<GameDto> savedGames = await loadSavedGames();
     if (savedGames.isEmpty) {

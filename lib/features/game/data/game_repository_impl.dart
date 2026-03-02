@@ -69,6 +69,17 @@ class GameRepositoryImpl implements GameRepository {
   }
 
   @override
+  Future<Either<Failure, void>> addGame({required Game game}) async {
+    try {
+      final GameDto gameStateDtos = GameDto.fromGameState(game);
+      await _datasource.addGameDto(gameDto: gameStateDtos);
+      return const Right(null);
+    } catch (e) {
+      return Left(DatabaseQueryFailure(message: e.toString()));
+    }
+  }
+
+  @override
   Future<Either<Failure, void>> updateGame({required Game game}) async {
     try {
       final GameDto gameStateDtos = GameDto.fromGameState(game);
