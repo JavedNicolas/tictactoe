@@ -33,7 +33,12 @@ class GameNotifier extends _$GameNotifier {
     _giveUpGame = GiveUpGame(repository: repository);
 
     // load the current game on initialization and listen to its changes
-    _getOnGoingGame.call().then((game) => _setGame(game: game));
+    _getOnGoingGame.call().then((game) {
+      game.fold(
+        (failure) => state = state.copyWith(status: GameStateStatus.error, errorMessage: failure.message),
+        (game) => _setGame(game: game),
+      );
+    });
 
     // close the stream subscription when the notifier is disposed
     ref.onDispose(() {
@@ -48,9 +53,12 @@ class GameNotifier extends _$GameNotifier {
     state =
         state.copyWith(currentGame: currentGame, status: GameStateStatus.loaded, currentPlayer: CurrentPlayer.player1);
 
-    _currentGameSubscription = _listenToCurrentGame.call(id: currentGame.id).listen((game) {
-      state = state.copyWith(currentGame: game, currentPlayer: CurrentPlayer.player1);
-    });
+    _listenToCurrentGame.call(id: currentGame.id).fold(
+          (failure) => state = state.copyWith(status: GameStateStatus.error, errorMessage: failure.message),
+          (stream) => stream.listen((game) {
+            state = state.copyWith(currentGame: game, currentPlayer: CurrentPlayer.player1);
+          }),
+        );
   }
 
   Future<void> startNewGame() async {
@@ -58,8 +66,12 @@ class GameNotifier extends _$GameNotifier {
     await _currentGameSubscription?.cancel();
 
     await _startNewGame.call();
-
-    _setGame(game: await _getOnGoingGame.call());
+    await _getOnGoingGame.call().then((game) {
+      game.fold(
+        (failure) => state = state.copyWith(status: GameStateStatus.error, errorMessage: failure.message),
+        (game) => _setGame(game: game),
+      );
+    });
   }
 
   Future<void> makeMove({required int index, required int playerIndex}) async {
@@ -78,13 +90,22 @@ class GameNotifier extends _$GameNotifier {
   }
 
   Future<void> makeAiMove() async {
-    await _makeMove.callAi(game: state.currentGame);
-    state = state.copyWith(currentPlayer: CurrentPlayer.player1);
+    await _makeMove.callAi(game: state.currentGame).then((either) {
+      either.fold(
+        (failure) => state = state.copyWith(status: GameStateStatus.error, errorMessage: failure.message),
+        (_) => state = state.copyWith(currentPlayer: CurrentPlayer.player1),
+      );
+    });
   }
 
   Future<void> giveUpGame() async {
     state = state.copyWith(status: GameStateStatus.loading);
     await _currentGameSubscription?.cancel();
-    await _giveUpGame.call(game: state.currentGame);
+    await _giveUpGame.call(game: state.currentGame).then((either) {
+      either.fold(
+        (failure) => state = state.copyWith(status: GameStateStatus.error, errorMessage: failure.message),
+        (_) => state = state.copyWith(currentGame: Game.initial(), status: GameStateStatus.loaded),
+      );
+    });
   }
 }

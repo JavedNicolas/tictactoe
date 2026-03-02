@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:dartz/dartz.dart';
 import 'package:tictactoe/features/game/domain/entity/game_completion_state.dart';
 import 'package:tictactoe/shared/constant.dart';
 import 'package:tictactoe/features/game/domain/entity/cell.dart';
@@ -6,20 +7,21 @@ import 'package:tictactoe/features/game/domain/entity/cell_state.dart';
 import 'package:tictactoe/features/game/domain/entity/game.dart';
 import 'package:tictactoe/features/game/domain/entity/game_status.dart';
 import 'package:tictactoe/features/game/domain/repository/game_repository.dart';
+import 'package:tictactoe/shared/errors/failure.dart';
 
 class MakeMove {
   const MakeMove({required this.repository});
 
   final GameRepository repository;
 
-  Future<void> callAi({
+  Future<Either<Failure, void>> callAi({
     required Game game,
   }) async {
     final int index = _getAiMoveIndex(game.cells);
-    await call(index: index, playerIndex: 1, game: game);
+    return await call(index: index, playerIndex: 1, game: game);
   }
 
-  Future<void> call({
+  Future<Either<Failure, void>> call({
     required int index,
     required int playerIndex,
     required Game game,
@@ -28,12 +30,11 @@ class MakeMove {
     final GameCompletionState status = _checkGameCompletion(updatedGame.cells);
 
     if (status.status.isCompleted) {
-      await repository.updateGame(
+      return await repository.updateGame(
           game: updatedGame.setCompleted(status.status, winningCombination: status.winningCombination));
-      return;
     }
 
-    await repository.updateGame(game: updatedGame);
+    return await repository.updateGame(game: updatedGame);
   }
 
   int _getAiMoveIndex(List<Cell> cells) {

@@ -5,13 +5,15 @@ enum GameStateStatus { loading, loaded, error }
 enum CurrentPlayer { player1, player2, none }
 
 class GameState {
-  const GameState({required this.status, required this.currentGame, this.currentPlayer = CurrentPlayer.none});
+  const GameState(
+      {required this.status, required this.currentGame, this.currentPlayer = CurrentPlayer.none, this.errorMessage});
 
   factory GameState.initial() => GameState(status: GameStateStatus.loading, currentGame: Game.initial());
 
   final Game currentGame;
   final GameStateStatus status;
   final CurrentPlayer currentPlayer;
+  final String? errorMessage;
 
   bool get isLoading => status == GameStateStatus.loading;
   bool get isLoaded => status == GameStateStatus.loaded;
@@ -21,7 +23,7 @@ class GameState {
   bool get isPlayer2Turn => currentPlayer == CurrentPlayer.player2;
   bool get isNoOnesTurn => currentPlayer == CurrentPlayer.none;
 
-  GameState copyWith({Game? currentGame, GameStateStatus? status, CurrentPlayer? currentPlayer}) {
+  GameState copyWith({Game? currentGame, GameStateStatus? status, CurrentPlayer? currentPlayer, String? errorMessage}) {
     final Game newCurrentGame = currentGame ?? this.currentGame;
     final CurrentPlayer newCurrentPlayer =
         newCurrentGame.isCompleted ? CurrentPlayer.none : currentPlayer ?? this.currentPlayer;
@@ -30,6 +32,7 @@ class GameState {
       currentGame: newCurrentGame,
       status: status ?? this.status,
       currentPlayer: newCurrentPlayer,
+      errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 }
