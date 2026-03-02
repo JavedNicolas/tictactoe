@@ -15,7 +15,7 @@ void main() {
       final FakeLocalDatasourceService datasource = FakeLocalDatasourceService(savedGames: savedGameWithOngoing);
       final GameDatasource gameDatasource = GameDatasource(localDatabaseService: datasource);
       final GameRepositoryImpl repository = GameRepositoryImpl(datasource: gameDatasource);
-      final Game expectedGame = Game.fromDto(savedGameWithOngoing[1]);
+      final Game expectedGame = savedGameWithOngoing[1].toGame();
 
       final Either<Failure, Stream<Game?>> result = ListenToGame(repository: repository).call(id: expectedGame.id);
 

@@ -21,7 +21,7 @@ void main() {
       final GameRepositoryImpl repository =
           GameRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
 
-      final Game currentGame = Game.fromDto(savedGameWithOngoing[1]);
+      final Game currentGame = savedGameWithOngoing[1].toGame();
       await GiveUpGame(repository: repository).call(game: currentGame);
 
       final Either<Failure, Game?> ongoingGame = await repository.getOngoingGame();

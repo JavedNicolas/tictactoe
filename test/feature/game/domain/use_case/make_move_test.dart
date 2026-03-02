@@ -18,7 +18,7 @@ void main() {
       final GameRepositoryImpl repository =
           GameRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
 
-      final Game currentGame = Game.fromDto(savedGameWithOngoing[1]);
+      final Game currentGame = savedGameWithOngoing[1].toGame();
 
       await MakeMove(repository: repository).call(index: 1, playerIndex: 0, game: currentGame);
 
@@ -35,7 +35,7 @@ void main() {
       final GameRepositoryImpl repository =
           GameRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
 
-      final Game currentGame = Game.fromDto(savedGameWithOngoing[1]);
+      final Game currentGame = savedGameWithOngoing[1].toGame();
 
       await MakeMove(repository: repository).call(index: 0, playerIndex: 0, game: currentGame);
       final Either<Failure, Game?> afterPlayerMove = await repository.getOngoingGame();
@@ -62,7 +62,7 @@ void main() {
       final GameRepositoryImpl repository =
           GameRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
 
-      final Game currentGame = Game.fromDto(savedGameWithAGameAlmostWon[0]);
+      final Game currentGame = savedGameWithAGameAlmostWon[0].toGame();
 
       await MakeMove(repository: repository).call(index: 0, playerIndex: 0, game: currentGame);
 
@@ -80,7 +80,7 @@ void main() {
       final GameRepositoryImpl repository =
           GameRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
 
-      final Game currentGame = Game.fromDto(savedGameWithAGameAlmostDrawn[0]);
+      final Game currentGame = savedGameWithAGameAlmostDrawn[0].toGame();
 
       await MakeMove(repository: repository).call(index: 0, playerIndex: 0, game: currentGame);
 

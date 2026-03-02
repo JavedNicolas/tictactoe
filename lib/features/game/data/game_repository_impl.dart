@@ -27,7 +27,7 @@ class GameRepositoryImpl implements GameRepository {
     try {
       final Stream<List<GameDto>> stream = _datasource.subscribeToGameDtosStream();
 
-      return Right(stream.map((gameDtos) => gameDtos.map((dto) => Game.fromDto(dto)).toList()));
+      return Right(stream.map((gameDtos) => gameDtos.map((dto) => dto.toGame()).toList()));
     } catch (e) {
       return Left(DatabaseQueryFailure());
     }
@@ -38,7 +38,7 @@ class GameRepositoryImpl implements GameRepository {
     try {
       final List<GameDto> gameStateDtos = await _datasource.loadSavedGames();
 
-      return Right(gameStateDtos.map((dto) => Game.fromDto(dto)).toList());
+      return Right(gameStateDtos.map((dto) => dto.toGame()).toList());
     } catch (e) {
       return Left(DatabaseQueryFailure());
     }

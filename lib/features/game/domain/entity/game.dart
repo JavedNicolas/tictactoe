@@ -1,5 +1,4 @@
 import 'package:tictactoe/shared/constant.dart';
-import 'package:tictactoe/features/game/data/dto/game_dto.dart';
 import 'package:tictactoe/features/game/domain/entity/cell.dart';
 import 'package:tictactoe/features/game/domain/entity/cell_state.dart';
 import 'package:tictactoe/features/game/domain/entity/game_status.dart';
@@ -12,16 +11,6 @@ class Game {
       required this.cells,
       required this.status,
       this.winningCombination = const []});
-
-  factory Game.fromDto(GameDto dto) {
-    return Game(
-      id: dto.id,
-      date: DateTime.fromMillisecondsSinceEpoch(dto.date),
-      cells: dto.cells.map((cellDto) => cellDto.toCell()).toList(),
-      status: GameStatus.fromString(dto.status),
-      winningCombination: dto.winningCombination,
-    );
-  }
 
   factory Game.initial() {
     return Game(

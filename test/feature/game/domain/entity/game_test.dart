@@ -29,7 +29,7 @@ void main() {
         status: 'draw',
       );
 
-      final Game game = Game.fromDto(dto);
+      final Game game = dto.toGame();
 
       expect(game.id, 'dto-id');
       expect(game.date, DateTime.fromMillisecondsSinceEpoch(1700000000000));

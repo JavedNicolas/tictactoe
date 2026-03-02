@@ -25,7 +25,7 @@ class GameHistoryRepositoryImpl implements GameHistoryRepository {
     try {
       final List<GameDto> games = await _datasource.loadSavedGames();
 
-      return Right(games.map((gameDto) => Game.fromDto(gameDto)).toList());
+      return Right(games.map((gameDto) => gameDto.toGame()).toList());
     } catch (e) {
       return Left(DatabaseQueryFailure());
     }

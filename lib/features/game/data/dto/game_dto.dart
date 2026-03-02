@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:tictactoe/features/game/data/dto/cell_dto.dart';
 import 'package:tictactoe/features/game/domain/entity/game.dart';
+import 'package:tictactoe/features/game/domain/entity/game_status.dart';
 
 part 'game_dto.freezed.dart';
 part 'game_dto.g.dart';
@@ -33,6 +34,16 @@ abstract class GameDto with _$GameDto {
       cells: gameState.cells.map((cell) => CellDto.fromCell(cell)).toList(),
       status: gameState.status.name,
       winningCombination: gameState.winningCombination,
+    );
+  }
+
+  Game toGame() {
+    return Game(
+      id: id,
+      date: DateTime.fromMillisecondsSinceEpoch(date),
+      cells: cells.map((cellDto) => cellDto.toCell()).toList(),
+      status: GameStatus.fromString(status),
+      winningCombination: winningCombination,
     );
   }
 
