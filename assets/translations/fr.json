@@ -1,15 +1,24 @@
 {
   "pages" : {
-    "game_home" : {
+    "home" : {
       "buttons" : {
         "start" : "Démarrer une partie",
         "continue" : "Continuer la partie",
         "history" : "Historique des parties"
       },
-      "title" : "Morpion",
+      "errors" : {
+        "load_games" : "Erreur lors du chargement des parties enregistrées"
+      },
       "description" : "Bienvenue dans le jeu de morpion ! Cliquez sur le bouton ci-dessous pour commencer une nouvelle partie et jouer contre un adversaire AI. Amusez-vous bien !"
     },
     "game" : {
+      "buttons" : {
+        "give_up" : "Abandonner",
+        "back" : "Retour à l'accueil"
+      },
+        "errors" : {
+        "load_game" : "Erreur lors du chargement de la partie"
+      },
       "status" : {
         "ongoing" : "En cours",
         "player1Win" : "Joueur 1 gagne",
@@ -20,21 +29,27 @@
         "player1" : "C'est ton tour",
         "player2" : "C'est le tour de l'adversaire",
         "none" : "Partie terminée !"
-      },
-      "buttons" : {
-        "give_up" : "Abandonner",
-        "back" : "Retour à l'accueil"
       }
     },
     "game_history" : {
-      "title" : "Historique des parties",
+
+      "errors" : {
+        "load_games" : "Erreur lors du chargement des parties enregistrées"
+      },
       "messages" : {
         "empty" : "Aucune partie enregistrée"
-      }
+      },
+      "title" : "Historique des parties"
     }
   },
   "widgets" : {
+    "animated_home_header" : {
+      "title" : "Morpion"
+    },
     "game_history_tile" : {
+      "buttons" : {
+        "see" : "Voir"
+      },
       "title" : "Partie du {}",
       "subtitle" : {
         "player1" : "Gagnant : Joueur 1",
@@ -42,10 +57,7 @@
         "draw" : "Match nul",
         "ongoing" : "En cours",
         "abandoned" : "Abandonnée"
-      },
-      "buttons" : {
-        "see" : "Voir"
-       }
+      }
     },
     "end_game_dialog" : {
       "title" : {
@@ -54,8 +66,8 @@
         "draw" : "Match nul !"
       },
       "buttons" : {
-        "restart" : "Rejouer",
-        "back" : "Retour à l'accueil"
+        "back" : "Retour à l'accueil",
+        "restart" : "Rejouer"
       }
     }
   }

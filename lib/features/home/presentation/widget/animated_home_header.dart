@@ -39,7 +39,7 @@ class AnimatedHomeHeader extends HookConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Lottie.asset('assets/lottie/animated_icon.json'),
-            Text(context.tr("pages.game_home.title"), style: theme.textTheme.displayLarge),
+            Text(context.tr("widgets.animated_home_header.title"), style: theme.textTheme.displayLarge),
           ],
         ),
       ),

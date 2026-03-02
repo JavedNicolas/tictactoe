@@ -18,7 +18,7 @@ class HomeState {
 
   bool get isLoading => status == HomeStatus.loading;
   bool get isLoaded => status == HomeStatus.loaded;
-  bool get isError => status == HomeStatus.error;
+  bool get hasError => status == HomeStatus.error;
 
   HomeState copyWith({
     bool? hasOngoingGame,

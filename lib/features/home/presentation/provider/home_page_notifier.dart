@@ -15,12 +15,15 @@ class HomePageNotifier extends _$HomePageNotifier {
     final GameRepository repository = ref.read(gameRepositoryProvider);
     _hasOngoingGame = HasOngoingGame(repository: repository);
 
-    _hasOngoingGame.call().listen((hasOngoingGame) {
-      state = state.copyWith(
-        hasOngoingGame: hasOngoingGame,
-        status: HomeStatus.loaded,
-      );
-    });
+    _hasOngoingGame.call().fold(
+          (failure) => state = state.copyWith(status: HomeStatus.error),
+          (hasOngoingGameStream) => hasOngoingGameStream.listen((hasOngoingGame) {
+            state = state.copyWith(
+              hasOngoingGame: hasOngoingGame,
+              status: HomeStatus.loaded,
+            );
+          }),
+        );
 
     return HomeState.initial();
   }

@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tictactoe/features/game/data/datasource/game_datasource.dart';
 import 'package:tictactoe/features/game/data/game_repository_impl.dart';
@@ -5,6 +6,7 @@ import 'package:tictactoe/features/game/domain/entity/cell_state.dart';
 import 'package:tictactoe/features/game/domain/entity/game.dart';
 import 'package:tictactoe/features/game/domain/entity/game_status.dart';
 import 'package:tictactoe/features/game/domain/use_case/make_move.dart';
+import 'package:tictactoe/shared/errors/failure.dart';
 
 import '../../data/fake/fake_local_datasource_service.dart';
 import '../../data/mocked_games_dto.dart';
@@ -20,9 +22,12 @@ void main() {
 
       await MakeMove(repository: repository).call(index: 1, playerIndex: 0, game: currentGame);
 
-      final Game? updated = await repository.getOngoingGame();
-      expect(updated?.cells[1].state, CellState.player1);
-      expect(updated?.status, GameStatus.ongoing);
+      final Either<Failure, Game?> updated = await repository.getOngoingGame();
+      expect(updated.isRight(), true);
+
+      final Game? updatedGame = updated.getOrElse(() => null);
+      expect(updatedGame?.cells[1].state, CellState.player1);
+      expect(updatedGame?.status, GameStatus.ongoing);
     });
 
     test('given player1 move with ongoing game when MakeMove is called then AI follow-up move is triggered', () async {
@@ -33,16 +38,22 @@ void main() {
       final Game currentGame = Game.fromDto(savedGameWithOngoing[1]);
 
       await MakeMove(repository: repository).call(index: 0, playerIndex: 0, game: currentGame);
-      final Game? afterPlayerMove = await repository.getOngoingGame();
+      final Either<Failure, Game?> afterPlayerMove = await repository.getOngoingGame();
 
-      expect(afterPlayerMove?.cells[0].state, CellState.player1);
+      expect(afterPlayerMove.isRight(), true);
 
-      await MakeMove(repository: repository).callAi(game: afterPlayerMove!);
-      final Game? afterAiMove = await repository.getOngoingGame();
+      final Game? afterPlayerMoveGame = afterPlayerMove.getOrElse(() => null);
+      expect(afterPlayerMoveGame?.cells[0].state, CellState.player1);
 
-      expect(afterAiMove?.cells.where((cell) => cell.state == CellState.player1).length, 1);
-      expect(afterAiMove?.cells.where((cell) => cell.state == CellState.player2).length, 1);
-      expect(afterAiMove?.status, GameStatus.ongoing);
+      await MakeMove(repository: repository).callAi(game: afterPlayerMoveGame!);
+      final Either<Failure, Game?> afterAiMove = await repository.getOngoingGame();
+
+      expect(afterAiMove.isRight(), true);
+
+      final Game? afterAiMoveGame = afterAiMove.getOrElse(() => null);
+      expect(afterAiMoveGame?.cells.where((cell) => cell.state == CellState.player1).length, 1);
+      expect(afterAiMoveGame?.cells.where((cell) => cell.state == CellState.player2).length, 1);
+      expect(afterAiMoveGame?.status, GameStatus.ongoing);
     });
 
     test('given a near-winning board for player1 when MakeMove completes line then status becomes player1Win',
@@ -55,9 +66,12 @@ void main() {
 
       await MakeMove(repository: repository).call(index: 0, playerIndex: 0, game: currentGame);
 
-      final Game? updated = await repository.getGame(gameId: currentGame.id);
-      expect(updated?.cells[0].state, CellState.player1);
-      expect(updated?.status, GameStatus.player1);
+      final Either<Failure, Game?> updated = await repository.getGame(gameId: currentGame.id);
+      expect(updated.isRight(), true);
+
+      final Game? updatedGame = updated.getOrElse(() => null);
+      expect(updatedGame?.cells[0].state, CellState.player1);
+      expect(updatedGame?.status, GameStatus.player1);
     });
 
     test('given a full board without winner when MakeMove fills last cell then status becomes draw', () async {
@@ -70,10 +84,12 @@ void main() {
 
       await MakeMove(repository: repository).call(index: 0, playerIndex: 0, game: currentGame);
 
-      final Game? updated = await repository.getGame(gameId: currentGame.id);
+      final Either<Failure, Game?> updated = await repository.getGame(gameId: currentGame.id);
+      expect(updated.isRight(), true);
 
-      expect(updated?.cells[0].state, CellState.player1);
-      expect(updated?.status, GameStatus.draw);
+      final Game? updatedGame = updated.getOrElse(() => null);
+      expect(updatedGame?.cells[0].state, CellState.player1);
+      expect(updatedGame?.status, GameStatus.draw);
     });
   });
 }

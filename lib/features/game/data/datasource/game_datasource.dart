@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tictactoe/features/game/data/dto/game_dto.dart';
+import 'package:tictactoe/shared/errors/failure.dart';
 import 'package:tictactoe/shared/presentation/provider.dart';
 import 'package:tictactoe/shared/service/local_database_service.dart';
 
@@ -46,8 +47,19 @@ class GameDatasource {
     return games;
   }
 
+  Future<void> addGameDto({required GameDto gameDto}) async {
+    final List<GameDto> savedGames = await loadSavedGames();
+    final List<GameDto> updatedGames = [...savedGames, gameDto];
+
+    await _saveGames(games: updatedGames);
+  }
+
   Future<void> updateGameDto({required GameDto gameDto}) async {
     final List<GameDto> savedGames = await loadSavedGames();
+    if (savedGames.every((game) => game.id != gameDto.id)) {
+      throw DataNotFoundFailure();
+    }
+
     final List<GameDto> updatedGames = [...savedGames.where((game) => game.id != gameDto.id), gameDto];
 
     await _saveGames(games: updatedGames);

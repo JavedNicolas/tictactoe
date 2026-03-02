@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tictactoe/features/game/domain/entity/game.dart';
 import 'package:tictactoe/features/game/presentation/provider/game_state.dart';
@@ -13,7 +14,7 @@ import 'package:tictactoe/features/game/presentation/provider/game_notifier.dart
 import 'package:tictactoe/shared/presentation/widget/loading_widget.dart';
 
 @RoutePage()
-class GamePage extends ConsumerWidget {
+class GamePage extends HookConsumerWidget {
   const GamePage({super.key});
 
   @override
@@ -22,6 +23,17 @@ class GamePage extends ConsumerWidget {
     final Game currentGame = gameState.currentGame;
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
+
+    useEffect(() {
+      if (gameState.hasError) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(context.tr("pages.game.errors.load_game")),
+          ),
+        );
+      }
+      return null;
+    }, [gameState]);
 
     if (gameState.isLoading) {
       return const CustomScaffold(body: Center(child: LoadingWidget()));

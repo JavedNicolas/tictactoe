@@ -17,3 +17,15 @@ class FakeLocalDatasourceService extends Fake implements LocalDatabaseService {
     games = (value as List<String>).map((gameString) => GameDto.fromRawString(gameString)).toList();
   }
 }
+
+class FakeDisconnectedLocalDatasourceService extends Fake implements LocalDatabaseService {
+  @override
+  Future<Object?> read({required String key}) async {
+    throw Exception('Database is disconnected');
+  }
+
+  @override
+  Future<void> write({required String key, required Object value}) async {
+    throw Exception('Database is disconnected');
+  }
+}

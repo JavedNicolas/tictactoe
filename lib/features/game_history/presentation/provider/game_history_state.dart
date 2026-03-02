@@ -14,9 +14,12 @@ class GameHistoryState {
 
   bool get isLoading => status == GameHistoryStatus.loading;
   bool get isLoaded => status == GameHistoryStatus.loaded;
-  bool get isError => status == GameHistoryStatus.error;
+  bool get hasError => status == GameHistoryStatus.error;
 
   GameHistoryState copyWith({GameHistoryStatus? status, List<Game>? games}) {
-    return GameHistoryState(status: status ?? this.status, games: games ?? this.games);
+    return GameHistoryState(
+      status: status ?? this.status,
+      games: games ?? this.games,
+    );
   }
 }
