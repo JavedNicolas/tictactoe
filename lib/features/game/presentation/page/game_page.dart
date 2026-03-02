@@ -25,13 +25,15 @@ class GamePage extends HookConsumerWidget {
     final ColorScheme colorScheme = theme.colorScheme;
 
     useEffect(() {
-      if (gameState.hasError) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(context.tr("pages.game.errors.load_game")),
-          ),
-        );
-      }
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (gameState.hasError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(context.tr("pages.game.errors.load_game")),
+            ),
+          );
+        }
+      });
       return null;
     }, [gameState]);
 

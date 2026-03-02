@@ -22,13 +22,15 @@ class HomePage extends HookConsumerWidget {
     final ThemeData theme = Theme.of(context);
 
     useEffect(() {
-      if (state.hasError) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(context.tr("pages.home.errors.load_games")),
-          ),
-        );
-      }
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (state.hasError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(context.tr("pages.home.errors.load_games")),
+            ),
+          );
+        }
+      });
       return null;
     }, [state]);
 

@@ -19,13 +19,15 @@ class GameHistoryPage extends HookConsumerWidget {
     final ColorScheme colorScheme = theme.colorScheme;
 
     useEffect(() {
-      if (state.hasError) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(context.tr("pages.game_history.errors.load_games")),
-          ),
-        );
-      }
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (state.hasError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(context.tr("pages.game_history.errors.load_games")),
+            ),
+          );
+        }
+      });
       return null;
     }, [state]);
 

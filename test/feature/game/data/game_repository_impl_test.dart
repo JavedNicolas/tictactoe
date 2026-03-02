@@ -138,7 +138,7 @@ void main() {
       final GameRepositoryImpl repository =
           GameRepositoryImpl(datasource: GameDatasource(localDatabaseService: datasource));
 
-      final Game game = Game.fromDto(savedGameWithOngoing[1]).updateCell(index: 1, playerIndex: 0);
+      final Game game = savedGameWithOngoing[1].toGame().updateCell(index: 1, playerIndex: 0);
       await repository.updateGame(game: game);
       final Either<Failure, Game?> updated = await repository.getGame(gameId: 'game-2');
 
