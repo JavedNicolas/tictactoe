@@ -1,7 +1,19 @@
 import 'dart:async';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tictactoe/shared/service/local_database_service.dart';
+
+part 'shared_pref_service.g.dart';
+
+@Riverpod(keepAlive: true)
+LocalDatabaseService localDatabaseService(Ref ref) {
+  final SharedPrefService service = SharedPrefService();
+  service.init();
+
+  return service;
+}
 
 class SharedPrefService implements LocalDatabaseService {
   final Completer<SharedPreferences> _completer = Completer<SharedPreferences>();

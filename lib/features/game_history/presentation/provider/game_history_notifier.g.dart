@@ -7,7 +7,7 @@ part of 'game_history_notifier.dart';
 // **************************************************************************
 
 String _$gameHistoryNotifierHash() =>
-    r'232e695794b2a0983c26622882fdee892879490d';
+    r'1193d1c9012248c97b9041ec624b6c7758e2054e';
 
 /// See also [GameHistoryNotifier].
 @ProviderFor(GameHistoryNotifier)

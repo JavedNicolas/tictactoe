@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tictactoe/features/game/data/dto/game_dto.dart';
 import 'package:tictactoe/shared/errors/failure.dart';
-import 'package:tictactoe/shared/presentation/provider.dart';
 import 'package:tictactoe/shared/service/local_database_service.dart';
+import 'package:tictactoe/shared/service/shared_pref_service.dart';
 
 part 'game_datasource.g.dart';
 
